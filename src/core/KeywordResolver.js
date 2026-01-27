@@ -32,10 +32,9 @@ export class KeywordResolver {
     return 0;
   }
   
-  // 检查是否可以攻击（考虑冲锋）
+  // 检查是否可以攻击（考虑冲锋）- 已废弃，使用 Unit.canAttack() 方法
   canAttack(unit) {
-    if (unit.exhausted) return false;
-    if (this.hasKeyword(unit, 'CHARGE')) return true;
-    return unit.onBoardTurns > 0;
+    // 使用 Unit 类的统一 canAttack 方法
+    return unit.canAttack ? unit.canAttack() : false;
   }
 }

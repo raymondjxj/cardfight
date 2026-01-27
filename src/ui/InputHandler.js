@@ -166,30 +166,43 @@ export class InputHandler {
         console.log('✅ 检测到单位元素:', { playerId, unitId, element: unitElement });
         
         // 优先检查是否选择了法术卡牌（需要选择目标）
-        if (this.selectedCard && this.selectedCard.card.type === 'spell' && playerId === 'PLAYER2') {
+        if (this.selectedCard && this.selectedCard.card.type === 'spell') {
           const card = this.selectedCard.card;
-          const unitIndex = this.gameState.players['PLAYER2'].battlefield.findIndex(u => u.id === unitId);
-          if (unitIndex !== -1) {
-            console.log(`✅ 使用法术 ${card.name} 攻击单位，索引: ${unitIndex}`);
-            
-            // 播放法术飞行特效（直伤法术）
-            const spellType = card.spellEffect?.type;
-            if (spellType && this.renderer.playSpellProjectileEffect) {
-              const targetElement = unitElement;
-              this.renderer.playSpellProjectileEffect(spellType, 'PLAYER1', 'PLAYER2', targetElement, false).then(() => {
-                this.battleSystem.playCard('PLAYER1', this.selectedCard.index, unitIndex);
-                this.selectedCard = null;
-                this.clearHighlights();
-                this.renderer.render();
-              });
+          const spellType = card.spellEffect?.type;
+          const isBuffSpell = spellType && (spellType.startsWith('BUFF_') || spellType === 'ADD_SHIELD' || spellType === 'ADD_DIVINE_SHIELD');
+          
+          // 增益法术只能选择友方单位，直伤法术可以选择敌方单位
+          if ((isBuffSpell && playerId === 'PLAYER1') || (!isBuffSpell && playerId === 'PLAYER2')) {
+            const targetPlayerId = playerId;
+            const unitIndex = this.gameState.players[targetPlayerId].battlefield.findIndex(u => u.id === unitId);
+            if (unitIndex !== -1) {
+              console.log(`✅ 使用法术 ${card.name} 对单位，索引: ${unitIndex}`);
+              
+              // 播放法术飞行特效（直伤法术）
+              if (!isBuffSpell && spellType && this.renderer.playSpellProjectileEffect) {
+                const targetElement = unitElement;
+                this.renderer.playSpellProjectileEffect(spellType, 'PLAYER1', 'PLAYER2', targetElement, false).then(() => {
+                  this.battleSystem.playCard('PLAYER1', this.selectedCard.index, unitIndex);
+                  this.selectedCard = null;
+                  this.clearHighlights();
+                  this.renderer.render();
+                });
+                return;
+              }
+              
+              // 增益法术或不需要特效的直伤法术
+              const success = this.battleSystem.playCard('PLAYER1', this.selectedCard.index, unitIndex);
+              
+              // 如果是护盾法术，显示特效
+              if (success && spellType === 'ADD_SHIELD') {
+                this.showShieldEffect(targetPlayerId, false, unitId);
+              }
+              
+              this.selectedCard = null;
+              this.clearHighlights();
+              this.renderer.render();
               return;
             }
-            
-            this.battleSystem.playCard('PLAYER1', this.selectedCard.index, unitIndex);
-            this.selectedCard = null;
-            this.clearHighlights();
-            this.renderer.render();
-            return;
           }
         }
         
@@ -507,6 +520,10 @@ export class InputHandler {
         // AOE法术直接使用
         this.battleSystem.playCard('PLAYER1', cardIndex);
         this.renderer.render();
+      } else if (spellType === 'DISCOVER') {
+        // 发现牌：直接使用，不需要目标
+        this.battleSystem.playCard('PLAYER1', cardIndex);
+        this.renderer.render();
       } else if (spellType === 'DAMAGE_WITH_FREEZE' ||
                  spellType === 'DAMAGE_WITH_THUNDER' ||
                  spellType === 'DAMAGE_WITH_FIRE' ||
@@ -581,6 +598,32 @@ export class InputHandler {
     }
     
     if (playerId === 'PLAYER1') {
+      // 点击己方单位 - 优先检查是否选择了增益法术
+      if (this.selectedCard && this.selectedCard.card.type === 'spell') {
+        const card = this.selectedCard.card;
+        const spellType = card.spellEffect?.type;
+        const isBuffSpell = spellType && (spellType.startsWith('BUFF_') || spellType === 'ADD_SHIELD' || spellType === 'ADD_DIVINE_SHIELD');
+        
+        if (isBuffSpell) {
+          // 增益法术：对友方单位使用
+          const unitIndex = this.gameState.players['PLAYER1'].battlefield.findIndex(u => u.id === unitId);
+          if (unitIndex !== -1) {
+            console.log(`✅ 使用增益法术 ${card.name} 对友方单位，索引: ${unitIndex}`);
+            const success = this.battleSystem.playCard('PLAYER1', this.selectedCard.index, unitIndex);
+            
+            // 如果是护盾法术，显示特效
+            if (success && spellType === 'ADD_SHIELD') {
+              this.showShieldEffect('PLAYER1', false, unitId);
+            }
+            
+            this.selectedCard = null;
+            this.clearHighlights();
+            this.renderer.render();
+            return;
+          }
+        }
+      }
+      
       // 点击己方单位 - 选择攻击者
       console.log('⚔️ 选择攻击者');
       this.selectAttacker(playerId, unitId);
@@ -867,18 +910,20 @@ export class InputHandler {
     
     const unit = player.battlefield[unitIndex];
     
-    // 检查单位是否可以攻击
-    if (unit.exhausted) {
-      this.gameState.log(`${unit.card.name} 已疲惫，无法攻击`);
-      this.showMessage(`${unit.card.name} 已疲惫，无法攻击`, 'warning');
-      return;
-    }
-    
-    // 检查是否满足攻击条件（非冲锋单位需要上场一回合）
-    const hasCharge = unit.keywords.some(kw => kw.includes('CHARGE'));
-    if (!hasCharge && unit.onBoardTurns === 0) {
-      this.gameState.log(`${unit.card.name} 需要等待一回合才能攻击`);
-      this.showMessage(`${unit.card.name} 需要等待一回合才能攻击`, 'warning');
+    // 检查单位是否可以攻击（使用统一的 canAttack 方法）
+    if (!unit.canAttack()) {
+      let reason = '';
+      if (unit.exhausted) {
+        reason = '已疲惫';
+      } else if (unit.frozen) {
+        reason = '被冰冻';
+      } else if (unit.nextTurnCannotAct) {
+        reason = '被时间冻结';
+      } else {
+        reason = '需要等待一回合';
+      }
+      this.gameState.log(`${unit.card.name} ${reason}，无法攻击`);
+      this.showMessage(`${unit.card.name} ${reason}，无法攻击`, 'warning');
       return;
     }
     

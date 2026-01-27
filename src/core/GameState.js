@@ -18,42 +18,63 @@ export class GameState {
     return new Player(id, heroData);
   }
 
+  // 构建随机卡组
+  buildRandomDeck() {
+    // 按类型分类所有卡牌
+    const units = this.allCards.filter(c => c.type === 'unit');
+    const spells = this.allCards.filter(c => c.type === 'spell');
+    const weapons = this.allCards.filter(c => c.type === 'weapon');
+    
+    // 目标：20随从 + 8法术 + 2武器（允许±2的偏差）
+    const targetUnits = 20;
+    const targetSpells = 8;
+    const targetWeapons = 2;
+    
+    // 随机选择卡牌
+    const deck = [];
+    
+    // 选择随从（20张，允许18-22张）
+    const unitCount = targetUnits + Math.floor(Math.random() * 5) - 2; // 18-22
+    const shuffledUnits = [...units].sort(() => Math.random() - 0.5);
+    for (let i = 0; i < Math.min(unitCount, shuffledUnits.length); i++) {
+      deck.push(shuffledUnits[i].id);
+    }
+    
+    // 选择法术（8张，允许6-10张）
+    const spellCount = targetSpells + Math.floor(Math.random() * 5) - 2; // 6-10
+    const shuffledSpells = [...spells].sort(() => Math.random() - 0.5);
+    for (let i = 0; i < Math.min(spellCount, shuffledSpells.length); i++) {
+      deck.push(shuffledSpells[i].id);
+    }
+    
+    // 选择武器（2张，允许1-3张）
+    const weaponCount = targetWeapons + Math.floor(Math.random() * 3) - 1; // 1-3
+    const shuffledWeapons = [...weapons].sort(() => Math.random() - 0.5);
+    for (let i = 0; i < Math.min(weaponCount, shuffledWeapons.length); i++) {
+      deck.push(shuffledWeapons[i].id);
+    }
+    
+    // 如果总数不足30，用随机卡牌填充
+    while (deck.length < 30) {
+      const allCards = [...units, ...spells, ...weapons];
+      const randomCard = allCards[Math.floor(Math.random() * allCards.length)];
+      if (randomCard) {
+        deck.push(randomCard.id);
+      } else {
+        break;
+      }
+    }
+    
+    // 如果超过30，随机移除
+    while (deck.length > 30) {
+      deck.splice(Math.floor(Math.random() * deck.length), 1);
+    }
+    
+    return deck;
+  }
+
   // 初始化游戏
   initGame() {
-    // 创建预设卡组（中速龙骧）- 30张卡牌
-    // 增加武器牌和AOE法术牌的抽牌概率
-    const deckCards = [
-      'C001', 'C001', // 新兵 x2
-      'C003', 'C003', // 民兵队长 x2
-      'C004', 'C004', // 长枪兵 x2
-      'C006', 'C006', // 战地医师 x2
-      'C009', 'C009', // 老兵 x2
-      'C011', 'C011', // 协同阵线 x2
-      'C013', 'C013', // 箭雨如潮 x2（AOE法术）
-      'C014', 'C014', // 破城锤 x2
-      'C017', 'C017', // 烈焰风暴 x2（AOE法术）
-      'C018', 'C018', // 龙骧将军 x2
-      'C019', 'C019', // 无畏先锋 x2
-      'C020', 'C020', // 圣光祝福 x2（增益法术）
-      'C021', 'C021', // 力量强化 x2（增益法术）
-      'C022', 'C022', // 生命强化 x2（增益法术）
-      'C023', // 全面强化 x1（增益法术）
-      'C024', 'C024', // 英雄护甲 x2（增益法术）
-      'C025', 'C025', // 寒冰箭 x2（直伤法术）
-      'C026', 'C026', // 闪电箭 x2（直伤法术）
-      'C027', 'C027', // 火球术 x2（直伤法术）
-      'C028', // 剧毒箭 x1（直伤法术）
-      'C029', // 寒冰风暴 x1（AOE直伤法术）
-      'C030', // 雷暴 x1（AOE直伤法术）
-      'C015', // 军需官 x1（战吼抽牌）
-      'C031', // 智慧之书 x1（抽2张牌）
-      'C034', // 强化护甲 x1（护甲+抽牌）
-      'W001', 'W001', 'W001', // 铁剑 x3（武器）
-      'W002', 'W002', // 精钢战刃 x2（武器）
-      'W003', 'W004', // 寒冰之刃 x1, 烈焰之刃 x1（史诗武器）
-      'W005', 'W006' // 龙鳞重剑 x1, 剧毒匕首 x1（传说武器）
-    ];
-    
     // 获取英雄数据
     const heroData = this.allHeroes[0] || {
       id: 'H001',
@@ -78,15 +99,24 @@ export class GameState {
     // 修改对方英雄名称
     this.players.PLAYER2.hero.name = '我是大魔王';
     
-    // 初始化两个玩家的牌库
+    // 初始化两个玩家的牌库（使用随机卡组）
     for (const playerId of ['PLAYER1', 'PLAYER2']) {
       const player = this.players[playerId];
-      player.deck = deckCards.map(cardId => {
+      const deckCardIds = this.buildRandomDeck();
+      
+      player.deck = deckCardIds.map(cardId => {
         const cardData = this.allCards.find(c => c.id === cardId);
         if (!cardData) {
           throw new Error(`卡牌 ${cardId} 不存在`);
         }
-        return { ...cardData, instanceId: `${cardId}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` };
+        const card = { ...cardData, instanceId: `${cardId}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` };
+        
+        // 如果是单位卡牌，随机分配1-2个关键词
+        if (card.type === 'unit') {
+          card.keywords = this.randomizeUnitKeywords();
+        }
+        
+        return card;
       });
       
       // 洗牌
@@ -140,17 +170,21 @@ export class GameState {
     // 重置英雄技能使用状态
     player.hero.skill.usedThisTurn = false;
     
-    // 重置英雄攻击状态（除非被冰冻）
-    if (!player.hero.frozen) {
-      player.hero.exhausted = false;
-    }
-    
     // 重置单位疲惫状态并增加上场回合数
     player.battlefield.forEach(unit => {
-      // 处理冰冻效果
-      if (unit.frozen) {
-        unit.frozen = false;
+      // 处理下回合无法行动的效果（时间冻结/恐惧效果）
+      if (unit.nextTurnCannotAct) {
+        unit.exhausted = true; // 设置为疲惫，无法攻击
+        unit.nextTurnCannotAct = false; // 清除标记（只持续一回合）
+        this.log(`${unit.card.name} 本回合无法行动（时间冻结效果）`);
+      } else if (unit.frozen) {
+        // 处理冰冻效果（冰冻状态在回合开始时解除，但会阻止本回合攻击）
+        unit.exhausted = true; // 冰冻单位本回合无法攻击
+        unit.frozen = false; // 解除冰冻状态
         this.log(`${unit.card.name} 解除了冰冻`);
+      } else {
+        // 只有在没有被时间冻结效果标记且没有被冰冻时，才重置疲惫状态
+        unit.exhausted = false;
       }
       
       // 处理火焰效果
@@ -224,9 +258,17 @@ export class GameState {
         }
         }
       
-      unit.exhausted = false;
       unit.onBoardTurns++;
     });
+    
+    // 重置英雄攻击状态（除非被冰冻）
+    if (player.hero.frozen) {
+      player.hero.exhausted = true; // 冰冻英雄本回合无法攻击
+      player.hero.frozen = false; // 解除冰冻状态
+      this.log(`${player.hero.name} 解除了冰冻`);
+    } else {
+      player.hero.exhausted = false;
+    }
     
     // 处理英雄的持续效果
     if (player.hero.frozen) {
@@ -321,6 +363,7 @@ export class GameState {
     
     // 抽牌
     if (player.canDrawCard()) {
+      // 随机卡组不再需要强制抽特定卡牌
       this.drawCard(playerId);
     }
     
@@ -378,6 +421,14 @@ export class GameState {
       this.log(`${playerId} 手牌已满，${card.name} 被烧掉`);
       return null;
     }
+  }
+
+  // 随机分配单位关键词（1-2个）
+  randomizeUnitKeywords() {
+    const allKeywords = ['TAUNT', 'CHARGE', 'LIFESTEAL', 'RANGED', 'PIERCE_1'];
+    const numKeywords = Math.floor(Math.random() * 2) + 1; // 1-2个关键词
+    const shuffled = [...allKeywords].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, numKeywords);
   }
 
   // 检查游戏结束

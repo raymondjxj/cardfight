@@ -18,7 +18,7 @@
       "cost": 1,
       "attack": 0,
       "health": 3,
-      "keywords": ["TAUNT"],
+      "keywords": [],
       "description": "嘲讽",
       "rarity": "C"
     },
@@ -40,7 +40,7 @@
       "cost": 2,
       "attack": 2,
       "health": 2,
-      "keywords": ["PIERCE_1"],
+      "keywords": [],
       "description": "破甲1",
       "rarity": "C"
     },
@@ -51,7 +51,7 @@
       "cost": 2,
       "attack": 2,
       "health": 1,
-      "keywords": ["RANGED"],
+      "keywords": [],
       "description": "远程，可攻击任意位置",
       "rarity": "C"
     },
@@ -78,7 +78,7 @@
       "cost": 3,
       "attack": 1,
       "health": 5,
-      "keywords": ["TAUNT"],
+      "keywords": [],
       "description": "嘲讽",
       "rarity": "R"
     },
@@ -89,7 +89,7 @@
       "cost": 3,
       "attack": 3,
       "health": 2,
-      "keywords": ["PIERCE_2", "RANGED"],
+      "keywords": [],
       "description": "破甲2，远程",
       "rarity": "R"
     },
@@ -111,6 +111,7 @@
       "cost": 3,
       "attack": 1,
       "health": 3,
+      "keywords": [],
       "description": "光环：你的法术伤害+1",
       "aura": {
         "type": "SPELL_POWER",
@@ -166,7 +167,7 @@
       "cost": 4,
       "attack": 4,
       "health": 4,
-      "keywords": ["PIERCE_2"],
+      "keywords": [],
       "description": "破甲2",
       "rarity": "R"
     },
@@ -192,7 +193,7 @@
       "cost": 4,
       "attack": 4,
       "health": 3,
-      "keywords": ["LIFESTEAL"],
+      "keywords": [],
       "description": "吸血",
       "rarity": "R"
     },
@@ -232,7 +233,7 @@
       "cost": 6,
       "attack": 5,
       "health": 5,
-      "keywords": ["CHARGE", "PIERCE_3"],
+      "keywords": [],
       "description": "冲锋，破甲3",
       "rarity": "E"
     },
@@ -505,6 +506,2141 @@
         "drawCard": 1
       },
       "rarity": "R"
+    },
+    {
+      "id": "C035",
+      "name": "时间冻结者",
+      "type": "unit",
+      "cost": 4,
+      "attack": 3,
+      "health": 4,
+      "keywords": [],
+      "description": "战吼：对方所有随从下回合无法行动。亡语：抽一张牌",
+      "battlecry": {
+        "type": "FREEZE_ENEMY_UNITS",
+        "target": "ALL_ENEMY_UNITS",
+        "duration": 1
+      },
+      "deathrattle": {
+        "type": "DRAW_CARD",
+        "value": 1
+      },
+      "rarity": "E"
+    },
+    {
+      "id": "C036",
+      "name": "发现",
+      "type": "spell",
+      "cost": 1,
+      "description": "从牌库中发现一张卡牌",
+      "spellEffect": {
+        "type": "DISCOVER"
+      },
+      "rarity": "C"
+    },
+    {
+      "id": "C037",
+      "name": "见习法师",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "keywords": [],
+      "description": "基础法师单位",
+      "rarity": "C"
+    },
+    {
+      "id": "C038",
+      "name": "野猪",
+      "type": "unit",
+      "cost": 1,
+      "attack": 2,
+      "health": 1,
+      "keywords": [],
+      "description": "冲锋",
+      "rarity": "C"
+    },
+    {
+      "id": "C039",
+      "name": "小精灵",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "deathrattle": {
+        "type": "DRAW_CARD",
+        "value": 1
+      },
+      "description": "亡语：抽一张牌",
+      "rarity": "C"
+    },
+    {
+      "id": "C040",
+      "name": "石像鬼",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 3,
+      "keywords": [],
+      "description": "嘲讽",
+      "rarity": "C"
+    },
+    {
+      "id": "C041",
+      "name": "游荡者",
+      "type": "unit",
+      "cost": 2,
+      "attack": 3,
+      "health": 1,
+      "keywords": [],
+      "description": "冲锋",
+      "rarity": "C"
+    },
+    {
+      "id": "C042",
+      "name": "治疗师",
+      "type": "unit",
+      "cost": 2,
+      "attack": 1,
+      "health": 3,
+      "keywords": [],
+      "battlecry": {
+        "type": "HEAL",
+        "target": "HERO",
+        "value": 2
+      },
+      "description": "战吼：恢复英雄2点生命",
+      "rarity": "C"
+    },
+    {
+      "id": "C043",
+      "name": "侦察兵",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "battlecry": {
+        "type": "DRAW_CARD",
+        "value": 1
+      },
+      "description": "战吼：抽一张牌",
+      "rarity": "R"
+    },
+    {
+      "id": "C044",
+      "name": "火焰元素",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "battlecry": {
+        "type": "DAMAGE",
+        "target": "RANDOM_ENEMY",
+        "value": 1
+      },
+      "description": "战吼：随机对敌方造成1点伤害",
+      "rarity": "R"
+    },
+    {
+      "id": "C045",
+      "name": "石肤守卫",
+      "type": "unit",
+      "cost": 2,
+      "attack": 1,
+      "health": 4,
+      "keywords": [],
+      "description": "嘲讽",
+      "rarity": "C"
+    },
+    {
+      "id": "C046",
+      "name": "暗影刺客",
+      "type": "unit",
+      "cost": 2,
+      "attack": 3,
+      "health": 2,
+      "keywords": [],
+      "description": "冲锋",
+      "rarity": "C"
+    },
+    {
+      "id": "C047",
+      "name": "学者",
+      "type": "unit",
+      "cost": 2,
+      "attack": 1,
+      "health": 2,
+      "keywords": [],
+      "battlecry": {
+        "type": "DRAW_CARD",
+        "value": 1
+      },
+      "description": "战吼：抽一张牌",
+      "rarity": "C"
+    },
+    {
+      "id": "C048",
+      "name": "狼骑兵",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 1,
+      "keywords": [],
+      "description": "冲锋",
+      "rarity": "C"
+    },
+    {
+      "id": "C049",
+      "name": "守护者",
+      "type": "unit",
+      "cost": 3,
+      "attack": 2,
+      "health": 4,
+      "keywords": [],
+      "description": "嘲讽",
+      "rarity": "C"
+    },
+    {
+      "id": "C050",
+      "name": "火焰法师",
+      "type": "unit",
+      "cost": 3,
+      "attack": 2,
+      "health": 3,
+      "keywords": [],
+      "battlecry": {
+        "type": "DAMAGE",
+        "target": "RANDOM_ENEMY",
+        "value": 2
+      },
+      "description": "战吼：随机对敌方造成2点伤害",
+      "rarity": "R"
+    },
+    {
+      "id": "C051",
+      "name": "圣光侍从",
+      "type": "unit",
+      "cost": 3,
+      "attack": 2,
+      "health": 3,
+      "keywords": [],
+      "battlecry": {
+        "type": "HEAL",
+        "target": "ALL_UNITS",
+        "value": 1
+      },
+      "description": "战吼：恢复所有友方单位1点生命",
+      "rarity": "R"
+    },
+    {
+      "id": "C052",
+      "name": "暗影猎手",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 2,
+      "keywords": [],
+      "description": "远程",
+      "rarity": "C"
+    },
+    {
+      "id": "C053",
+      "name": "工程师",
+      "type": "unit",
+      "cost": 3,
+      "attack": 1,
+      "health": 3,
+      "keywords": [],
+      "battlecry": {
+        "type": "DRAW_CARD",
+        "value": 1
+      },
+      "description": "战吼：抽一张牌",
+      "rarity": "C"
+    },
+    {
+      "id": "C054",
+      "name": "食尸鬼",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "deathrattle": {
+        "type": "DAMAGE",
+        "target": "RANDOM_ENEMY",
+        "value": 1
+      },
+      "description": "亡语：随机对敌方造成1点伤害",
+      "rarity": "C"
+    },
+    {
+      "id": "C055",
+      "name": "石像守卫",
+      "type": "unit",
+      "cost": 3,
+      "attack": 1,
+      "health": 5,
+      "keywords": [],
+      "description": "嘲讽",
+      "rarity": "R"
+    },
+    {
+      "id": "C056",
+      "name": "狂战士",
+      "type": "unit",
+      "cost": 3,
+      "attack": 4,
+      "health": 2,
+      "keywords": [],
+      "description": "冲锋",
+      "rarity": "R"
+    },
+    {
+      "id": "C057",
+      "name": "法师学徒",
+      "type": "unit",
+      "cost": 3,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "aura": {
+        "type": "SPELL_POWER",
+        "value": 1,
+        "scope": "FRIENDLY"
+      },
+      "description": "光环：你的法术伤害+1",
+      "rarity": "R"
+    },
+    {
+      "id": "C058",
+      "name": "战地指挥官",
+      "type": "unit",
+      "cost": 4,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "aura": {
+        "type": "ADJACENT_BUFF",
+        "stats": {"attack": 1, "health": 1},
+        "scope": "ADJACENT_ALLIES"
+      },
+      "description": "光环：相邻的友方单位获得+1/+1",
+      "rarity": "E"
+    },
+    {
+      "id": "C059",
+      "name": "暗影法师",
+      "type": "unit",
+      "cost": 4,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "battlecry": {
+        "type": "DAMAGE",
+        "target": "ALL_ENEMY_UNITS",
+        "value": 1
+      },
+      "description": "战吼：对所有敌方单位造成1点伤害",
+      "rarity": "R"
+    },
+    {
+      "id": "C060",
+      "name": "圣光骑士",
+      "type": "unit",
+      "cost": 4,
+      "attack": 3,
+      "health": 4,
+      "keywords": [],
+      "battlecry": {
+        "type": "HEAL",
+        "target": "HERO",
+        "value": 3
+      },
+      "description": "战吼：恢复英雄3点生命",
+      "rarity": "R"
+    },
+    {
+      "id": "C061",
+      "name": "死亡使者",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 3,
+      "keywords": [],
+      "deathrattle": {
+        "type": "DAMAGE",
+        "target": "ALL_ENEMY_UNITS",
+        "value": 1
+      },
+      "description": "亡语：对所有敌方单位造成1点伤害",
+      "rarity": "R"
+    },
+    {
+      "id": "C062",
+      "name": "召唤师",
+      "type": "unit",
+      "cost": 4,
+      "attack": 2,
+      "health": 4,
+      "keywords": [],
+      "battlecry": {
+        "type": "SUMMON",
+        "summonId": "C001"
+      },
+      "description": "战吼：召唤一个新兵",
+      "rarity": "E"
+    },
+    {
+      "id": "C063",
+      "name": "重装骑士",
+      "type": "unit",
+      "cost": 4,
+      "attack": 2,
+      "health": 6,
+      "keywords": [],
+      "description": "嘲讽",
+      "rarity": "R"
+    },
+    {
+      "id": "C064",
+      "name": "火焰领主",
+      "type": "unit",
+      "cost": 5,
+      "attack": 4,
+      "health": 4,
+      "keywords": [],
+      "battlecry": {
+        "type": "DAMAGE",
+        "target": "ALL_ENEMY_UNITS",
+        "value": 2
+      },
+      "description": "战吼：对所有敌方单位造成2点伤害",
+      "rarity": "E"
+    },
+    {
+      "id": "C065",
+      "name": "暗影领主",
+      "type": "unit",
+      "cost": 5,
+      "attack": 5,
+      "health": 4,
+      "keywords": [],
+      "description": "冲锋",
+      "rarity": "E"
+    },
+    {
+      "id": "C066",
+      "name": "圣光主教",
+      "type": "unit",
+      "cost": 5,
+      "attack": 3,
+      "health": 5,
+      "keywords": [],
+      "battlecry": {
+        "type": "HEAL",
+        "target": "ALL_UNITS",
+        "value": 2
+      },
+      "description": "战吼：恢复所有友方单位2点生命",
+      "rarity": "E"
+    },
+    {
+      "id": "C067",
+      "name": "死亡骑士",
+      "type": "unit",
+      "cost": 5,
+      "attack": 4,
+      "health": 5,
+      "keywords": [],
+      "deathrattle": {
+        "type": "SUMMON",
+        "summonId": "C001"
+      },
+      "description": "亡语：召唤一个新兵",
+      "rarity": "E"
+    },
+    {
+      "id": "C068",
+      "name": "战争巨兽",
+      "type": "unit",
+      "cost": 6,
+      "attack": 6,
+      "health": 6,
+      "keywords": [],
+      "description": "大型单位",
+      "rarity": "E"
+    },
+    {
+      "id": "C069",
+      "name": "龙族战士",
+      "type": "unit",
+      "cost": 6,
+      "attack": 5,
+      "health": 6,
+      "keywords": [],
+      "description": "冲锋",
+      "rarity": "E"
+    },
+    {
+      "id": "C070",
+      "name": "守护巨龙",
+      "type": "unit",
+      "cost": 7,
+      "attack": 6,
+      "health": 8,
+      "keywords": [],
+      "description": "嘲讽",
+      "rarity": "L"
+    },
+    {
+      "id": "C071",
+      "name": "火焰巨龙",
+      "type": "unit",
+      "cost": 8,
+      "attack": 8,
+      "health": 8,
+      "keywords": [],
+      "battlecry": {
+        "type": "DAMAGE",
+        "target": "ALL_ENEMY_UNITS",
+        "value": 3
+      },
+      "description": "战吼：对所有敌方单位造成3点伤害",
+      "rarity": "L"
+    },
+    {
+      "id": "C072",
+      "name": "奥术飞弹",
+      "type": "spell",
+      "cost": 1,
+      "description": "随机对敌方造成3次1点伤害",
+      "spellEffect": {
+        "type": "DAMAGE",
+        "target": "RANDOM_ENEMY",
+        "damage": 1,
+        "count": 3
+      },
+      "rarity": "C"
+    },
+    {
+      "id": "C073",
+      "name": "治疗之触",
+      "type": "spell",
+      "cost": 1,
+      "description": "恢复目标3点生命",
+      "spellEffect": {
+        "type": "HEAL",
+        "target": "TARGET",
+        "value": 3
+      },
+      "rarity": "C"
+    },
+    {
+      "id": "C074",
+      "name": "力量祝福",
+      "type": "spell",
+      "cost": 1,
+      "description": "使一个友方单位获得+3攻击力",
+      "spellEffect": {
+        "type": "BUFF_TARGET",
+        "target": "TARGET",
+        "stats": {"attack": 3},
+        "duration": -1
+      },
+      "rarity": "C"
+    },
+    {
+      "id": "C075",
+      "name": "神圣新星",
+      "type": "spell",
+      "cost": 2,
+      "description": "对所有单位造成1点伤害，恢复所有友方单位1点生命",
+      "spellEffect": {
+        "type": "AOE_DAMAGE",
+        "target": "ALL_UNITS",
+        "value": 1
+      },
+      "rarity": "R"
+    },
+    {
+      "id": "C076",
+      "name": "变形术",
+      "type": "spell",
+      "cost": 2,
+      "description": "将目标单位变为1/1的羊",
+      "spellEffect": {
+        "type": "TRANSFORM",
+        "target": "TARGET",
+        "transformId": "C077"
+      },
+      "rarity": "R"
+    },
+    {
+      "id": "C077",
+      "name": "羊",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "被变形的单位",
+      "rarity": "C"
+    },
+    {
+      "id": "C078",
+      "name": "沉默",
+      "type": "spell",
+      "cost": 0,
+      "description": "沉默目标单位",
+      "spellEffect": {
+        "type": "SILENCE",
+        "target": "TARGET"
+      },
+      "rarity": "C"
+    },
+    {
+      "id": "C079",
+      "name": "火球",
+      "type": "spell",
+      "cost": 4,
+      "description": "对目标造成6点伤害",
+      "spellEffect": {
+        "type": "DAMAGE_WITH_FIRE",
+        "target": "TARGET",
+        "damage": 6,
+        "duration": 2
+      },
+      "rarity": "R"
+    },
+    {
+      "id": "C080",
+      "name": "烈焰冲击",
+      "type": "spell",
+      "cost": 3,
+      "description": "对所有敌方单位造成2点伤害",
+      "spellEffect": {
+        "type": "AOE_DAMAGE",
+        "target": "ENEMY_UNITS",
+        "value": 2
+      },
+      "rarity": "R"
+    },
+    {
+      "id": "C081",
+      "name": "发现随从",
+      "type": "spell",
+      "cost": 2,
+      "description": "从牌库中发现一张随从牌",
+      "spellEffect": {
+        "type": "DISCOVER",
+        "filter": "unit"
+      },
+      "rarity": "R"
+    },
+    {
+      "id": "C082",
+      "name": "发现法术",
+      "type": "spell",
+      "cost": 2,
+      "description": "从牌库中发现一张法术牌",
+      "spellEffect": {
+        "type": "DISCOVER",
+        "filter": "spell"
+      },
+      "rarity": "R"
+    },
+    {
+      "id": "C083",
+      "name": "发现武器",
+      "type": "spell",
+      "cost": 2,
+      "description": "从牌库中发现一张武器牌",
+      "spellEffect": {
+        "type": "DISCOVER",
+        "filter": "weapon"
+      },
+      "rarity": "R"
+    },
+    {
+      "id": "C084",
+      "name": "复制",
+      "type": "spell",
+      "cost": 3,
+      "description": "复制目标单位到手牌",
+      "spellEffect": {
+        "type": "COPY",
+        "target": "TARGET"
+      },
+      "rarity": "R"
+    },
+    {
+      "id": "C085",
+      "name": "回手",
+      "type": "spell",
+      "cost": 1,
+      "description": "将目标单位返回手牌",
+      "spellEffect": {
+        "type": "RETURN_TO_HAND",
+        "target": "TARGET"
+      },
+      "rarity": "C"
+    },
+    {
+      "id": "W007",
+      "name": "短剑",
+      "type": "weapon",
+      "cost": 1,
+      "attack": 2,
+      "durability": 1,
+      "description": "基础武器",
+      "rarity": "C"
+    },
+    {
+      "id": "W008",
+      "name": "战锤",
+      "type": "weapon",
+      "cost": 2,
+      "attack": 2,
+      "durability": 3,
+      "description": "标准武器",
+      "rarity": "C"
+    },
+    {
+      "id": "W009",
+      "name": "火焰之剑",
+      "type": "weapon",
+      "cost": 3,
+      "attack": 3,
+      "durability": 2,
+      "description": "攻击后附加火焰效果",
+      "rarity": "R",
+      "weaponEffect": {
+        "type": "FIRE",
+        "description": "火焰效果"
+      }
+    },
+    {
+      "id": "W010",
+      "name": "雷电之刃",
+      "type": "weapon",
+      "cost": 4,
+      "attack": 3,
+      "durability": 3,
+      "description": "攻击后附加雷特效",
+      "rarity": "R",
+      "weaponEffect": {
+        "type": "THUNDER",
+        "description": "雷特效"
+      }
+    },
+    {
+      "id": "C086",
+      "name": "小恶魔",
+      "type": "unit",
+      "cost": 1,
+      "attack": 2,
+      "health": 1,
+      "keywords": [],
+      "description": "基础恶魔",
+      "rarity": "C"
+    },
+    {
+      "id": "C087",
+      "name": "骷髅兵",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "deathrattle": {
+        "type": "SUMMON",
+        "summonId": "C087"
+      },
+      "description": "亡语：召唤一个1/1的骷髅兵",
+      "rarity": "C"
+    },
+    {
+      "id": "C088",
+      "name": "小精灵",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "基础精灵",
+      "rarity": "C"
+    },
+    {
+      "id": "C089",
+      "name": "鱼人",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "基础鱼人",
+      "rarity": "C"
+    },
+    {
+      "id": "C090",
+      "name": "小树人",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "基础树人",
+      "rarity": "C"
+    },
+    {
+      "id": "C091",
+      "name": "迅猛龙",
+      "type": "unit",
+      "cost": 1,
+      "attack": 2,
+      "health": 1,
+      "keywords": [],
+      "description": "冲锋",
+      "rarity": "C"
+    },
+    {
+      "id": "C092",
+      "name": "小元素",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 2,
+      "keywords": [],
+      "description": "基础元素",
+      "rarity": "C"
+    },
+    {
+      "id": "C093",
+      "name": "小机械",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "deathrattle": {
+        "type": "DAMAGE",
+        "target": "RANDOM_ENEMY",
+        "value": 1
+      },
+      "description": "亡语：随机对敌方造成1点伤害",
+      "rarity": "C"
+    },
+    {
+      "id": "C094",
+      "name": "小野兽",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "基础野兽",
+      "rarity": "C"
+    },
+    {
+      "id": "C095",
+      "name": "小海盗",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "基础海盗",
+      "rarity": "C"
+    },
+    {
+      "id": "C096",
+      "name": "小图腾",
+      "type": "unit",
+      "cost": 1,
+      "attack": 0,
+      "health": 2,
+      "keywords": [],
+      "description": "基础图腾",
+      "rarity": "C"
+    },
+    {
+      "id": "C097",
+      "name": "小龙",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "基础龙",
+      "rarity": "C"
+    },
+    {
+      "id": "C098",
+      "name": "小天使",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "battlecry": {
+        "type": "HEAL",
+        "target": "HERO",
+        "value": 1
+      },
+      "description": "战吼：恢复英雄1点生命",
+      "rarity": "C"
+    },
+    {
+      "id": "C099",
+      "name": "小恶魔",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "battlecry": {
+        "type": "DAMAGE",
+        "target": "RANDOM_ENEMY",
+        "value": 1
+      },
+      "description": "战吼：随机对敌方造成1点伤害",
+      "rarity": "C"
+    },
+    {
+      "id": "C100",
+      "name": "小法师",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "battlecry": {
+        "type": "DRAW_CARD",
+        "value": 1
+      },
+      "description": "战吼：抽一张牌",
+      "rarity": "C"
+    },
+    {
+      "id": "C101",
+      "name": "小战士",
+      "type": "unit",
+      "cost": 1,
+      "attack": 2,
+      "health": 1,
+      "keywords": [],
+      "description": "基础战士",
+      "rarity": "C"
+    },
+    {
+      "id": "C102",
+      "name": "小盗贼",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "基础盗贼",
+      "rarity": "C"
+    },
+    {
+      "id": "C103",
+      "name": "小猎人",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "远程",
+      "rarity": "C"
+    },
+    {
+      "id": "C104",
+      "name": "小牧师",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "battlecry": {
+        "type": "HEAL",
+        "target": "FRIENDLY_UNIT",
+        "value": 1
+      },
+      "description": "战吼：恢复1个友方单位1点生命",
+      "rarity": "C"
+    },
+    {
+      "id": "C105",
+      "name": "小萨满",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "基础萨满",
+      "rarity": "C"
+    },
+    {
+      "id": "C106",
+      "name": "小术士",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "battlecry": {
+        "type": "DRAW_CARD",
+        "value": 1
+      },
+      "description": "战吼：抽一张牌",
+      "rarity": "C"
+    },
+    {
+      "id": "C107",
+      "name": "小德鲁伊",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "基础德鲁伊",
+      "rarity": "C"
+    },
+    {
+      "id": "C108",
+      "name": "小圣骑士",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "基础圣骑士",
+      "rarity": "C"
+    },
+    {
+      "id": "C109",
+      "name": "小死亡骑士",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "基础死亡骑士",
+      "rarity": "C"
+    },
+    {
+      "id": "C110",
+      "name": "小恶魔猎手",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "基础恶魔猎手",
+      "rarity": "C"
+    },
+    {
+      "id": "C111",
+      "name": "小武僧",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "基础武僧",
+      "rarity": "C"
+    },
+    {
+      "id": "C112",
+      "name": "小猎人",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "description": "基础猎人",
+      "rarity": "C"
+    },
+    {
+      "id": "C113",
+      "name": "小法师",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "description": "基础法师",
+      "rarity": "C"
+    },
+    {
+      "id": "C114",
+      "name": "小战士",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "description": "基础战士",
+      "rarity": "C"
+    },
+    {
+      "id": "C115",
+      "name": "小盗贼",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "description": "基础盗贼",
+      "rarity": "C"
+    },
+    {
+      "id": "C116",
+      "name": "小牧师",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "description": "基础牧师",
+      "rarity": "C"
+    },
+    {
+      "id": "C117",
+      "name": "小萨满",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "description": "基础萨满",
+      "rarity": "C"
+    },
+    {
+      "id": "C118",
+      "name": "小术士",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "description": "基础术士",
+      "rarity": "C"
+    },
+    {
+      "id": "C119",
+      "name": "小德鲁伊",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "description": "基础德鲁伊",
+      "rarity": "C"
+    },
+    {
+      "id": "C120",
+      "name": "小圣骑士",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "description": "基础圣骑士",
+      "rarity": "C"
+    },
+    {
+      "id": "C121",
+      "name": "小死亡骑士",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "description": "基础死亡骑士",
+      "rarity": "C"
+    },
+    {
+      "id": "C122",
+      "name": "小恶魔猎手",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "description": "基础恶魔猎手",
+      "rarity": "C"
+    },
+    {
+      "id": "C123",
+      "name": "小武僧",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "description": "基础武僧",
+      "rarity": "C"
+    },
+    {
+      "id": "C124",
+      "name": "中猎人",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "description": "中级猎人",
+      "rarity": "C"
+    },
+    {
+      "id": "C125",
+      "name": "中法师",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "description": "中级法师",
+      "rarity": "C"
+    },
+    {
+      "id": "C126",
+      "name": "中战士",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "description": "中级战士",
+      "rarity": "C"
+    },
+    {
+      "id": "C127",
+      "name": "中盗贼",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "description": "中级盗贼",
+      "rarity": "C"
+    },
+    {
+      "id": "C128",
+      "name": "中牧师",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "description": "中级牧师",
+      "rarity": "C"
+    },
+    {
+      "id": "C129",
+      "name": "中萨满",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "description": "中级萨满",
+      "rarity": "C"
+    },
+    {
+      "id": "C130",
+      "name": "中术士",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "description": "中级术士",
+      "rarity": "C"
+    },
+    {
+      "id": "C131",
+      "name": "中德鲁伊",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "description": "中级德鲁伊",
+      "rarity": "C"
+    },
+    {
+      "id": "C132",
+      "name": "中圣骑士",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "description": "中级圣骑士",
+      "rarity": "C"
+    },
+    {
+      "id": "C133",
+      "name": "中死亡骑士",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "description": "中级死亡骑士",
+      "rarity": "C"
+    },
+    {
+      "id": "C134",
+      "name": "中恶魔猎手",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "description": "中级恶魔猎手",
+      "rarity": "C"
+    },
+    {
+      "id": "C135",
+      "name": "中武僧",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "description": "中级武僧",
+      "rarity": "C"
+    },
+    {
+      "id": "C136",
+      "name": "大猎人",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "keywords": [],
+      "description": "高级猎人",
+      "rarity": "R"
+    },
+    {
+      "id": "C137",
+      "name": "大法师",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "keywords": [],
+      "description": "高级法师",
+      "rarity": "R"
+    },
+    {
+      "id": "C138",
+      "name": "大战士",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "keywords": [],
+      "description": "高级战士",
+      "rarity": "R"
+    },
+    {
+      "id": "C139",
+      "name": "大盗贼",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "keywords": [],
+      "description": "高级盗贼",
+      "rarity": "R"
+    },
+    {
+      "id": "C140",
+      "name": "大牧师",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "keywords": [],
+      "description": "高级牧师",
+      "rarity": "R"
+    },
+    {
+      "id": "C141",
+      "name": "大萨满",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "keywords": [],
+      "description": "高级萨满",
+      "rarity": "R"
+    },
+    {
+      "id": "C142",
+      "name": "大术士",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "keywords": [],
+      "description": "高级术士",
+      "rarity": "R"
+    },
+    {
+      "id": "C143",
+      "name": "大德鲁伊",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "keywords": [],
+      "description": "高级德鲁伊",
+      "rarity": "R"
+    },
+    {
+      "id": "C144",
+      "name": "大圣骑士",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "keywords": [],
+      "description": "高级圣骑士",
+      "rarity": "R"
+    },
+    {
+      "id": "C145",
+      "name": "大死亡骑士",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "keywords": [],
+      "description": "高级死亡骑士",
+      "rarity": "R"
+    },
+    {
+      "id": "C146",
+      "name": "大恶魔猎手",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "keywords": [],
+      "description": "高级恶魔猎手",
+      "rarity": "R"
+    },
+    {
+      "id": "C147",
+      "name": "大武僧",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "keywords": [],
+      "description": "高级武僧",
+      "rarity": "R"
+    },
+    {
+      "id": "C148",
+      "name": "巨型猎人",
+      "type": "unit",
+      "cost": 5,
+      "attack": 5,
+      "health": 5,
+      "keywords": [],
+      "description": "巨型猎人",
+      "rarity": "E"
+    },
+    {
+      "id": "C149",
+      "name": "巨型法师",
+      "type": "unit",
+      "cost": 5,
+      "attack": 5,
+      "health": 5,
+      "keywords": [],
+      "description": "巨型法师",
+      "rarity": "E"
+    },
+    {
+      "id": "C150",
+      "name": "巨型战士",
+      "type": "unit",
+      "cost": 5,
+      "attack": 5,
+      "health": 5,
+      "keywords": [],
+      "description": "巨型战士",
+      "rarity": "E"
+    },
+    {
+      "id": "C151",
+      "name": "巨型盗贼",
+      "type": "unit",
+      "cost": 5,
+      "attack": 5,
+      "health": 5,
+      "keywords": [],
+      "description": "巨型盗贼",
+      "rarity": "E"
+    },
+    {
+      "id": "C152",
+      "name": "巨型牧师",
+      "type": "unit",
+      "cost": 5,
+      "attack": 5,
+      "health": 5,
+      "keywords": [],
+      "description": "巨型牧师",
+      "rarity": "E"
+    },
+    {
+      "id": "C153",
+      "name": "巨型萨满",
+      "type": "unit",
+      "cost": 5,
+      "attack": 5,
+      "health": 5,
+      "keywords": [],
+      "description": "巨型萨满",
+      "rarity": "E"
+    },
+    {
+      "id": "C154",
+      "name": "巨型术士",
+      "type": "unit",
+      "cost": 5,
+      "attack": 5,
+      "health": 5,
+      "keywords": [],
+      "description": "巨型术士",
+      "rarity": "E"
+    },
+    {
+      "id": "C155",
+      "name": "巨型德鲁伊",
+      "type": "unit",
+      "cost": 5,
+      "attack": 5,
+      "health": 5,
+      "keywords": [],
+      "description": "巨型德鲁伊",
+      "rarity": "E"
+    },
+    {
+      "id": "C156",
+      "name": "巨型圣骑士",
+      "type": "unit",
+      "cost": 5,
+      "attack": 5,
+      "health": 5,
+      "keywords": [],
+      "description": "巨型圣骑士",
+      "rarity": "E"
+    },
+    {
+      "id": "C157",
+      "name": "巨型死亡骑士",
+      "type": "unit",
+      "cost": 5,
+      "attack": 5,
+      "health": 5,
+      "keywords": [],
+      "description": "巨型死亡骑士",
+      "rarity": "E"
+    },
+    {
+      "id": "C158",
+      "name": "巨型恶魔猎手",
+      "type": "unit",
+      "cost": 5,
+      "attack": 5,
+      "health": 5,
+      "keywords": [],
+      "description": "巨型恶魔猎手",
+      "rarity": "E"
+    },
+    {
+      "id": "C159",
+      "name": "巨型武僧",
+      "type": "unit",
+      "cost": 5,
+      "attack": 5,
+      "health": 5,
+      "keywords": [],
+      "description": "巨型武僧",
+      "rarity": "E"
+    },
+    {
+      "id": "C160",
+      "name": "传说猎人",
+      "type": "unit",
+      "cost": 6,
+      "attack": 6,
+      "health": 6,
+      "keywords": [],
+      "description": "传说猎人",
+      "rarity": "L"
+    },
+    {
+      "id": "C161",
+      "name": "传说法师",
+      "type": "unit",
+      "cost": 6,
+      "attack": 6,
+      "health": 6,
+      "keywords": [],
+      "description": "传说法师",
+      "rarity": "L"
+    },
+    {
+      "id": "C162",
+      "name": "传说战士",
+      "type": "unit",
+      "cost": 6,
+      "attack": 6,
+      "health": 6,
+      "keywords": [],
+      "description": "传说战士",
+      "rarity": "L"
+    },
+    {
+      "id": "C163",
+      "name": "传说盗贼",
+      "type": "unit",
+      "cost": 6,
+      "attack": 6,
+      "health": 6,
+      "keywords": [],
+      "description": "传说盗贼",
+      "rarity": "L"
+    },
+    {
+      "id": "C164",
+      "name": "传说牧师",
+      "type": "unit",
+      "cost": 6,
+      "attack": 6,
+      "health": 6,
+      "keywords": [],
+      "description": "传说牧师",
+      "rarity": "L"
+    },
+    {
+      "id": "C165",
+      "name": "传说萨满",
+      "type": "unit",
+      "cost": 6,
+      "attack": 6,
+      "health": 6,
+      "keywords": [],
+      "description": "传说萨满",
+      "rarity": "L"
+    },
+    {
+      "id": "C166",
+      "name": "传说术士",
+      "type": "unit",
+      "cost": 6,
+      "attack": 6,
+      "health": 6,
+      "keywords": [],
+      "description": "传说术士",
+      "rarity": "L"
+    },
+    {
+      "id": "C167",
+      "name": "传说德鲁伊",
+      "type": "unit",
+      "cost": 6,
+      "attack": 6,
+      "health": 6,
+      "keywords": [],
+      "description": "传说德鲁伊",
+      "rarity": "L"
+    },
+    {
+      "id": "C168",
+      "name": "传说圣骑士",
+      "type": "unit",
+      "cost": 6,
+      "attack": 6,
+      "health": 6,
+      "keywords": [],
+      "description": "传说圣骑士",
+      "rarity": "L"
+    },
+    {
+      "id": "C169",
+      "name": "传说死亡骑士",
+      "type": "unit",
+      "cost": 6,
+      "attack": 6,
+      "health": 6,
+      "keywords": [],
+      "description": "传说死亡骑士",
+      "rarity": "L"
+    },
+    {
+      "id": "C170",
+      "name": "传说恶魔猎手",
+      "type": "unit",
+      "cost": 6,
+      "attack": 6,
+      "health": 6,
+      "keywords": [],
+      "description": "传说恶魔猎手",
+      "rarity": "L"
+    },
+    {
+      "id": "C171",
+      "name": "传说武僧",
+      "type": "unit",
+      "cost": 6,
+      "attack": 6,
+      "health": 6,
+      "keywords": [],
+      "description": "传说武僧",
+      "rarity": "L"
+    },
+    {
+      "id": "C172",
+      "name": "终极猎人",
+      "type": "unit",
+      "cost": 7,
+      "attack": 7,
+      "health": 7,
+      "keywords": [],
+      "description": "终极猎人",
+      "rarity": "L"
+    },
+    {
+      "id": "C173",
+      "name": "终极法师",
+      "type": "unit",
+      "cost": 7,
+      "attack": 7,
+      "health": 7,
+      "keywords": [],
+      "description": "终极法师",
+      "rarity": "L"
+    },
+    {
+      "id": "C174",
+      "name": "终极战士",
+      "type": "unit",
+      "cost": 7,
+      "attack": 7,
+      "health": 7,
+      "keywords": [],
+      "description": "终极战士",
+      "rarity": "L"
+    },
+    {
+      "id": "C175",
+      "name": "终极盗贼",
+      "type": "unit",
+      "cost": 7,
+      "attack": 7,
+      "health": 7,
+      "keywords": [],
+      "description": "终极盗贼",
+      "rarity": "L"
+    },
+    {
+      "id": "C176",
+      "name": "终极牧师",
+      "type": "unit",
+      "cost": 7,
+      "attack": 7,
+      "health": 7,
+      "keywords": [],
+      "description": "终极牧师",
+      "rarity": "L"
+    },
+    {
+      "id": "C177",
+      "name": "终极萨满",
+      "type": "unit",
+      "cost": 7,
+      "attack": 7,
+      "health": 7,
+      "keywords": [],
+      "description": "终极萨满",
+      "rarity": "L"
+    },
+    {
+      "id": "C178",
+      "name": "终极术士",
+      "type": "unit",
+      "cost": 7,
+      "attack": 7,
+      "health": 7,
+      "keywords": [],
+      "description": "终极术士",
+      "rarity": "L"
+    },
+    {
+      "id": "C179",
+      "name": "终极德鲁伊",
+      "type": "unit",
+      "cost": 7,
+      "attack": 7,
+      "health": 7,
+      "keywords": [],
+      "description": "终极德鲁伊",
+      "rarity": "L"
+    },
+    {
+      "id": "C180",
+      "name": "终极圣骑士",
+      "type": "unit",
+      "cost": 7,
+      "attack": 7,
+      "health": 7,
+      "keywords": [],
+      "description": "终极圣骑士",
+      "rarity": "L"
+    },
+    {
+      "id": "C181",
+      "name": "终极死亡骑士",
+      "type": "unit",
+      "cost": 7,
+      "attack": 7,
+      "health": 7,
+      "keywords": [],
+      "description": "终极死亡骑士",
+      "rarity": "L"
+    },
+    {
+      "id": "C182",
+      "name": "终极恶魔猎手",
+      "type": "unit",
+      "cost": 7,
+      "attack": 7,
+      "health": 7,
+      "keywords": [],
+      "description": "终极恶魔猎手",
+      "rarity": "L"
+    },
+    {
+      "id": "C183",
+      "name": "终极武僧",
+      "type": "unit",
+      "cost": 7,
+      "attack": 7,
+      "health": 7,
+      "keywords": [],
+      "description": "终极武僧",
+      "rarity": "L"
+    },
+    {
+      "id": "C184",
+      "name": "超级猎人",
+      "type": "unit",
+      "cost": 8,
+      "attack": 8,
+      "health": 8,
+      "keywords": [],
+      "description": "超级猎人",
+      "rarity": "L"
+    },
+    {
+      "id": "C185",
+      "name": "超级法师",
+      "type": "unit",
+      "cost": 8,
+      "attack": 8,
+      "health": 8,
+      "keywords": [],
+      "description": "超级法师",
+      "rarity": "L"
+    },
+    {
+      "id": "C186",
+      "name": "超级战士",
+      "type": "unit",
+      "cost": 8,
+      "attack": 8,
+      "health": 8,
+      "keywords": [],
+      "description": "超级战士",
+      "rarity": "L"
+    },
+    {
+      "id": "C187",
+      "name": "超级盗贼",
+      "type": "unit",
+      "cost": 8,
+      "attack": 8,
+      "health": 8,
+      "keywords": [],
+      "description": "超级盗贼",
+      "rarity": "L"
+    },
+    {
+      "id": "C188",
+      "name": "超级牧师",
+      "type": "unit",
+      "cost": 8,
+      "attack": 8,
+      "health": 8,
+      "keywords": [],
+      "description": "超级牧师",
+      "rarity": "L"
+    },
+    {
+      "id": "C189",
+      "name": "超级萨满",
+      "type": "unit",
+      "cost": 8,
+      "attack": 8,
+      "health": 8,
+      "keywords": [],
+      "description": "超级萨满",
+      "rarity": "L"
+    },
+    {
+      "id": "C190",
+      "name": "超级术士",
+      "type": "unit",
+      "cost": 8,
+      "attack": 8,
+      "health": 8,
+      "keywords": [],
+      "description": "超级术士",
+      "rarity": "L"
+    },
+    {
+      "id": "C191",
+      "name": "超级德鲁伊",
+      "type": "unit",
+      "cost": 8,
+      "attack": 8,
+      "health": 8,
+      "keywords": [],
+      "description": "超级德鲁伊",
+      "rarity": "L"
+    },
+    {
+      "id": "C192",
+      "name": "超级圣骑士",
+      "type": "unit",
+      "cost": 8,
+      "attack": 8,
+      "health": 8,
+      "keywords": [],
+      "description": "超级圣骑士",
+      "rarity": "L"
+    },
+    {
+      "id": "C193",
+      "name": "超级死亡骑士",
+      "type": "unit",
+      "cost": 8,
+      "attack": 8,
+      "health": 8,
+      "keywords": [],
+      "description": "超级死亡骑士",
+      "rarity": "L"
+    },
+    {
+      "id": "C194",
+      "name": "超级恶魔猎手",
+      "type": "unit",
+      "cost": 8,
+      "attack": 8,
+      "health": 8,
+      "keywords": [],
+      "description": "超级恶魔猎手",
+      "rarity": "L"
+    },
+    {
+      "id": "C195",
+      "name": "超级武僧",
+      "type": "unit",
+      "cost": 8,
+      "attack": 8,
+      "health": 8,
+      "keywords": [],
+      "description": "超级武僧",
+      "rarity": "L"
+    },
+    {
+      "id": "C196",
+      "name": "究极猎人",
+      "type": "unit",
+      "cost": 9,
+      "attack": 9,
+      "health": 9,
+      "keywords": [],
+      "description": "究极猎人",
+      "rarity": "L"
+    },
+    {
+      "id": "C197",
+      "name": "究极法师",
+      "type": "unit",
+      "cost": 9,
+      "attack": 9,
+      "health": 9,
+      "keywords": [],
+      "description": "究极法师",
+      "rarity": "L"
+    },
+    {
+      "id": "C198",
+      "name": "究极战士",
+      "type": "unit",
+      "cost": 9,
+      "attack": 9,
+      "health": 9,
+      "keywords": [],
+      "description": "究极战士",
+      "rarity": "L"
+    },
+    {
+      "id": "C199",
+      "name": "究极盗贼",
+      "type": "unit",
+      "cost": 9,
+      "attack": 9,
+      "health": 9,
+      "keywords": [],
+      "description": "究极盗贼",
+      "rarity": "L"
+    },
+    {
+      "id": "C200",
+      "name": "究极法师",
+      "type": "unit",
+      "cost": 10,
+      "attack": 10,
+      "health": 10,
+      "keywords": [],
+      "description": "究极法师",
+      "rarity": "L"
+    },
+    {
+      "id": "W011",
+      "name": "冰霜之刃",
+      "type": "weapon",
+      "cost": 2,
+      "attack": 2,
+      "durability": 2,
+      "description": "攻击后冰冻目标",
+      "rarity": "C",
+      "weaponEffect": {
+        "type": "FREEZE",
+        "description": "冰冻目标"
+      }
+    },
+    {
+      "id": "W012",
+      "name": "毒刃",
+      "type": "weapon",
+      "cost": 3,
+      "attack": 2,
+      "durability": 2,
+      "description": "攻击后附加剧毒",
+      "rarity": "R",
+      "weaponEffect": {
+        "type": "POISON",
+        "description": "剧毒"
+      }
+    },
+    {
+      "id": "W013",
+      "name": "重锤",
+      "type": "weapon",
+      "cost": 4,
+      "attack": 4,
+      "durability": 2,
+      "description": "重型武器",
+      "rarity": "R"
+    },
+    {
+      "id": "W014",
+      "name": "双刃剑",
+      "type": "weapon",
+      "cost": 5,
+      "attack": 4,
+      "durability": 3,
+      "description": "双刃武器",
+      "rarity": "E"
+    },
+    {
+      "id": "W015",
+      "name": "圣光之剑",
+      "type": "weapon",
+      "cost": 6,
+      "attack": 5,
+      "durability": 3,
+      "description": "圣光武器",
+      "rarity": "E"
+    },
+    {
+      "id": "W016",
+      "name": "暗影之刃",
+      "type": "weapon",
+      "cost": 6,
+      "attack": 5,
+      "durability": 3,
+      "description": "暗影武器",
+      "rarity": "E"
+    },
+    {
+      "id": "W017",
+      "name": "龙息之刃",
+      "type": "weapon",
+      "cost": 7,
+      "attack": 6,
+      "durability": 3,
+      "description": "龙息武器",
+      "rarity": "L"
+    },
+    {
+      "id": "W018",
+      "name": "毁灭之刃",
+      "type": "weapon",
+      "cost": 8,
+      "attack": 7,
+      "durability": 3,
+      "description": "毁灭武器",
+      "rarity": "L"
+    },
+    {
+      "id": "W019",
+      "name": "创世之刃",
+      "type": "weapon",
+      "cost": 9,
+      "attack": 8,
+      "durability": 3,
+      "description": "创世武器",
+      "rarity": "L"
+    },
+    {
+      "id": "W020",
+      "name": "终极之刃",
+      "type": "weapon",
+      "cost": 10,
+      "attack": 10,
+      "durability": 3,
+      "description": "终极武器",
+      "rarity": "L"
     }
   ]
 }

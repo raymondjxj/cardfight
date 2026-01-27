@@ -218,6 +218,33 @@ export class AIController {
           }
         }
         
+        // 使用发现牌（优先使用）
+        if (!cardPlayed) {
+          const discoverSpell = playableCards.find(({ card }) => 
+            card.type === 'spell' && 
+            card.spellEffect && 
+            card.spellEffect.type === 'DISCOVER'
+          );
+          
+          if (discoverSpell) {
+            const currentIndex = player.hand.findIndex(c => 
+              c.id === discoverSpell.card.id && 
+              c.cost === discoverSpell.card.cost &&
+              c.type === discoverSpell.card.type
+            );
+            if (currentIndex !== -1 && 
+                player.mana.current >= discoverSpell.card.cost) {
+              // AI使用发现牌时随机选择一张
+              const success = this.battleSystem.playCard('PLAYER2', currentIndex);
+              if (success) {
+                await this.delay(1000); // 等待发现UI完成
+                cardPlayed = true;
+                continue;
+              }
+            }
+          }
+        }
+        
         // 使用直伤法术（优先使用）
         if (!cardPlayed) {
           const damageSpell = playableCards.find(({ card }) => 
@@ -329,10 +356,10 @@ export class AIController {
   
   // 使用单位攻击
   async attackWithUnits(player, opponent, renderer) {
-    // 获取所有可以攻击的单位
+    // 获取所有可以攻击的单位（使用统一的 canAttack 方法）
     const attackableUnits = player.battlefield
       .map((unit, index) => ({ unit, index }))
-      .filter(({ unit }) => !unit.exhausted && unit.onBoardTurns > 0);
+      .filter(({ unit }) => unit.canAttack());
     
     // 检查是否有冲锋单位
     const chargeUnits = attackableUnits.filter(({ unit }) => 

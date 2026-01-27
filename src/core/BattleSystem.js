@@ -190,6 +190,10 @@ export class BattleSystem {
         this.addDivineShieldToTarget(playerId, target);
         break;
         
+      case 'DISCOVER':
+        this.discoverCard(playerId);
+        break;
+        
       case 'BUFF_ATTACK':
         if (target === 'hero' || target === 'HERO') {
           // 对英雄增加攻击力（通过武器）
@@ -738,27 +742,26 @@ export class BattleSystem {
       return false;
     }
     
-    // 检查攻击者是否可以攻击
+    // 检查攻击者是否可以攻击（使用统一的 canAttack 方法）
     // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:732',message:'unitAttack attacker state check',data:{attackerName:attacker.card.name,exhausted:attacker.exhausted,onBoardTurns:attacker.onBoardTurns,hasCharge:attacker.card.keywords.includes('CHARGE')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+    fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:732',message:'unitAttack attacker state check',data:{attackerName:attacker.card.name,exhausted:attacker.exhausted,frozen:attacker.frozen,nextTurnCannotAct:attacker.nextTurnCannotAct,onBoardTurns:attacker.onBoardTurns,hasCharge:attacker.keywords.some(kw => kw.includes('CHARGE'))},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
     // #endregion
-    if (attacker.exhausted) {
+    if (!attacker.canAttack()) {
       // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:735',message:'unitAttack attacker exhausted',data:{attackerName:attacker.card.name},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+      fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:735',message:'unitAttack attacker cannot attack',data:{attackerName:attacker.card.name,exhausted:attacker.exhausted,frozen:attacker.frozen,nextTurnCannotAct:attacker.nextTurnCannotAct},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
       // #endregion
-      console.warn('⚠️ 攻击者已疲惫');
-      this.gameState.log(`${attacker.card.name} 已疲惫，无法攻击`);
-      return false;
-    }
-    
-    // 检查单位是否满足攻击条件（非冲锋单位需要上场一回合）
-    const hasCharge = attacker.card.keywords.includes('CHARGE');
-    if (!hasCharge && attacker.onBoardTurns === 0) {
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:744',message:'unitAttack wait turn',data:{attackerName:attacker.card.name,onBoardTurns:attacker.onBoardTurns,hasCharge},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-      // #endregion
-      console.warn('⚠️ 单位需要等待一回合');
-      this.gameState.log(`${attacker.card.name} 需要等待一回合才能攻击（除非有冲锋）`);
+      let reason = '';
+      if (attacker.exhausted) {
+        reason = '已疲惫';
+      } else if (attacker.frozen) {
+        reason = '被冰冻';
+      } else if (attacker.nextTurnCannotAct) {
+        reason = '被时间冻结';
+      } else {
+        reason = '需要等待一回合';
+      }
+      console.warn(`⚠️ 攻击者无法攻击: ${reason}`);
+      this.gameState.log(`${attacker.card.name} ${reason}，无法攻击`);
       return false;
     }
     
@@ -933,6 +936,16 @@ export class BattleSystem {
       console.log('✅ 最终血量:', target.currentHealth);
       
       this.gameState.log(`${attacker.card.name} 对 ${target.card.name} 造成 ${remainingDamage} 点伤害${actualDamage > remainingDamage ? `（护盾抵挡了 ${actualDamage - remainingDamage} 点）` : ''}`);
+      
+      // 检查吸血（攻击单位时也能吸血）
+      if (attacker.card.keywords.includes('LIFESTEAL')) {
+        const healAmount = Math.ceil(remainingDamage * 0.5);
+        attackerPlayer.hero.health = Math.min(
+          attackerPlayer.hero.health + healAmount,
+          attackerPlayer.hero.maxHealth
+        );
+        this.gameState.log(`${attacker.card.name} 的吸血效果治疗了英雄 ${healAmount} 点生命`);
+      }
       
       // 修正反击逻辑：即使目标被一击必杀，也会先反击，然后再移除
       // 反击逻辑：如果攻击者不是远程单位，目标会反击（即使目标已死）
@@ -1123,11 +1136,8 @@ export class BattleSystem {
       return false;
     }
     
-    // 检查目标是否被冰冻（如果是单位）
-    if (!isHeroTarget && target.frozen) {
-      this.gameState.log('目标被冰冻，无法被攻击');
-      return false;
-    }
+    // 注意：被冰冻的目标仍然可以被攻击，冰冻只是阻止目标攻击，不阻止被攻击
+    // 移除这个检查，允许攻击被冰冻的目标
     
     // 执行攻击
     let damage = hero.attack;
@@ -1278,27 +1288,31 @@ export class BattleSystem {
       }
     }
     
+    // 应用武器特效（在攻击成功后，但在武器耐久度降低之前）
+    // 这样即使武器耐久度耗尽，效果也能正确应用
+    const weaponEffect = hero.weapon && hero.weapon.weaponEffect ? hero.weapon.weaponEffect : null;
+    const weaponName = hero.weapon ? hero.weapon.name : null;
+    
+    if (weaponEffect) {
+      this.applyWeaponEffect(weaponEffect, target, targetPlayer, targetIndex, isTargetHero);
+    }
+    
     // 设置英雄疲惫
     hero.exhausted = true;
     
     // 降低武器耐久度
     if (hero.weaponDurability > 0) {
       hero.weaponDurability--;
-      this.gameState.log(`${hero.weapon.name} 耐久度：${hero.weaponDurability}/${hero.weapon.durability || 0}`);
+      this.gameState.log(`${weaponName} 耐久度：${hero.weaponDurability}/${hero.weapon.durability || 0}`);
       
       if (hero.weaponDurability <= 0) {
-        this.gameState.log(`${hero.weapon.name} 耐久度耗尽，武器已损坏`);
+        this.gameState.log(`${weaponName} 耐久度耗尽，武器已损坏`);
         const oldWeaponName = hero.weapon.name;
         hero.weapon = null;
         hero.attack = 0;
         hero.weaponDurability = 0;
         this.gameState.log(`${hero.name} 失去了 ${oldWeaponName}`);
       }
-    }
-    
-    // 应用武器特效（在攻击成功后）
-    if (hero.weapon && hero.weapon.weaponEffect) {
-      this.applyWeaponEffect(hero.weapon.weaponEffect, target, targetPlayer, targetIndex, isTargetHero);
     }
     
     return true;
@@ -1414,6 +1428,72 @@ export class BattleSystem {
     if (hasTaunt) {
       // 有嘲讽单位，必须攻击嘲讽单位
       return (target.card.keywords || target.keywords || []).some(kw => kw.includes('TAUNT'));
+    }
+    
+    return true;
+  }
+  
+  // 发现机制：从牌库中随机选择3张牌，让玩家选择1张
+  discoverCard(playerId) {
+    const player = this.gameState.players[playerId];
+    
+    // 从所有卡牌中随机选择3张（排除发现牌本身）
+    const availableCards = this.gameState.allCards.filter(c => 
+      c.type !== 'spell' || c.spellEffect?.type !== 'DISCOVER'
+    );
+    
+    if (availableCards.length === 0) {
+      this.gameState.log('没有可发现的卡牌');
+      return false;
+    }
+    
+    // 随机选择3张不同的卡牌
+    const discoveredCards = [];
+    const usedIndices = new Set();
+    
+    while (discoveredCards.length < 3 && discoveredCards.length < availableCards.length) {
+      const randomIndex = Math.floor(Math.random() * availableCards.length);
+      if (!usedIndices.has(randomIndex)) {
+        usedIndices.add(randomIndex);
+        const card = availableCards[randomIndex];
+        // 创建卡牌实例
+        const cardInstance = { 
+          ...card, 
+          instanceId: `${card.id}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` 
+        };
+        
+        // 如果是单位卡牌，随机分配关键词
+        if (cardInstance.type === 'unit') {
+          cardInstance.keywords = this.gameState.randomizeUnitKeywords();
+        }
+        
+        discoveredCards.push(cardInstance);
+      }
+    }
+    
+    // 触发发现UI
+    if (this.gameState.renderer && this.gameState.renderer.showDiscoverUI) {
+      this.gameState.renderer.showDiscoverUI(playerId, discoveredCards, (selectedCard) => {
+        // 将选中的卡牌加入手牌
+        if (player.canDrawCard()) {
+          player.hand.push(selectedCard);
+          this.gameState.log(`${playerId} 发现了 ${selectedCard.name}`);
+        } else {
+          this.gameState.log(`${playerId} 手牌已满，${selectedCard.name} 被烧掉`);
+        }
+        if (this.gameState.renderer) {
+          this.gameState.renderer.render();
+        }
+      });
+    } else {
+      // 如果没有UI，随机选择一张
+      const randomCard = discoveredCards[Math.floor(Math.random() * discoveredCards.length)];
+      if (player.canDrawCard()) {
+        player.hand.push(randomCard);
+        this.gameState.log(`${playerId} 发现了 ${randomCard.name}`);
+      } else {
+        this.gameState.log(`${playerId} 手牌已满，${randomCard.name} 被烧掉`);
+      }
     }
     
     return true;
@@ -1656,12 +1736,168 @@ export class BattleSystem {
           this.gameState.log(`${source.card.name} 的战吼对 ${opponent.hero.name} 造成 ${effect.value} 点伤害`);
         }
         break;
+        
+      case 'FREEZE_ENEMY_UNITS':
+        // 冻结敌方单位（下回合无法行动）
+        if (effect.target === 'ALL_ENEMY_UNITS') {
+          const opponentId = playerId === 'PLAYER1' ? 'PLAYER2' : 'PLAYER1';
+          const opponent = this.gameState.players[opponentId];
+          opponent.battlefield.forEach(unit => {
+            unit.nextTurnCannotAct = true;
+          });
+          this.gameState.log(`${source.card.name} 的战吼：对方所有随从下回合无法行动`);
+        }
+        break;
+        
+      case 'DISCOVER':
+        // 发现（战吼版本，类似法术）
+        this.discoverCard(playerId);
+        break;
+        
+      case 'SILENCE':
+        // 沉默目标单位（移除所有关键词和buff）
+        if (effect.target === 'TARGET' && effect.targetUnit) {
+          const targetUnit = effect.targetUnit;
+          targetUnit.keywords = [];
+          // 移除所有状态效果
+          targetUnit.frozen = false;
+          targetUnit.fireEffect = null;
+          targetUnit.thunderEffect = null;
+          targetUnit.poisonEffect = null;
+          this.gameState.log(`${source.card.name} 的战吼：沉默 ${targetUnit.card.name}`);
+        }
+        break;
+        
+      case 'TRANSFORM':
+        // 变形（将目标单位变为另一个单位）
+        if (effect.target === 'TARGET' && effect.targetUnit && effect.transformId) {
+          const transformCard = this.gameState.allCards.find(c => c.id === effect.transformId);
+          if (transformCard && transformCard.type === 'unit') {
+            const targetUnit = effect.targetUnit;
+            const position = targetUnit.position;
+            const player = this.gameState.players[playerId];
+            
+            // 移除原单位
+            const index = player.battlefield.indexOf(targetUnit);
+            if (index !== -1) {
+              player.battlefield.splice(index, 1);
+            }
+            
+            // 召唤新单位
+            this.playUnit(playerId, transformCard, position);
+            this.gameState.log(`${source.card.name} 的战吼：将目标变形为 ${transformCard.name}`);
+          }
+        }
+        break;
+        
+      case 'COPY':
+        // 复制（将目标单位复制到手牌）
+        if (effect.target === 'TARGET' && effect.targetUnit && player.hand.length < 10) {
+          const targetUnit = effect.targetUnit;
+          const copyCard = { ...targetUnit.card, instanceId: `${targetUnit.card.id}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` };
+          player.hand.push(copyCard);
+          this.gameState.log(`${source.card.name} 的战吼：复制 ${targetUnit.card.name} 到手牌`);
+        }
+        break;
     }
   }
   
   resolveDeathrattle(effect, playerId, source) {
     // 实现亡语效果
     this.gameState.log(`${source.card.name} 的亡语效果触发`);
+    
+    const player = this.gameState.players[playerId];
+    const opponentId = playerId === 'PLAYER1' ? 'PLAYER2' : 'PLAYER1';
+    const opponent = this.gameState.players[opponentId];
+    
+    switch (effect.type) {
+      case 'DRAW_CARD':
+        // 抽牌
+        for (let i = 0; i < effect.value; i++) {
+          if (player.canDrawCard()) {
+            this.gameState.drawCard(playerId);
+          }
+        }
+        this.gameState.log(`${source.card.name} 的亡语：抽 ${effect.value} 张牌`);
+        break;
+        
+      case 'SUMMON':
+        // 召唤随从
+        if (player.battlefield.length < 6 && effect.summonId) {
+          const summonCard = this.gameState.allCards.find(c => c.id === effect.summonId);
+          if (summonCard) {
+            const position = this.findEmptyPosition(player);
+            if (position !== -1) {
+              this.playUnit(playerId, summonCard, position);
+              this.gameState.log(`${source.card.name} 的亡语：召唤 ${summonCard.name}`);
+            }
+          }
+        }
+        break;
+        
+      case 'DAMAGE':
+        // 造成伤害
+        if (effect.target === 'ALL_ENEMY_UNITS') {
+          opponent.battlefield.forEach(unit => {
+            unit.currentHealth = Math.max(0, unit.currentHealth - effect.value);
+            if (unit.currentHealth <= 0) {
+              this.killUnit(unit, opponent);
+            }
+          });
+          this.gameState.log(`${source.card.name} 的亡语：对所有敌方单位造成 ${effect.value} 点伤害`);
+        } else if (effect.target === 'ENEMY_HERO') {
+          opponent.hero.health = Math.max(0, opponent.hero.health - effect.value);
+          this.gameState.log(`${source.card.name} 的亡语：对 ${opponent.hero.name} 造成 ${effect.value} 点伤害`);
+        } else if (effect.target === 'RANDOM_ENEMY') {
+          const targets = [...opponent.battlefield];
+          if (opponent.hero.health > 0) {
+            targets.push({ type: 'hero', hero: opponent.hero });
+          }
+          if (targets.length > 0) {
+            const target = targets[Math.floor(Math.random() * targets.length)];
+            if (target.type === 'hero') {
+              target.hero.health = Math.max(0, target.hero.health - effect.value);
+              this.gameState.log(`${source.card.name} 的亡语：对 ${target.hero.name} 造成 ${effect.value} 点伤害`);
+            } else {
+              target.currentHealth = Math.max(0, target.currentHealth - effect.value);
+              if (target.currentHealth <= 0) {
+                this.killUnit(target, opponent);
+              }
+              this.gameState.log(`${source.card.name} 的亡语：对 ${target.card.name} 造成 ${effect.value} 点伤害`);
+            }
+          }
+        }
+        break;
+        
+      case 'RETURN_TO_HAND':
+        // 回手（如果源单位有card属性，回手该卡牌）
+        if (source.card && player.hand.length < 10) {
+          const returnCard = { ...source.card, instanceId: `${source.card.id}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` };
+          player.hand.push(returnCard);
+          this.gameState.log(`${source.card.name} 的亡语：返回手牌`);
+        }
+        break;
+        
+      case 'BUFF':
+        // 增益效果
+        if (effect.target === 'ALL_UNITS') {
+          player.battlefield.forEach(unit => {
+            if (effect.stats && effect.stats.attack) {
+              unit.attack += effect.stats.attack;
+            }
+            if (effect.stats && effect.stats.health) {
+              unit.maxHealth += effect.stats.health;
+              unit.currentHealth += effect.stats.health;
+            }
+          });
+          this.gameState.log(`${source.card.name} 的亡语：给所有友方单位增加了增益`);
+        }
+        break;
+        
+      default:
+        this.gameState.log(`${source.card.name} 的亡语效果：${effect.type}`);
+        break;
+    }
   }
   
   buffAdjacentUnits(playerId, effect) {

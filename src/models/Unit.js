@@ -21,6 +21,7 @@ export class Unit {
     this.fireEffect = null; // 火焰效果
     this.thunderEffect = null; // 雷特效
     this.poisonEffect = null; // 毒特效
+    this.nextTurnCannotAct = false; // 下回合无法行动（由时间冻结者等效果触发）
   }
   
   // 受到伤害（物理伤害）
@@ -116,5 +117,31 @@ export class Unit {
   // 是否死亡
   isDead() {
     return this.currentHealth <= 0;
+  }
+  
+  // 检查是否可以攻击（统一判断机制）
+  canAttack() {
+    // 如果已疲惫，无法攻击
+    if (this.exhausted) {
+      return false;
+    }
+    
+    // 如果被冰冻，无法攻击
+    if (this.frozen) {
+      return false;
+    }
+    
+    // 如果被时间冻结效果影响，无法攻击
+    if (this.nextTurnCannotAct) {
+      return false;
+    }
+    
+    // 检查是否满足攻击条件（非冲锋单位需要上场一回合）
+    const hasCharge = this.keywords.some(kw => kw.includes('CHARGE'));
+    if (!hasCharge && this.onBoardTurns === 0) {
+      return false;
+    }
+    
+    return true;
   }
 }

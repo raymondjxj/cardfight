@@ -1567,6 +1567,98 @@ export class Renderer {
     }
   }
   
+  // 显示发现UI
+  showDiscoverUI(playerId, discoveredCards, onSelect) {
+    // 创建发现模态框
+    const modal = document.createElement('div');
+    modal.className = 'discover-modal';
+    modal.innerHTML = `
+      <div class="discover-overlay"></div>
+      <div class="discover-container">
+        <div class="discover-title">发现一张卡牌</div>
+        <div class="discover-cards">
+          ${discoveredCards.map((card, index) => {
+            const cardIcon = this.getCardIcon(card);
+            const rarityClass = this.getRarityClass(card.rarity);
+            let cardContent = '';
+            
+            if (card.type === 'unit') {
+              cardContent = `
+                <div class="card-header ${rarityClass}">
+                  <div class="card-icon">${cardIcon}</div>
+                  <div class="card-cost">${card.cost}</div>
+                </div>
+                <div class="card-body">
+                  <div class="card-name">${card.name}</div>
+                  <div class="card-stats">⚔️${card.attack} ❤️${card.health}</div>
+                  <div class="card-keywords">${this.formatKeywords(card.keywords || [])}</div>
+                  <div class="card-description">${card.description}</div>
+                </div>
+              `;
+            } else if (card.type === 'weapon') {
+              const effectIcon = card.weaponEffect ? 
+                (card.weaponEffect.type === 'FREEZE' ? '❄️' :
+                 card.weaponEffect.type === 'FIRE' ? '🔥' :
+                 card.weaponEffect.type === 'THUNDER' ? '⚡' :
+                 card.weaponEffect.type === 'POISON' ? '☠️' : '') : '';
+              cardContent = `
+                <div class="card-header ${rarityClass}">
+                  <div class="card-icon">${cardIcon}</div>
+                  <div class="card-cost">${card.cost}</div>
+                </div>
+                <div class="card-body">
+                  <div class="card-name">${effectIcon}${card.name}</div>
+                  <div class="card-stats">⚔️${card.attack} 🛡️${card.durability}</div>
+                  <div class="card-description">${card.description}</div>
+                </div>
+              `;
+            } else {
+              cardContent = `
+                <div class="card-header ${rarityClass}">
+                  <div class="card-icon">${cardIcon}</div>
+                  <div class="card-cost">${card.cost}</div>
+                </div>
+                <div class="card-body">
+                  <div class="card-name">${card.name}</div>
+                  <div class="card-type">✨ 法术</div>
+                  <div class="card-description">${card.description}</div>
+                </div>
+              `;
+            }
+            
+            return `
+              <div class="discover-card" data-index="${index}">
+                <div class="card">
+                  ${cardContent}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // 添加点击事件
+    const cardElements = modal.querySelectorAll('.discover-card');
+    cardElements.forEach((element, index) => {
+      element.addEventListener('click', () => {
+        onSelect(discoveredCards[index]);
+        document.body.removeChild(modal);
+      });
+    });
+    
+    // 点击遮罩层关闭（可选）
+    const overlay = modal.querySelector('.discover-overlay');
+    overlay.addEventListener('click', () => {
+      // 如果必须选择，可以随机选择一张
+      const randomCard = discoveredCards[Math.floor(Math.random() * discoveredCards.length)];
+      onSelect(randomCard);
+      document.body.removeChild(modal);
+    });
+  }
+  
   // 显示英雄治疗特效（供AI调用）
   showHeroHealEffect(targetPlayer, healAmount) {
     const heroArea = targetPlayer.id === 'PLAYER1' ? 
