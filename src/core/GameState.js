@@ -75,8 +75,8 @@ export class GameState {
 
   // 初始化游戏
   initGame() {
-    // 获取英雄数据
-    const heroData = this.allHeroes[0] || {
+    // 获取英雄数据（使用梅利迪奥斯）
+    const heroData = this.allHeroes.find(h => h.id === 'H002') || this.allHeroes[0] || {
       id: 'H001',
       name: '铁壁统帅·岳峙',
       health: 20,
@@ -98,6 +98,28 @@ export class GameState {
     
     // 修改对方英雄名称
     this.players.PLAYER2.hero.name = '我是大魔王';
+    
+    // 处理梅利迪奥斯的初始设置
+    for (const playerId of ['PLAYER1', 'PLAYER2']) {
+      const player = this.players[playerId];
+      const hero = player.hero;
+      
+      // 如果英雄有护甲，初始化护甲
+      if (heroData.armor) {
+        hero.maxHealth += heroData.armor;
+        hero.health += heroData.armor;
+        hero.initialHealth = heroData.health; // 记录基础血量
+      }
+      
+      // 处理战吼：装备武器
+      if (heroData.battlecry && heroData.battlecry.type === 'EQUIP_WEAPON') {
+        const weaponCard = this.allCards.find(c => c.id === heroData.battlecry.weaponId);
+        if (weaponCard) {
+          this.battleSystem.equipWeapon(playerId, weaponCard);
+          this.log(`${hero.name} 的战吼：装备了 ${weaponCard.name}`);
+        }
+      }
+    }
     
     // 初始化两个玩家的牌库（使用随机卡组）
     for (const playerId of ['PLAYER1', 'PLAYER2']) {
@@ -169,6 +191,11 @@ export class GameState {
     
     // 重置英雄技能使用状态
     player.hero.skill.usedThisTurn = false;
+    
+    // 重置分身击杀计数（梅利迪奥斯）
+    if (player.hero.cloneKillsThisTurn !== undefined) {
+      player.hero.cloneKillsThisTurn = 0;
+    }
     
     // 重置单位疲惫状态并增加上场回合数
     player.battlefield.forEach(unit => {

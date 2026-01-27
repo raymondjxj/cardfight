@@ -16,6 +16,44 @@
         }
       },
       "flavorText": "铁甲依然在，守护永不变。"
+    },
+    {
+      "id": "H002",
+      "name": "愤怒之罪 · 梅利迪奥斯",
+      "type": "战士/恶魔猎手",
+      "health": 30,
+      "armor": 5,
+      "cost": 8,
+      "awakenThreshold": 15,
+      "battlecry": {
+        "type": "EQUIP_WEAPON",
+        "weaponId": "W021"
+      },
+      "passive": {
+        "type": "FULL_COUNTER",
+        "description": "敌方回合，受到的所有伤害翻倍并反弹给攻击者"
+      },
+      "skill": {
+        "name": "全反击",
+        "cost": 0,
+        "description": "被动：敌方回合，受到的所有伤害翻倍并反弹给攻击者",
+        "type": "PASSIVE"
+      },
+      "awakenedSkill": {
+        "name": "实体分身",
+        "cost": 2,
+        "description": "召唤两个1/1且具有突袭的梅利迪奥斯分身。本回合中，每当分身消灭一名随从，你的英雄便获得+3攻击力",
+        "effect": {
+          "type": "SUMMON_CLONES",
+          "count": 2,
+          "cloneStats": {
+            "attack": 1,
+            "health": 1
+          },
+          "keywords": ["CHARGE"]
+        }
+      },
+      "flavorText": "以血还血，以怒还怒。"
     }
   ]
 }

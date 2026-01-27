@@ -1001,6 +1001,13 @@ export class BattleSystem {
       // 移除被击杀的目标（在反击之后）
       if (targetKilled) {
         console.log('💀 单位被击杀，准备移除单位');
+        
+        // 检测是否是分身击杀（分身击杀敌方单位时触发）
+        if (attacker.card && attacker.card.isClone && attackerPlayer.id !== targetPlayer.id) {
+          // 分身击杀了敌方单位
+          this.handleCloneKill(attackerPlayer.id);
+        }
+        
         this.killUnit(target, targetPlayer);
       } else {
         console.log('❤️ 单位存活，当前血量:', target.currentHealth);
@@ -1010,6 +1017,11 @@ export class BattleSystem {
       const beforeHealth = target.health;
       console.log('👑 === 英雄攻击 ===');
       console.log('📊 攻击前:', { name: target.name, health: beforeHealth });
+      
+      // 检查全反击被动（梅利迪奥斯）
+      // 全反击：敌方回合，受到的所有伤害翻倍并反弹给攻击者
+      const isEnemyTurn = this.gameState.currentPlayer !== targetPlayer.id;
+      const hasFullCounter = target.fullCounter && isEnemyTurn;
       
       // 应用英雄护盾和圣盾（物理伤害）
       let remainingDamage = actualDamage;
@@ -1030,6 +1042,7 @@ export class BattleSystem {
       }
       
       // 物理伤害：优先减少护甲，然后减少生命值
+      let finalDamage = 0;
       if (remainingDamage > 0) {
         const initialHealth = targetPlayer.hero.initialHealth || 30;
         const currentArmor = target.maxHealth - initialHealth;
@@ -1045,7 +1058,13 @@ export class BattleSystem {
         
         // 剩余伤害减少生命值
         if (remainingDamage > 0) {
-          target.health = Math.max(0, target.health - remainingDamage);
+          finalDamage = remainingDamage;
+          // 全反击：伤害翻倍
+          if (hasFullCounter) {
+            finalDamage = remainingDamage * 2;
+            this.gameState.log(`🔥 ${target.name} 的全反击：伤害翻倍！实际受到 ${finalDamage} 点伤害（原伤害 ${remainingDamage}）`);
+          }
+          target.health = Math.max(0, target.health - finalDamage);
         }
       }
       
@@ -1054,20 +1073,61 @@ export class BattleSystem {
       console.log('📝 血量修改:', {
         old: oldHealth,
         new: target.health,
-        damage: remainingDamage,
-        blocked: actualDamage - remainingDamage
+        damage: finalDamage || remainingDamage,
+        blocked: actualDamage - (finalDamage || remainingDamage)
       });
       
       console.log('📊 攻击后:', { 
         name: target.name, 
         health: target.health, 
-        damage: remainingDamage
+        damage: finalDamage || remainingDamage
       });
       
       // 修复3: 不在逻辑层直接操作DOM，由渲染层统一处理
       // UI更新会在 InputHandler 中通过 renderer.render() 统一处理
       
-      this.gameState.log(`${attacker.card.name} 对 ${target.name} 造成 ${remainingDamage} 点伤害${actualDamage > remainingDamage ? `（护盾抵挡了 ${actualDamage - remainingDamage} 点）` : ''}`);
+      this.gameState.log(`${attacker.card.name} 对 ${target.name} 造成 ${finalDamage || remainingDamage} 点伤害${actualDamage > (finalDamage || remainingDamage) ? `（护盾抵挡了 ${actualDamage - (finalDamage || remainingDamage)} 点）` : ''}`);
+      
+      // 全反击：反弹伤害给攻击者
+      if (hasFullCounter && finalDamage > 0) {
+        const reflectDamage = finalDamage; // 反弹翻倍后的伤害
+        const attackerHero = attackerPlayer.hero;
+        
+        // 应用攻击者英雄的护盾
+        let remainingReflectDamage = reflectDamage;
+        if (attackerHero.shield > 0) {
+          const blocked = Math.min(attackerHero.shield, remainingReflectDamage);
+          attackerHero.shield -= blocked;
+          remainingReflectDamage -= blocked;
+          if (blocked > 0) {
+            this.gameState.log(`${attackerHero.name} 的护盾抵挡了 ${blocked} 点反弹伤害`);
+          }
+        }
+        
+        // 反弹伤害：优先减少护甲，然后减少生命值
+        if (remainingReflectDamage > 0) {
+          const attackerInitialHealth = attackerHero.initialHealth || 30;
+          const attackerArmor = attackerHero.maxHealth - attackerInitialHealth;
+          
+          if (attackerArmor > 0) {
+            const armorDamage = Math.min(attackerArmor, remainingReflectDamage);
+            attackerHero.maxHealth -= armorDamage;
+            attackerHero.health = Math.min(attackerHero.health, attackerHero.maxHealth);
+            remainingReflectDamage -= armorDamage;
+            this.gameState.log(`${attackerHero.name} 的护甲减少了 ${armorDamage} 点（反弹伤害）`);
+          }
+          
+          if (remainingReflectDamage > 0) {
+            attackerHero.health = Math.max(0, attackerHero.health - remainingReflectDamage);
+            this.gameState.log(`🔥 ${target.name} 的全反击反弹了 ${remainingReflectDamage} 点伤害给 ${attackerHero.name}！`);
+          }
+        }
+      }
+      
+      // 检查觉醒机制（生命值首次降至15以下）
+      if (target.awakenThreshold && !target.awakened && target.health <= target.awakenThreshold) {
+        this.triggerAwakening(targetPlayer.id);
+      }
       
       // 检查吸血
       if (attacker.card.keywords.includes('LIFESTEAL')) {
@@ -2066,6 +2126,94 @@ export class BattleSystem {
       }
       const shieldType = isSpell ? '法术护盾' : '护盾';
       this.gameState.log(`${player.hero.name} 获得了 ${shieldValue} 点${shieldType}`);
+    }
+  }
+  
+  // 触发觉醒机制（梅利迪奥斯）
+  triggerAwakening(playerId) {
+    const player = this.gameState.players[playerId];
+    const hero = player.hero;
+    
+    if (hero.awakened || !hero.awakenThreshold) {
+      return;
+    }
+    
+    hero.awakened = true;
+    this.gameState.log(`🔥 ${hero.name} 觉醒！进入歼灭模式！`);
+    
+    // 替换武器为失落之灾
+    const lostvayneCard = this.gameState.allCards.find(c => c.id === 'W022');
+    if (lostvayneCard) {
+      // 移除旧武器
+      hero.weapon = null;
+      hero.attack = 0;
+      
+      // 装备新武器
+      this.equipWeapon(playerId, lostvayneCard);
+      this.gameState.log(`${hero.name} 的武器替换为 ${lostvayneCard.name}！`);
+    }
+    
+    // 替换英雄技能
+    const heroData = this.gameState.allHeroes.find(h => h.id === hero.id);
+    if (heroData && heroData.awakenedSkill) {
+      hero.skill = {
+        name: heroData.awakenedSkill.name,
+        cost: heroData.awakenedSkill.cost,
+        description: heroData.awakenedSkill.description,
+        effect: heroData.awakenedSkill.effect,
+        usedThisTurn: false
+      };
+      this.gameState.log(`${hero.name} 的英雄技能变为：${hero.skill.name}`);
+    }
+  }
+  
+  // 使用实体分身技能
+  useCloneSkill(playerId) {
+    const player = this.gameState.players[playerId];
+    const hero = player.hero;
+    
+    if (!hero.awakened || !hero.skill || hero.skill.effect.type !== 'SUMMON_CLONES') {
+      return false;
+    }
+    
+    const effect = hero.skill.effect;
+    const count = effect.count || 2;
+    
+    // 重置本回合击杀数
+    hero.cloneKillsThisTurn = 0;
+    
+    // 召唤分身
+    for (let i = 0; i < count && player.battlefield.length < 6; i++) {
+      const cloneCard = {
+        id: 'CLONE_MELIODAS',
+        name: '梅利迪奥斯分身',
+        type: 'unit',
+        cost: 0,
+        attack: effect.cloneStats.attack || 1,
+        health: effect.cloneStats.health || 1,
+        keywords: [...(effect.keywords || ['CHARGE'])],
+        description: '梅利迪奥斯的实体分身',
+        rarity: 'L',
+        isClone: true // 标记为分身
+      };
+      
+      const position = this.findEmptyPosition(player);
+      this.playUnit(playerId, cloneCard, position);
+      this.gameState.log(`${hero.name} 召唤了 ${cloneCard.name}！`);
+    }
+    
+    return true;
+  }
+  
+  // 处理分身击杀随从时的效果
+  handleCloneKill(playerId) {
+    const player = this.gameState.players[playerId];
+    const hero = player.hero;
+    
+    if (hero.awakened) {
+      hero.cloneKillsThisTurn++;
+      hero.attack += 3;
+      this.gameState.log(`🔥 ${hero.name} 的分身消灭了一名随从！英雄获得 +3 攻击力（当前攻击力：${hero.attack}）`);
     }
   }
 }

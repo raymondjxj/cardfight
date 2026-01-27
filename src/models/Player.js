@@ -23,7 +23,13 @@ export class Player {
         effect: heroData.skill.effect,
         usedThisTurn: false,
         skillState: 0 // 0: 护盾, 1: 圣盾, 2: 护甲
-      }
+      },
+      // 梅利迪奥斯相关属性
+      awakened: false, // 是否已觉醒
+      awakenThreshold: heroData.awakenThreshold || null, // 觉醒阈值
+      fullCounter: heroData.passive && heroData.passive.type === 'FULL_COUNTER', // 全反击被动
+      awakenedSkill: heroData.awakenedSkill || null, // 觉醒后的技能
+      cloneKillsThisTurn: 0 // 本回合分身击杀数
     };
     this.mana = {
       current: 0,

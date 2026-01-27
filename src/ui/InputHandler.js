@@ -1421,7 +1421,7 @@ export class InputHandler {
     this.clearHighlights();
   }
   
-  // 英雄技能点击（简化版：增加2点护甲）
+  // 英雄技能点击
   onHeroSkillClick() {
     if (this.gameState.currentPlayer !== 'PLAYER1' || this.gameState.phase === 'ENDED') {
       return;
@@ -1442,11 +1442,32 @@ export class InputHandler {
       return;
     }
     
-    // 消耗法力
+    // 检查是否是实体分身技能（觉醒后的技能）
+    if (player.hero.awakened && skill.effect && skill.effect.type === 'SUMMON_CLONES') {
+      // 消耗法力
+      player.mana.current -= skill.cost;
+      skill.usedThisTurn = true;
+      
+      // 使用实体分身技能
+      const success = this.battleSystem.useCloneSkill('PLAYER1');
+      if (success) {
+        this.showMessage(`${player.hero.name} 召唤了实体分身！`, 'success');
+      } else {
+        this.showMessage('战场已满，无法召唤分身', 'warning');
+        // 返还法力
+        player.mana.current += skill.cost;
+        skill.usedThisTurn = false;
+      }
+      
+      // 重新渲染
+      this.renderer.render();
+      return;
+    }
+    
+    // 默认技能：增加英雄自身2点护甲值（只增加护甲，不增加生命值）
     player.mana.current -= skill.cost;
     skill.usedThisTurn = true;
     
-    // 简化技能：增加英雄自身2点护甲值（只增加护甲，不增加生命值）
     player.hero.maxHealth += 2;
     // 不增加当前生命值，护甲和生命值独立计算
     this.showMessage(`${player.hero.name} 获得了2点护甲`, 'success');

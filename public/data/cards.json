@@ -2641,6 +2641,30 @@
       "durability": 3,
       "description": "终极武器",
       "rarity": "L"
+    },
+    {
+      "id": "W021",
+      "name": "龙纹断剑",
+      "type": "weapon",
+      "cost": 0,
+      "attack": 1,
+      "durability": 3,
+      "description": "梅利迪奥斯的初始武器",
+      "rarity": "L"
+    },
+    {
+      "id": "W022",
+      "name": "失落之灾",
+      "type": "weapon",
+      "cost": 0,
+      "attack": 4,
+      "durability": 3,
+      "description": "觉醒后的武器，吸血",
+      "rarity": "L",
+      "weaponEffect": {
+        "type": "LIFESTEAL",
+        "description": "吸血"
+      }
     }
   ]
 }
