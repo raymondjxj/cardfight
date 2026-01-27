@@ -1,0 +1,510 @@
+{
+  "cards": [
+    {
+      "id": "C001",
+      "name": "新兵",
+      "type": "unit",
+      "cost": 1,
+      "attack": 1,
+      "health": 1,
+      "keywords": [],
+      "description": "基础单位",
+      "rarity": "C"
+    },
+    {
+      "id": "C002",
+      "name": "盾卫",
+      "type": "unit",
+      "cost": 1,
+      "attack": 0,
+      "health": 3,
+      "keywords": ["TAUNT"],
+      "description": "嘲讽",
+      "rarity": "C"
+    },
+    {
+      "id": "C003",
+      "name": "民兵队长",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": [],
+      "description": "扎实的2费单位",
+      "rarity": "C"
+    },
+    {
+      "id": "C004",
+      "name": "长枪兵",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 2,
+      "keywords": ["PIERCE_1"],
+      "description": "破甲1",
+      "rarity": "C"
+    },
+    {
+      "id": "C005",
+      "name": "弩手",
+      "type": "unit",
+      "cost": 2,
+      "attack": 2,
+      "health": 1,
+      "keywords": ["RANGED"],
+      "description": "远程，可攻击任意位置",
+      "rarity": "C"
+    },
+    {
+      "id": "C006",
+      "name": "战地医师",
+      "type": "unit",
+      "cost": 2,
+      "attack": 1,
+      "health": 2,
+      "keywords": [],
+      "battlecry": {
+        "type": "HEAL",
+        "target": "FRIENDLY_UNIT",
+        "value": 2
+      },
+      "description": "战吼：恢复1个友方单位2点生命",
+      "rarity": "C"
+    },
+    {
+      "id": "C007",
+      "name": "重装步兵",
+      "type": "unit",
+      "cost": 3,
+      "attack": 1,
+      "health": 5,
+      "keywords": ["TAUNT"],
+      "description": "嘲讽",
+      "rarity": "R"
+    },
+    {
+      "id": "C008",
+      "name": "破甲弩车",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 2,
+      "keywords": ["PIERCE_2", "RANGED"],
+      "description": "破甲2，远程",
+      "rarity": "R"
+    },
+    {
+      "id": "C009",
+      "name": "老兵",
+      "type": "unit",
+      "cost": 3,
+      "attack": 3,
+      "health": 3,
+      "keywords": [],
+      "description": "扎实的3费单位",
+      "rarity": "C"
+    },
+    {
+      "id": "C010",
+      "name": "符文铁匠",
+      "type": "unit",
+      "cost": 3,
+      "attack": 1,
+      "health": 3,
+      "description": "光环：你的法术伤害+1",
+      "aura": {
+        "type": "SPELL_POWER",
+        "value": 1,
+        "scope": "FRIENDLY"
+      },
+      "rarity": "R"
+    },
+    {
+      "id": "C011",
+      "name": "协同阵线",
+      "type": "spell",
+      "cost": 1,
+      "description": "使相邻的友方单位获得+1/+1，持续1回合",
+      "spellEffect": {
+        "type": "BUFF_ADJACENT",
+        "stats": {"attack": 1, "health": 1},
+        "duration": 1
+      },
+      "rarity": "C"
+    },
+    {
+      "id": "C012",
+      "name": "冲锋号令",
+      "type": "spell",
+      "cost": 2,
+      "description": "使一个友方单位获得+2攻击力和冲锋，持续1回合",
+      "spellEffect": {
+        "type": "BUFF_TARGET",
+        "stats": {"attack": 2},
+        "keywords": ["CHARGE"],
+        "duration": 1
+      },
+      "rarity": "R"
+    },
+    {
+      "id": "C013",
+      "name": "箭雨如潮",
+      "type": "spell",
+      "cost": 3,
+      "description": "对所有敌方单位造成1点伤害",
+      "spellEffect": {
+        "type": "AOE_DAMAGE",
+        "target": "ENEMY_UNITS",
+        "value": 1
+      },
+      "rarity": "C"
+    },
+    {
+      "id": "C014",
+      "name": "破城锤",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 4,
+      "keywords": ["PIERCE_2"],
+      "description": "破甲2",
+      "rarity": "R"
+    },
+    {
+      "id": "C015",
+      "name": "军需官",
+      "type": "unit",
+      "cost": 4,
+      "attack": 2,
+      "health": 4,
+      "keywords": [],
+      "battlecry": {
+        "type": "DRAW_CARD",
+        "value": 1
+      },
+      "description": "战吼：抽一张牌（无目标）",
+      "rarity": "R"
+    },
+    {
+      "id": "C016",
+      "name": "血刃勇士",
+      "type": "unit",
+      "cost": 4,
+      "attack": 4,
+      "health": 3,
+      "keywords": ["LIFESTEAL"],
+      "description": "吸血",
+      "rarity": "R"
+    },
+    {
+      "id": "C017",
+      "name": "烈焰风暴",
+      "type": "spell",
+      "cost": 5,
+      "description": "对所有敌方单位造成3点伤害",
+      "spellEffect": {
+        "type": "AOE_DAMAGE",
+        "target": "ENEMY_UNITS",
+        "value": 3
+      },
+      "rarity": "E"
+    },
+    {
+      "id": "C018",
+      "name": "龙骧将军",
+      "type": "unit",
+      "cost": 5,
+      "attack": 4,
+      "health": 4,
+      "keywords": [],
+      "description": "光环：相邻的友方单位获得+1攻击力",
+      "aura": {
+        "type": "ADJACENT_BUFF",
+        "stats": {"attack": 1},
+        "scope": "ADJACENT_ALLIES"
+      },
+      "rarity": "E"
+    },
+    {
+      "id": "C019",
+      "name": "无畏先锋",
+      "type": "unit",
+      "cost": 6,
+      "attack": 5,
+      "health": 5,
+      "keywords": ["CHARGE", "PIERCE_3"],
+      "description": "冲锋，破甲3",
+      "rarity": "E"
+    },
+    {
+      "id": "C020",
+      "name": "后勤补给",
+      "type": "spell",
+      "cost": 1,
+      "description": "抽一张牌",
+      "spellEffect": {
+        "type": "DRAW_CARD",
+        "value": 1
+      },
+      "rarity": "C"
+    },
+    {
+      "id": "W001",
+      "name": "铁剑",
+      "type": "weapon",
+      "cost": 1,
+      "attack": 1,
+      "durability": 2,
+      "description": "基础武器，攻击力+1",
+      "rarity": "C"
+    },
+    {
+      "id": "W002",
+      "name": "精钢战刃",
+      "type": "weapon",
+      "cost": 3,
+      "attack": 3,
+      "durability": 2,
+      "description": "强力武器，攻击力+3",
+      "rarity": "R"
+    },
+    {
+      "id": "W003",
+      "name": "寒冰之刃",
+      "type": "weapon",
+      "cost": 4,
+      "attack": 3,
+      "durability": 2,
+      "description": "史诗武器，攻击后冰冻目标一回合",
+      "rarity": "E",
+      "weaponEffect": {
+        "type": "FREEZE",
+        "description": "冰冻目标一回合"
+      }
+    },
+    {
+      "id": "W004",
+      "name": "烈焰之刃",
+      "type": "weapon",
+      "cost": 4,
+      "attack": 3,
+      "durability": 2,
+      "description": "史诗武器，攻击后火焰效果，持续降低护甲",
+      "rarity": "E",
+      "weaponEffect": {
+        "type": "FIRE",
+        "description": "火焰效果，持续降低护甲"
+      }
+    },
+    {
+      "id": "W005",
+      "name": "龙鳞重剑",
+      "type": "weapon",
+      "cost": 5,
+      "attack": 5,
+      "durability": 3,
+      "description": "传说武器，攻击力+5，攻击后雷特效",
+      "rarity": "L",
+      "weaponEffect": {
+        "type": "THUNDER",
+        "description": "雷特效，受到的所有伤害+1"
+      }
+    },
+    {
+      "id": "W006",
+      "name": "剧毒匕首",
+      "type": "weapon",
+      "cost": 5,
+      "attack": 4,
+      "durability": 2,
+      "description": "传说武器，攻击后毒特效，10回合后死亡",
+      "rarity": "L",
+      "weaponEffect": {
+        "type": "POISON",
+        "description": "毒特效，10回合后死亡"
+      }
+    },
+    {
+      "id": "C021",
+      "name": "护盾卫士",
+      "type": "unit",
+      "cost": 2,
+      "attack": 1,
+      "health": 3,
+      "keywords": ["SHIELD_2"],
+      "description": "护盾2，抵挡2点物理伤害",
+      "rarity": "C"
+    },
+    {
+      "id": "C022",
+      "name": "法术屏障",
+      "type": "spell",
+      "cost": 2,
+      "description": "使一个友方单位或英雄获得法术护盾2",
+      "spellEffect": {
+        "type": "ADD_SHIELD",
+        "target": "TARGET",
+        "value": 2,
+        "isSpell": true
+      },
+      "rarity": "R"
+    },
+    {
+      "id": "C023",
+      "name": "护盾法术",
+      "type": "spell",
+      "cost": 1,
+      "description": "使一个友方单位或英雄获得护盾2",
+      "spellEffect": {
+        "type": "ADD_SHIELD",
+        "target": "TARGET",
+        "value": 2,
+        "isSpell": false
+      },
+      "rarity": "C"
+    },
+    {
+      "id": "C024",
+      "name": "英雄护甲",
+      "type": "spell",
+      "cost": 2,
+      "description": "使英雄获得2点护甲并抽一张牌",
+      "spellEffect": {
+        "type": "BUFF_HERO_ARMOR",
+        "value": 2,
+        "drawCard": 1
+      },
+      "rarity": "C"
+    },
+    {
+      "id": "C025",
+      "name": "寒冰箭",
+      "type": "spell",
+      "cost": 2,
+      "description": "对目标造成2点伤害并冰冻",
+      "spellEffect": {
+        "type": "DAMAGE_WITH_FREEZE",
+        "target": "TARGET",
+        "damage": 2
+      },
+      "rarity": "C"
+    },
+    {
+      "id": "C026",
+      "name": "闪电箭",
+      "type": "spell",
+      "cost": 2,
+      "description": "对目标造成2点伤害并附加雷特效（受到的所有伤害+1，持续3回合）",
+      "spellEffect": {
+        "type": "DAMAGE_WITH_THUNDER",
+        "target": "TARGET",
+        "damage": 2,
+        "duration": 3
+      },
+      "rarity": "C"
+    },
+    {
+      "id": "C027",
+      "name": "火球术",
+      "type": "spell",
+      "cost": 3,
+      "description": "对目标造成3点伤害并附加火焰效果（持续降低护甲，持续3回合）",
+      "spellEffect": {
+        "type": "DAMAGE_WITH_FIRE",
+        "target": "TARGET",
+        "damage": 3,
+        "duration": 3
+      },
+      "rarity": "R"
+    },
+    {
+      "id": "C028",
+      "name": "剧毒箭",
+      "type": "spell",
+      "cost": 4,
+      "description": "对目标造成2点伤害并附加剧毒（10回合后死亡）",
+      "spellEffect": {
+        "type": "DAMAGE_WITH_POISON",
+        "target": "TARGET",
+        "damage": 2
+      },
+      "rarity": "R"
+    },
+    {
+      "id": "C029",
+      "name": "寒冰风暴",
+      "type": "spell",
+      "cost": 4,
+      "description": "对所有敌方单位造成2点伤害并冰冻",
+      "spellEffect": {
+        "type": "AOE_DAMAGE_WITH_FREEZE",
+        "target": "ENEMY_UNITS",
+        "damage": 2
+      },
+      "rarity": "E"
+    },
+    {
+      "id": "C030",
+      "name": "雷暴",
+      "type": "spell",
+      "cost": 5,
+      "description": "对所有敌方单位造成2点伤害并附加雷特效（持续4回合）",
+      "spellEffect": {
+        "type": "AOE_DAMAGE_WITH_THUNDER",
+        "target": "ENEMY_UNITS",
+        "damage": 2,
+        "duration": 4
+      },
+      "rarity": "E"
+    },
+    {
+      "id": "C031",
+      "name": "智慧之书",
+      "type": "spell",
+      "cost": 2,
+      "description": "抽2张牌",
+      "spellEffect": {
+        "type": "DRAW_CARD",
+        "value": 2
+      },
+      "rarity": "C"
+    },
+    {
+      "id": "C032",
+      "name": "知识宝库",
+      "type": "spell",
+      "cost": 3,
+      "description": "抽3张牌",
+      "spellEffect": {
+        "type": "DRAW_CARD",
+        "value": 3
+      },
+      "rarity": "R"
+    },
+    {
+      "id": "C033",
+      "name": "远古卷轴",
+      "type": "spell",
+      "cost": 4,
+      "description": "抽4张牌",
+      "spellEffect": {
+        "type": "DRAW_CARD",
+        "value": 4
+      },
+      "rarity": "E"
+    },
+    {
+      "id": "C034",
+      "name": "强化护甲",
+      "type": "spell",
+      "cost": 2,
+      "description": "使英雄获得2点护甲并抽一张牌",
+      "spellEffect": {
+        "type": "BUFF_HERO_ARMOR",
+        "value": 2,
+        "drawCard": 1
+      },
+      "rarity": "R"
+    }
+  ]
+}

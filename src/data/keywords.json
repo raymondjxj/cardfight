@@ -1,0 +1,52 @@
+{
+  "keywords": {
+    "TAUNT": {
+      "name": "嘲讽",
+      "description": "敌人必须优先攻击此单位",
+      "rules": "当战场上有嘲讽单位时，敌人只能攻击嘲讽单位（除非拥有远程）"
+    },
+    "CHARGE": {
+      "name": "冲锋",
+      "description": "可以在召唤的当回合立即攻击",
+      "rules": "单位上场时即可攻击，不会进入疲惫状态"
+    },
+    "LIFESTEAL": {
+      "name": "吸血",
+      "description": "攻击时，造成伤害的50%治疗你的英雄",
+      "rules": "治疗量 = ceil(实际造成的伤害 × 0.5)"
+    },
+    "RANGED": {
+      "name": "远程",
+      "description": "可以攻击任意位置的敌人，无视嘲讽",
+      "rules": "可以攻击任意敌方单位，包括被嘲讽单位保护的后排"
+    },
+    "PIERCE_1": {
+      "name": "破甲1",
+      "description": "攻击时无视目标1点护甲",
+      "rules": "计算伤害时，先减少目标1点护甲值"
+    },
+    "PIERCE_2": {
+      "name": "破甲2",
+      "description": "攻击时无视目标2点护甲"
+    },
+    "PIERCE_3": {
+      "name": "破甲3",
+      "description": "攻击时无视目标3点护甲"
+    },
+    "SHIELD": {
+      "name": "护盾",
+      "description": "抵挡物理伤害",
+      "rules": "护盾值可以抵挡物理攻击伤害，每点护盾抵挡1点伤害"
+    },
+    "SPELL_SHIELD": {
+      "name": "法术护盾",
+      "description": "抵挡法术伤害",
+      "rules": "法术护盾值可以抵挡法术伤害，每点法术护盾抵挡1点法术伤害"
+    },
+    "DIVINE_SHIELD": {
+      "name": "圣盾",
+      "description": "抵挡一次伤害",
+      "rules": "拥有圣盾的单位在受到伤害时，会先消耗圣盾，完全抵挡该次伤害"
+    }
+  }
+}

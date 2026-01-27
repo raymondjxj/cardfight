@@ -1,0 +1,24 @@
+{
+  "name": "xuanyuan-pvp-mvp",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "玄穹九野 - 东方奇幻卡牌对战游戏MVP",
+  "main": "src/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "jest"
+  },
+  "keywords": ["card-game", "strategy", "pvp", "chinese-fantasy"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "jest": "^29.0.0",
+    "@testing-library/jest-dom": "^6.0.0"
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@7.2.5"
+  }
+}
