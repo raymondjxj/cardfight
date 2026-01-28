@@ -1091,6 +1091,17 @@ export class BattleSystem {
         this.gameState.log(`🔥 ${target.name} 的全反击：反弹 ${reflectDamage} 点伤害（原伤害 ${remainingDamage} 翻倍）给攻击者！`);
         const attackerHero = attackerPlayer.hero;
         
+        // 触发全反击视觉特效
+        if (this.gameState.renderer && this.gameState.renderer.playFullCounterEffect) {
+          this.gameState.renderer.playFullCounterEffect(
+            target,           // 目标英雄（受到伤害的英雄）
+            attackerHero,     // 攻击者英雄（将受到反弹伤害）
+            reflectDamage,    // 反弹伤害值
+            targetPlayer.id,  // 目标玩家ID
+            attackerPlayer.id // 攻击者玩家ID
+          );
+        }
+        
         // 应用攻击者英雄的护盾
         let remainingReflectDamage = reflectDamage;
         if (attackerHero.shield > 0) {
@@ -1218,6 +1229,10 @@ export class BattleSystem {
     
     if (isTargetHero) {
       // 攻击英雄
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:1220',message:'heroAttack entry',data:{playerId,targetPlayerId,damage,heroAttack:hero.attack,targetHealth:target.health,targetMaxHealth:target.maxHealth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,C'})}).catch(()=>{});
+      // #endregion
+      
       // 应用护盾和圣盾
       let remainingDamage = damage;
       
@@ -1234,25 +1249,53 @@ export class BattleSystem {
         }
       }
       
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:1237',message:'before armor calculation',data:{remainingDamage,targetHealth:target.health,targetMaxHealth:target.maxHealth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+      // #endregion
+      
       // 物理伤害：优先减少护甲，然后减少生命值
       if (remainingDamage > 0) {
         const initialHealth = targetPlayer.hero.initialHealth || 30;
         const currentArmor = target.maxHealth - initialHealth;
         
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:1242',message:'armor calculation',data:{initialHealth,currentArmor,remainingDamage,targetHealth:target.health,targetMaxHealth:target.maxHealth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+        // #endregion
+        
         if (currentArmor > 0) {
           // 有护甲，先减少护甲
           const armorDamage = Math.min(currentArmor, remainingDamage);
+          const healthBefore = target.health;
+          const maxHealthBefore = target.maxHealth;
           target.maxHealth -= armorDamage;
           target.health = Math.min(target.health, target.maxHealth); // 如果当前血量超过最大血量，降低到最大血量
           remainingDamage -= armorDamage;
+          
+          // #region agent log
+          fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:1246',message:'after armor reduction',data:{armorDamage,healthBefore,healthAfter:target.health,maxHealthBefore,maxHealthAfter:target.maxHealth,remainingDamage,healthReduced:healthBefore-target.health},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+          // #endregion
+          
           this.gameState.log(`${target.name} 的护甲减少了 ${armorDamage} 点`);
         }
         
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:1251',message:'before health reduction',data:{remainingDamage,targetHealth:target.health},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,C'})}).catch(()=>{});
+        // #endregion
+        
         // 剩余伤害减少生命值
         if (remainingDamage > 0) {
+          const healthBefore = target.health;
           target.health = Math.max(0, target.health - remainingDamage);
+          
+          // #region agent log
+          fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:1253',message:'after health reduction',data:{remainingDamage,healthBefore,healthAfter:target.health},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,C'})}).catch(()=>{});
+          // #endregion
         }
       }
+      
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:1257',message:'heroAttack final state',data:{damage,remainingDamage,targetHealth:target.health,targetMaxHealth:target.maxHealth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,C'})}).catch(()=>{});
+      // #endregion
       
       this.gameState.log(`${hero.name} 对 ${target.name} 造成 ${damage} 点伤害${damage > remainingDamage ? `（护盾/护甲抵挡了 ${damage - remainingDamage} 点）` : ''}`);
       

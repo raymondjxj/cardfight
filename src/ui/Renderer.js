@@ -283,15 +283,26 @@ export class Renderer {
       .join(' ');
   }
   
-  // 渲染手牌
+  // 渲染手牌（底部布局，显示5张）
   renderHand(player) {
     const container = this.elements.playerHand;
     container.innerHTML = '';
     
-    player.hand.forEach((card, index) => {
+    // 只显示前5张手牌（底部布局）
+    const cardsToShow = player.hand.slice(0, 5);
+    cardsToShow.forEach((card, index) => {
       const cardElement = this.createCardElement(card, index);
       container.appendChild(cardElement);
     });
+    
+    // 如果手牌超过5张，显示提示
+    if (player.hand.length > 5) {
+      const moreCards = document.createElement('div');
+      moreCards.className = 'more-cards-indicator';
+      moreCards.textContent = `+${player.hand.length - 5}`;
+      moreCards.title = `还有 ${player.hand.length - 5} 张手牌`;
+      container.appendChild(moreCards);
+    }
   }
   
   // 创建卡牌元素
@@ -1592,6 +1603,266 @@ export class Renderer {
         }
       }, 1000);
     }
+  }
+  
+  // 全反击特效系统
+  async playFullCounterEffect(targetHero, attackerHero, reflectDamage, targetPlayerId, attackerPlayerId) {
+    console.log('🔥 全反击特效触发！', { targetHero: targetHero.name, attackerHero: attackerHero.name, reflectDamage });
+    
+    // 获取目标英雄头像元素
+    const targetAvatar = document.getElementById(targetPlayerId === 'PLAYER1' ? 'player-avatar' : 'opponent-avatar');
+    const attackerAvatar = document.getElementById(attackerPlayerId === 'PLAYER1' ? 'player-avatar' : 'opponent-avatar');
+    const gameContainer = document.querySelector('.game-container');
+    
+    if (!targetAvatar || !gameContainer) return;
+    
+    // 1. 屏幕强烈抖动
+    this.shakeScreenIntense(gameContainer);
+    
+    // 2. 色彩闪烁 - 英雄头像发出强烈的紫色光芒
+    this.flashHeroAvatar(targetAvatar);
+    
+    // 3. 径向冲击波 - 从目标英雄中心扩散
+    this.createRadialShockwave(targetAvatar);
+    
+    // 4. 数值反弹动画 - 伤害数字弹向攻击者
+    if (attackerAvatar) {
+      this.animateReflectDamageNumber(targetAvatar, attackerAvatar, reflectDamage);
+    }
+    
+    // 5. 屏幕背景闪烁（可选）
+    this.flashScreenBackground();
+  }
+  
+  // 强烈的屏幕抖动
+  shakeScreenIntense(container) {
+    if (!container) return;
+    
+    // 创建动画关键帧
+    const keyframes = [
+      { transform: 'translateX(-10px) translateY(-5px)', offset: 0 },
+      { transform: 'translateX(10px) translateY(5px)', offset: 0.1 },
+      { transform: 'translateX(-7px) translateY(-3px)', offset: 0.2 },
+      { transform: 'translateX(7px) translateY(3px)', offset: 0.3 },
+      { transform: 'translateX(-5px) translateY(-2px)', offset: 0.4 },
+      { transform: 'translateX(5px) translateY(2px)', offset: 0.5 },
+      { transform: 'translateX(-3px) translateY(-1px)', offset: 0.6 },
+      { transform: 'translateX(3px) translateY(1px)', offset: 0.7 },
+      { transform: 'translateX(-2px)', offset: 0.8 },
+      { transform: 'translateX(2px)', offset: 0.9 },
+      { transform: 'translateX(0) translateY(0)', offset: 1 }
+    ];
+    
+    container.animate(keyframes, {
+      duration: 400,
+      easing: 'ease-in-out'
+    });
+  }
+  
+  // 英雄头像色彩闪烁（强烈的紫色光芒）
+  flashHeroAvatar(avatarElement) {
+    if (!avatarElement) return;
+    
+    // 保存原始样式
+    const originalFilter = avatarElement.style.filter || '';
+    const originalTransition = avatarElement.style.transition || '';
+    
+    // 应用强烈的紫色光芒效果
+    avatarElement.style.transition = 'filter 0.1s ease';
+    avatarElement.style.filter = 'brightness(3) drop-shadow(0 0 30px rgba(138, 43, 226, 1)) drop-shadow(0 0 60px rgba(138, 43, 226, 0.8)) drop-shadow(0 0 90px rgba(138, 43, 226, 0.6))';
+    
+    // 闪烁序列
+    setTimeout(() => {
+      avatarElement.style.filter = 'brightness(1.5) drop-shadow(0 0 20px rgba(138, 43, 226, 0.8))';
+    }, 100);
+    
+    setTimeout(() => {
+      avatarElement.style.filter = 'brightness(2.5) drop-shadow(0 0 40px rgba(138, 43, 226, 1)) drop-shadow(0 0 80px rgba(138, 43, 226, 0.9))';
+    }, 150);
+    
+    setTimeout(() => {
+      avatarElement.style.filter = 'brightness(1.2) drop-shadow(0 0 15px rgba(138, 43, 226, 0.6))';
+    }, 250);
+    
+    // 恢复原始样式
+    setTimeout(() => {
+      avatarElement.style.filter = originalFilter;
+      avatarElement.style.transition = originalTransition;
+    }, 400);
+  }
+  
+  // 径向冲击波 - 从英雄中心扩散
+  createRadialShockwave(centerElement) {
+    if (!centerElement) return;
+    
+    const rect = centerElement.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // 创建冲击波元素
+    const shockwave = document.createElement('div');
+    shockwave.className = 'full-counter-shockwave';
+    shockwave.style.position = 'fixed';
+    shockwave.style.left = `${centerX}px`;
+    shockwave.style.top = `${centerY}px`;
+    shockwave.style.width = '0px';
+    shockwave.style.height = '0px';
+    shockwave.style.borderRadius = '50%';
+    shockwave.style.border = '4px solid rgba(138, 43, 226, 0.8)';
+    shockwave.style.boxShadow = '0 0 40px rgba(138, 43, 226, 1), inset 0 0 40px rgba(138, 43, 226, 0.5)';
+    shockwave.style.transform = 'translate(-50%, -50%)';
+    shockwave.style.pointerEvents = 'none';
+    shockwave.style.zIndex = '10000';
+    
+    document.body.appendChild(shockwave);
+    
+    // 扩散动画
+    const keyframes = [
+      { 
+        width: '0px', 
+        height: '0px', 
+        opacity: 0.8,
+        borderWidth: '4px',
+        boxShadow: '0 0 40px rgba(138, 43, 226, 1), inset 0 0 40px rgba(138, 43, 226, 0.5)'
+      },
+      { 
+        width: '200px', 
+        height: '200px', 
+        opacity: 0.6,
+        borderWidth: '3px',
+        boxShadow: '0 0 60px rgba(138, 43, 226, 0.8), inset 0 0 60px rgba(138, 43, 226, 0.4)'
+      },
+      { 
+        width: '500px', 
+        height: '500px', 
+        opacity: 0.3,
+        borderWidth: '2px',
+        boxShadow: '0 0 80px rgba(138, 43, 226, 0.6), inset 0 0 80px rgba(138, 43, 226, 0.3)'
+      },
+      { 
+        width: '800px', 
+        height: '800px', 
+        opacity: 0,
+        borderWidth: '1px',
+        boxShadow: '0 0 100px rgba(138, 43, 226, 0.4), inset 0 0 100px rgba(138, 43, 226, 0.2)'
+      }
+    ];
+    
+    shockwave.animate(keyframes, {
+      duration: 600,
+      easing: 'ease-out'
+    }).onfinish = () => {
+      if (shockwave.parentNode) {
+        shockwave.remove();
+      }
+    };
+  }
+  
+  // 数值反弹动画 - 伤害数字弹向攻击者（抛物线运动）
+  animateReflectDamageNumber(startElement, endElement, damage) {
+    if (!startElement || !endElement) return;
+    
+    const startRect = startElement.getBoundingClientRect();
+    const endRect = endElement.getBoundingClientRect();
+    
+    const startX = startRect.left + startRect.width / 2;
+    const startY = startRect.top + startRect.height / 2;
+    const endX = endRect.left + endRect.width / 2;
+    const endY = endRect.top + endRect.height / 2;
+    
+    // 创建伤害数字元素
+    const damageEl = document.createElement('div');
+    damageEl.className = 'full-counter-damage-number';
+    damageEl.textContent = `🔥-${damage}`;
+    damageEl.style.position = 'fixed';
+    damageEl.style.left = `${startX}px`;
+    damageEl.style.top = `${startY}px`;
+    damageEl.style.transform = 'translate(-50%, -50%)';
+    damageEl.style.fontSize = '2.5em';
+    damageEl.style.fontWeight = 'bold';
+    damageEl.style.color = '#8a2be2';
+    damageEl.style.textShadow = '0 0 20px rgba(138, 43, 226, 1), 0 0 40px rgba(138, 43, 226, 0.8)';
+    damageEl.style.pointerEvents = 'none';
+    damageEl.style.zIndex = '10001';
+    damageEl.style.whiteSpace = 'nowrap';
+    
+    document.body.appendChild(damageEl);
+    
+    // 计算抛物线路径
+    const distanceX = endX - startX;
+    const distanceY = endY - startY;
+    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    const peakHeight = Math.max(100, distance * 0.3); // 抛物线高度
+    
+    // 创建关键帧动画（抛物线运动）
+    const keyframes = [];
+    const steps = 30;
+    
+    for (let i = 0; i <= steps; i++) {
+      const progress = i / steps;
+      const x = startX + distanceX * progress;
+      // 抛物线公式：y = -4h * t * (t - 1)，其中 h 是峰值高度
+      const parabolaY = -4 * peakHeight * progress * (progress - 1);
+      const y = startY + distanceY * progress + parabolaY;
+      
+      // 旋转角度（朝向目标）
+      const angle = Math.atan2(distanceY, distanceX) * (180 / Math.PI);
+      
+      // 缩放效果（开始时大，结束时小）
+      const scale = 1.5 - progress * 0.5;
+      
+      keyframes.push({
+        left: `${x}px`,
+        top: `${y}px`,
+        transform: `translate(-50%, -50%) rotate(${angle}deg) scale(${scale})`,
+        opacity: 1 - progress * 0.3
+      });
+    }
+    
+    // 执行动画
+    damageEl.animate(keyframes, {
+      duration: 800,
+      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+    }).onfinish = () => {
+      if (damageEl.parentNode) {
+        damageEl.remove();
+      }
+    };
+  }
+  
+  // 屏幕背景闪烁
+  flashScreenBackground() {
+    const overlay = document.createElement('div');
+    overlay.className = 'full-counter-flash-overlay';
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(138, 43, 226, 0.3)';
+    overlay.style.pointerEvents = 'none';
+    overlay.style.zIndex = '9999';
+    overlay.style.opacity = '0';
+    
+    document.body.appendChild(overlay);
+    
+    // 闪烁动画
+    const keyframes = [
+      { opacity: 0 },
+      { opacity: 0.5 },
+      { opacity: 0.2 },
+      { opacity: 0.4 },
+      { opacity: 0 }
+    ];
+    
+    overlay.animate(keyframes, {
+      duration: 400,
+      easing: 'ease-in-out'
+    }).onfinish = () => {
+      if (overlay.parentNode) {
+        overlay.remove();
+      }
+    };
   }
   
   // 显示发现UI
