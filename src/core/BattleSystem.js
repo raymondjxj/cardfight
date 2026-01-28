@@ -1059,11 +1059,7 @@ export class BattleSystem {
         // 剩余伤害减少生命值
         if (remainingDamage > 0) {
           finalDamage = remainingDamage;
-          // 全反击：伤害翻倍
-          if (hasFullCounter) {
-            finalDamage = remainingDamage * 2;
-            this.gameState.log(`🔥 ${target.name} 的全反击：伤害翻倍！实际受到 ${finalDamage} 点伤害（原伤害 ${remainingDamage}）`);
-          }
+          // 目标只受到原始伤害（不翻倍）
           target.health = Math.max(0, target.health - finalDamage);
         }
       }
@@ -1088,9 +1084,11 @@ export class BattleSystem {
       
       this.gameState.log(`${attacker.card.name} 对 ${target.name} 造成 ${finalDamage || remainingDamage} 点伤害${actualDamage > (finalDamage || remainingDamage) ? `（护盾抵挡了 ${actualDamage - (finalDamage || remainingDamage)} 点）` : ''}`);
       
-      // 全反击：反弹伤害给攻击者
-      if (hasFullCounter && finalDamage > 0) {
-        const reflectDamage = finalDamage; // 反弹翻倍后的伤害
+      // 全反击：反弹翻倍后的伤害给攻击者
+      if (hasFullCounter && remainingDamage > 0) {
+        // 反弹伤害 = 原始伤害 * 2（翻倍）
+        const reflectDamage = remainingDamage * 2;
+        this.gameState.log(`🔥 ${target.name} 的全反击：反弹 ${reflectDamage} 点伤害（原伤害 ${remainingDamage} 翻倍）给攻击者！`);
         const attackerHero = attackerPlayer.hero;
         
         // 应用攻击者英雄的护盾

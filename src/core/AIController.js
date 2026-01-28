@@ -577,6 +577,11 @@ export class AIController {
     const hero = player.hero;
     const skill = hero.skill;
     
+    // 检查是否是被动技能（不能主动使用）
+    if (skill.type === 'PASSIVE') {
+      return; // 被动技能无法使用
+    }
+    
     // 检查是否可以使用技能
     if (skill.usedThisTurn) {
       return; // 本回合已使用
@@ -586,6 +591,27 @@ export class AIController {
       return; // 法力不足
     }
     
+    // 检查是否是实体分身技能（觉醒后的技能）
+    if (hero.awakened && skill.effect && skill.effect.type === 'SUMMON_CLONES') {
+      // 使用实体分身技能
+      player.mana.current -= skill.cost;
+      skill.usedThisTurn = true;
+      
+      const success = this.battleSystem.useCloneSkill(player.id);
+      if (success) {
+        this.gameState.log(`${hero.name} 使用技能：召唤了实体分身！`);
+      }
+      
+      // 重新渲染
+      if (renderer) {
+        renderer.render();
+      }
+      
+      await this.delay(400);
+      return;
+    }
+    
+    // 默认技能：增加2点护甲（只增加护甲，不增加生命值）
     // AI决策：如果英雄血量低于15或对手有强力单位，使用技能增加护甲
     const opponent = this.gameState.players['PLAYER1'];
     const hasStrongEnemy = opponent.battlefield.some(u => u.attack >= 4);
@@ -596,7 +622,6 @@ export class AIController {
       player.mana.current -= skill.cost;
       skill.usedThisTurn = true;
       
-      // 增加2点护甲（只增加护甲，不增加生命值）
       hero.maxHealth += 2;
       // 不增加当前生命值，护甲和生命值独立计算
       this.gameState.log(`${hero.name} 使用技能：获得2点护甲`);

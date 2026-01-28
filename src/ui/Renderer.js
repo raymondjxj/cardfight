@@ -449,13 +449,26 @@ export class Renderer {
       const player = this.gameState.players['PLAYER1'];
       const skill = player.hero.skill;
       
-      this.elements.heroSkillBtn.textContent = `🛡️ (${skill.cost}费)`;
-      this.elements.heroSkillBtn.title = skill.description || `消耗${skill.cost}点法力，增加英雄自身2点护甲值`;
-      this.elements.heroSkillBtn.disabled = 
-        this.gameState.currentPlayer !== 'PLAYER1' || 
-        this.gameState.phase === 'ENDED' ||
-        player.mana.current < skill.cost ||
-        skill.usedThisTurn;
+      // 检查是否是被动技能
+      const isPassive = skill.type === 'PASSIVE';
+      
+      if (isPassive) {
+        // 被动技能：显示为不可用状态
+        this.elements.heroSkillBtn.textContent = `🛡️ 被动`;
+        this.elements.heroSkillBtn.title = skill.description || '被动技能，无法主动使用';
+        this.elements.heroSkillBtn.disabled = true;
+        this.elements.heroSkillBtn.classList.add('skill-passive');
+      } else {
+        // 主动技能：正常显示
+        this.elements.heroSkillBtn.textContent = `🛡️ (${skill.cost}费)`;
+        this.elements.heroSkillBtn.title = skill.description || `消耗${skill.cost}点法力，增加英雄自身2点护甲值`;
+        this.elements.heroSkillBtn.disabled = 
+          this.gameState.currentPlayer !== 'PLAYER1' || 
+          this.gameState.phase === 'ENDED' ||
+          player.mana.current < skill.cost ||
+          skill.usedThisTurn;
+        this.elements.heroSkillBtn.classList.remove('skill-passive');
+      }
       
       // 添加视觉反馈状态类（和对手按钮保持一致）
       if (skill.usedThisTurn) {
@@ -463,7 +476,7 @@ export class Renderer {
       } else {
         this.elements.heroSkillBtn.classList.remove('skill-used');
       }
-      if (player.mana.current < skill.cost) {
+      if (player.mana.current < skill.cost && !isPassive) {
         this.elements.heroSkillBtn.classList.add('skill-insufficient-mana');
       } else {
         this.elements.heroSkillBtn.classList.remove('skill-insufficient-mana');
@@ -475,8 +488,22 @@ export class Renderer {
       const opponent = this.gameState.players['PLAYER2'];
       const skill = opponent.hero.skill;
       
-      this.elements.opponentHeroSkillBtn.textContent = `🛡️ (${skill.cost}费)`;
-      this.elements.opponentHeroSkillBtn.title = `对手的技能：${skill.description || `消耗${skill.cost}点法力，增加英雄自身2点护甲值`}`;
+      // 检查是否是被动技能
+      const isPassive = skill.type === 'PASSIVE';
+      
+      if (isPassive) {
+        // 被动技能：显示为不可用状态
+        this.elements.opponentHeroSkillBtn.textContent = `🛡️ 被动`;
+        this.elements.opponentHeroSkillBtn.title = `对手的技能：${skill.description || '被动技能，无法主动使用'}`;
+        this.elements.opponentHeroSkillBtn.disabled = true;
+        this.elements.opponentHeroSkillBtn.classList.add('skill-passive');
+      } else {
+        // 主动技能：正常显示
+        this.elements.opponentHeroSkillBtn.textContent = `🛡️ (${skill.cost}费)`;
+        this.elements.opponentHeroSkillBtn.title = `对手的技能：${skill.description || `消耗${skill.cost}点法力，增加英雄自身2点护甲值`}`;
+        this.elements.opponentHeroSkillBtn.classList.remove('skill-passive');
+      }
+      
       // 显示技能使用状态（和玩家按钮保持一致的设计）
       this.elements.opponentHeroSkillBtn.disabled = true; // 对手技能不可点击
       // 如果技能已使用，添加视觉反馈（和玩家按钮一致）
@@ -486,7 +513,7 @@ export class Renderer {
         this.elements.opponentHeroSkillBtn.classList.remove('skill-used');
       }
       // 如果法力不足，添加视觉反馈（和玩家按钮一致）
-      if (opponent.mana.current < skill.cost) {
+      if (opponent.mana.current < skill.cost && !isPassive) {
         this.elements.opponentHeroSkillBtn.classList.add('skill-insufficient-mana');
       } else {
         this.elements.opponentHeroSkillBtn.classList.remove('skill-insufficient-mana');

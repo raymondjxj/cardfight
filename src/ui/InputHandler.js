@@ -1430,6 +1430,12 @@ export class InputHandler {
     const player = this.gameState.players['PLAYER1'];
     const skill = player.hero.skill;
     
+    // 检查是否是被动技能（不能主动使用）
+    if (skill.type === 'PASSIVE') {
+      this.showMessage('这是被动技能，无法主动使用', 'info');
+      return;
+    }
+    
     // 检查法力
     if (player.mana.current < skill.cost) {
       this.showMessage(`法力不足，需要 ${skill.cost} 点法力`, 'warning');
