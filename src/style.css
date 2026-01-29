@@ -54,9 +54,11 @@ body::before {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     padding: 10px;
     min-height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
 }
 
 h1, h2, h3, h4 {
@@ -65,23 +67,25 @@ h1, h2, h3, h4 {
 }
 
 h1 {
+    flex-shrink: 0;
     text-align: center;
     color: #d4af37;
     text-shadow: 
         0 0 10px rgba(212, 175, 55, 0.8),
         0 0 20px rgba(212, 175, 55, 0.5),
         0 2px 4px rgba(0,0,0,0.5);
-    padding-bottom: 10px;
+    padding: 8px 15px;
     border-bottom: 2px solid #d4af37;
     background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-    padding: 15px;
     border-radius: 10px;
+    font-size: clamp(1rem, 2.2vw, 1.5rem);
 }
 
 #game-status {
+    flex-shrink: 0;
     background: linear-gradient(135deg, rgba(26, 10, 46, 0.9), rgba(15, 5, 25, 0.9));
-    padding: 10px 20px;
-    border-radius: 12px;
+    padding: 8px 16px;
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -91,21 +95,39 @@ h1 {
         0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* 新的主战场布局 */
+#game-status #game-tips {
+    font-size: 0.8em;
+}
+
+/* 主内容区：战场 + 右侧日志（一屏展示） */
+.main-content-with-log {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* 新的主战场布局（左侧主区域） */
 .main-battlefield-layout-new {
     display: flex;
     flex-direction: column;
     gap: 0;
-    min-height: 600px;
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
     position: relative;
+    overflow: hidden;
 }
 
-/* 顶部：对手区域 */
+/* 顶部：对手区域（比例约 1 份，左英雄右手牌） */
 .top-opponent-section {
     display: grid;
-    grid-template-columns: 250px 1fr 200px;
-    gap: 15px;
-    padding: 15px;
+    grid-template-columns: minmax(140px, 220px) 1fr;
+    gap: 10px;
+    padding: 10px 12px;
+    flex-shrink: 0;
     background: linear-gradient(180deg, rgba(220, 200, 180, 0.9) 0%, rgba(212, 197, 169, 0.8) 100%);
     border-bottom: 2px solid rgba(139, 69, 19, 0.2);
 }
@@ -114,17 +136,37 @@ h1 {
 .opponent-hero-left {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+}
+
+.opponent-hero-left .battlefield,
+.player-hero-left .battlefield {
+    min-height: 56px;
+    padding: 6px;
 }
 
 .opponent-hero-compact {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px;
+    gap: 8px;
+    padding: 8px;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    border-radius: 8px;
     border: 1px solid rgba(139, 69, 19, 0.2);
+}
+
+.opponent-hero-compact .hero-avatar,
+.player-hero-compact .hero-avatar {
+    width: 56px;
+    height: 56px;
+    font-size: 1.6em;
+}
+
+.opponent-hero-compact .weapon-slot-compact,
+.player-hero-compact .weapon-slot-compact {
+    min-width: 52px;
+    padding: 4px;
+    font-size: 0.75em;
 }
 
 .opponent-hero-stats {
@@ -181,8 +223,8 @@ h1 {
 }
 
 .opponent-card-back {
-    width: 50px;
-    height: 70px;
+    width: 42px;
+    height: 58px;
     background: linear-gradient(145deg, #1a0a2e, #0f0519);
     border: 2px solid #8b4513;
     border-radius: 6px;
@@ -202,8 +244,10 @@ h1 {
     font-weight: bold;
 }
 
-/* 中央战斗板 */
+/* 中央战斗板（中间弹性，一屏内可见双方） */
 .battle-board-center {
+    flex: 1;
+    min-height: 120px;
     background: 
         linear-gradient(180deg, rgba(212, 197, 169, 0.8) 0%, rgba(201, 185, 155, 0.9) 100%),
         repeating-linear-gradient(
@@ -213,10 +257,10 @@ h1 {
             rgba(139, 69, 19, 0.05) 2px,
             rgba(139, 69, 19, 0.05) 4px
         );
-    min-height: 250px;
     border-top: 2px solid rgba(139, 69, 19, 0.3);
     border-bottom: 2px solid rgba(139, 69, 19, 0.3);
     position: relative;
+    overflow: auto;
 }
 
 .battle-board-center::before {
@@ -231,12 +275,13 @@ h1 {
     box-shadow: 0 0 10px rgba(139, 69, 19, 0.3);
 }
 
-/* 底部：玩家区域 */
+/* 底部：玩家区域（比例约 1 份，与顶部对称） */
 .bottom-player-section {
     display: grid;
-    grid-template-columns: 250px 1fr;
-    gap: 15px;
-    padding: 15px;
+    grid-template-columns: minmax(140px, 200px) 1fr;
+    gap: 10px;
+    padding: 10px 12px;
+    flex-shrink: 0;
     background: linear-gradient(180deg, rgba(212, 197, 169, 0.8) 0%, rgba(220, 200, 180, 0.9) 100%);
     border-top: 2px solid rgba(139, 69, 19, 0.2);
 }
@@ -251,10 +296,10 @@ h1 {
 .player-hero-compact {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px;
+    gap: 8px;
+    padding: 8px;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    border-radius: 8px;
     border: 1px solid rgba(139, 69, 19, 0.2);
 }
 
@@ -270,8 +315,8 @@ h1 {
     display: flex;
     align-items: flex-end;
     justify-content: flex-start;
-    padding: 10px;
-    min-height: 150px;
+    padding: 8px;
+    min-height: 100px;
 }
 
 .hand-right {
@@ -285,20 +330,60 @@ h1 {
     margin: 0;
 }
 
-/* 底部控制区域 */
+/* 底部控制区域（仅结束回合按钮） */
 .bottom-controls {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 15px;
-    margin-top: 15px;
-    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    flex-shrink: 0;
     background: linear-gradient(180deg, rgba(26, 10, 46, 0.95) 0%, rgba(15, 5, 25, 0.95) 100%);
     border: 2px solid #d4af37;
-    border-radius: 15px;
+    border-radius: 10px;
     box-shadow: 
         0 0 20px rgba(212, 175, 55, 0.3),
-        0 8px 30px rgba(0, 0, 0, 0.5),
+        0 4px 15px rgba(0, 0, 0, 0.5),
         inset 0 0 30px rgba(212, 175, 55, 0.1);
+}
+
+/* 右侧：对战日志边栏 */
+.log-sidebar {
+    width: 260px;
+    min-width: 220px;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, rgba(26, 10, 46, 0.98) 0%, rgba(15, 5, 25, 0.98) 100%);
+    border: 2px solid #d4af37;
+    border-radius: 12px;
+    box-shadow: 
+        0 0 20px rgba(212, 175, 55, 0.3),
+        0 4px 20px rgba(0, 0, 0, 0.5),
+        inset 0 0 30px rgba(212, 175, 55, 0.08);
+    padding: 12px;
+    overflow: hidden;
+}
+
+.log-sidebar h4 {
+    color: #d4af37;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    flex-shrink: 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.log-sidebar .log {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    font-size: 0.8em;
+    line-height: 1.4;
+}
+
+.log-sidebar .log div {
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .log-area-compact {

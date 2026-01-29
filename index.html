@@ -46,10 +46,12 @@
             </div>
         </div>
         
-        <!-- 主战场区域 - 新布局 -->
-        <div class="main-battlefield-layout-new">
-            <!-- 顶部：对手区域 -->
-            <div class="top-opponent-section">
+        <!-- 主内容区：战场 + 右侧日志 -->
+        <div class="main-content-with-log">
+            <!-- 主战场区域 -->
+            <div class="main-battlefield-layout-new">
+                <!-- 顶部：对手区域 -->
+                <div class="top-opponent-section">
                 <!-- 左侧：对手英雄头像和技能 -->
                 <div class="opponent-hero-left" id="opponent-area">
                     <div class="opponent-hero-compact">
@@ -129,17 +131,20 @@
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- 底部：结束回合按钮和战斗日志 -->
-        <div class="bottom-controls">
-            <button id="end-turn" class="btn-end-turn">结束回合</button>
-            <div class="log-area-compact">
+            
+            <!-- 底部：仅结束回合按钮 -->
+            <div class="bottom-controls">
+                <button id="end-turn" class="btn-end-turn">结束回合</button>
+            </div>
+            </div>
+            
+            <!-- 右侧：对战日志边栏 -->
+            <aside class="log-sidebar">
                 <h4>战斗日志</h4>
                 <div class="log" id="battle-log">
                     <div>游戏即将开始...</div>
                 </div>
-            </div>
+            </aside>
         </div>
     </div>
     
