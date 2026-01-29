@@ -8,21 +8,6 @@
 </head>
 <body>
     <div class="game-container">
-        <h1>玄穹九野 - PVP对战测试版</h1>
-        
-        <div id="game-status">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <div id="game-state">等待游戏开始...</div>
-                    <div id="turn-counter">回合: 1</div>
-                    <div id="game-tips" style="font-size: 0.9em; color: #4cc9f0; margin-top: 5px;">
-                        提示：点击己方单位进行攻击，有⚡冲锋的单位可以立即攻击
-                    </div>
-                </div>
-                <button id="settings-btn" class="btn-settings" title="游戏设置">⚙️ 设置</button>
-            </div>
-        </div>
-        
         <!-- 设置菜单 -->
         <div id="settings-modal" class="settings-modal" style="display: none;">
             <div class="settings-content">
@@ -48,8 +33,9 @@
         
         <!-- 主内容区：战场 + 右侧日志 -->
         <div class="main-content-with-log">
-            <!-- 主战场区域 -->
+            <!-- 主战场区域：战场 + 右侧结束回合按钮 -->
             <div class="main-battlefield-layout-new">
+                <div class="battlefield-panel">
                 <!-- 顶部：对手区域 -->
                 <div class="top-opponent-section">
                 <!-- 左侧：对手英雄头像和技能 -->
@@ -57,26 +43,25 @@
                     <div class="opponent-hero-compact">
                         <div class="hero-avatar" id="opponent-avatar">⚔️</div>
                         <div class="hero-skill-icon">
-                            <button class="hero-skill-btn" id="opponent-hero-skill" disabled title="对手的英雄技能">🛡️</button>
+                            <div class="hero-skill-wrap">
+                                <button class="hero-skill-btn" id="opponent-hero-skill" disabled title="对手的英雄技能">🛡️</button>
+                                <span class="hero-skill-cost" id="opponent-hero-skill-cost">2</span>
+                            </div>
                         </div>
-                        <div class="opponent-hero-stats">
-                            <div class="hero-name" id="opponent-hero-name">铁壁统帅·岳峙</div>
-                            <div class="hero-stats-compact">
+                        <div class="hero-info-column">
+                            <div class="hero-name hero-info-line" id="opponent-hero-name">铁壁统帅·岳峙</div>
+                            <div class="hero-stats-compact hero-info-line">
                                 <span class="hero-stat">生命: <span id="opponent-life">20</span></span>
                                 <span class="hero-stat">法力: <span id="opponent-mana">0/0</span></span>
                                 <span class="hero-stat" id="opponent-attack" style="display: none;">攻击: <span id="opponent-attack-value">0</span></span>
                             </div>
-                        </div>
-                        <!-- 武器格 -->
-                        <div class="weapon-slot-compact" id="opponent-weapon-slot">
-                            <div class="weapon-slot-label">武器</div>
-                            <div class="weapon-slot-content" id="opponent-weapon-content">
-                                <div class="weapon-empty">空</div>
+                            <div class="weapon-slot-compact hero-info-line" id="opponent-weapon-slot">
+                                <div class="weapon-slot-label">武器</div>
+                                <div class="weapon-slot-content" id="opponent-weapon-content">
+                                    <div class="weapon-empty">空</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="battlefield" id="opponent-board">
-                        <!-- 对手战场单位会动态插入 -->
                     </div>
                 </div>
                 
@@ -89,38 +74,50 @@
                 </div>
             </div>
             
-            <!-- 中央：战斗板 -->
+            <!-- 中央：战斗板（双方随从主战场） -->
             <div class="battle-board-center">
-                <!-- 战斗板内容区域 -->
+                <!-- 对手随从区域（上方） -->
+                <div class="battlefield-opponent">
+                    <div class="battlefield-label">对手随从</div>
+                    <div class="battlefield" id="opponent-board">
+                        <!-- 对手战场单位会动态插入 -->
+                    </div>
+                </div>
+                <!-- 己方随从区域（下方） -->
+                <div class="battlefield-player">
+                    <div class="battlefield-label">己方随从</div>
+                    <div class="battlefield" id="player-board">
+                        <!-- 玩家战场单位会动态插入 -->
+                    </div>
+                </div>
             </div>
             
             <!-- 底部：玩家区域 -->
             <div class="bottom-player-section">
                 <!-- 左侧：玩家英雄头像和技能（左下角） -->
-                <div class="player-hero-left">
+                <div class="player-hero-left" id="player-area">
                     <div class="player-hero-compact">
                         <div class="hero-avatar" id="player-avatar">⚔️</div>
                         <div class="hero-skill-icon">
-                            <button id="hero-skill" class="btn-hero-skill">🛡️</button>
+                            <div class="hero-skill-wrap">
+                                <button id="hero-skill" class="btn-hero-skill">🛡️</button>
+                                <span class="hero-skill-cost" id="hero-skill-cost">2</span>
+                            </div>
                         </div>
-                        <div class="player-hero-stats">
-                            <div class="hero-name" id="player-hero-name">铁壁统帅·岳峙</div>
-                            <div class="hero-stats-compact">
+                        <div class="hero-info-column">
+                            <div class="hero-name hero-info-line" id="player-hero-name">铁壁统帅·岳峙</div>
+                            <div class="hero-stats-compact hero-info-line">
                                 <span class="hero-stat">生命: <span id="player-life">20</span></span>
                                 <span class="hero-stat">法力: <span id="player-mana">1/1</span></span>
                                 <span class="hero-stat" id="player-attack" style="display: none;">攻击: <span id="player-attack-value">0</span></span>
                             </div>
-                        </div>
-                        <!-- 武器格 -->
-                        <div class="weapon-slot-compact" id="player-weapon-slot">
-                            <div class="weapon-slot-label">武器</div>
-                            <div class="weapon-slot-content" id="player-weapon-content">
-                                <div class="weapon-empty">空</div>
+                            <div class="weapon-slot-compact hero-info-line" id="player-weapon-slot">
+                                <div class="weapon-slot-label">武器</div>
+                                <div class="weapon-slot-content" id="player-weapon-content">
+                                    <div class="weapon-empty">空</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="battlefield" id="player-board">
-                        <!-- 玩家战场单位会动态插入 -->
                     </div>
                 </div>
                 
@@ -131,15 +128,23 @@
                     </div>
                 </div>
             </div>
+                </div>
             
-            <!-- 底部：仅结束回合按钮 -->
-            <div class="bottom-controls">
+            <!-- 战场右侧：结束回合按钮 -->
+            <div class="end-turn-wrap">
                 <button id="end-turn" class="btn-end-turn">结束回合</button>
             </div>
             </div>
             
-            <!-- 右侧：对战日志边栏 -->
+            <!-- 右侧：对战日志边栏（含游戏状态与设置） -->
             <aside class="log-sidebar">
+                <div class="log-sidebar-header">
+                    <div class="log-sidebar-status">
+                        <span id="game-state">等待游戏开始...</span>
+                        <span id="turn-counter">回合: 1</span>
+                    </div>
+                    <button id="settings-btn" class="btn-settings btn-settings-small" title="游戏设置">⚙️</button>
+                </div>
                 <h4>战斗日志</h4>
                 <div class="log" id="battle-log">
                     <div>游戏即将开始...</div>

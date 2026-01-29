@@ -452,7 +452,7 @@ export class GameState {
 
   // 随机分配单位关键词（1-2个）
   randomizeUnitKeywords() {
-    const allKeywords = ['TAUNT', 'CHARGE', 'LIFESTEAL', 'RANGED', 'PIERCE_1'];
+    const allKeywords = ['CHARGE', 'PIERCE_1'];
     const numKeywords = Math.floor(Math.random() * 2) + 1; // 1-2个关键词
     const shuffled = [...allKeywords].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, numKeywords);

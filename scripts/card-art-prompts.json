@@ -1,0 +1,1310 @@
+[
+  {
+    "id": "C001",
+    "name": "新兵",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"新兵\" (基础单位). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C002",
+    "name": "盾卫",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"盾卫\" (嘲讽). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C003",
+    "name": "民兵队长",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"民兵队长\" (扎实的2费单位). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C004",
+    "name": "长枪兵",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"长枪兵\" (破甲1). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C005",
+    "name": "弩手",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"弩手\" (远程，可攻击任意位置). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C006",
+    "name": "战地医师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"战地医师\" (战吼：恢复1个友方单位2点生命). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C007",
+    "name": "重装步兵",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"重装步兵\" (嘲讽). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C008",
+    "name": "破甲弩车",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"破甲弩车\" (破甲2，远程). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C009",
+    "name": "老兵",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"老兵\" (扎实的3费单位). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C010",
+    "name": "符文铁匠",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"符文铁匠\" (光环：你的法术伤害+1). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C011",
+    "name": "协同阵线",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"协同阵线\" (使相邻的友方单位获得+1/+1，持续1回合). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C012",
+    "name": "冲锋号令",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"冲锋号令\" (使一个友方单位获得+2攻击力和冲锋，持续1回合). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C013",
+    "name": "箭雨如潮",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"箭雨如潮\" (对所有敌方单位造成1点伤害). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C014",
+    "name": "破城锤",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"破城锤\" (破甲2). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C015",
+    "name": "军需官",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"军需官\" (战吼：抽一张牌（无目标）). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C016",
+    "name": "血刃勇士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"血刃勇士\" (吸血). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C017",
+    "name": "烈焰风暴",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"烈焰风暴\" (对所有敌方单位造成3点伤害). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C018",
+    "name": "龙骧将军",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"龙骧将军\" (光环：相邻的友方单位获得+1攻击力). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C019",
+    "name": "无畏先锋",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"无畏先锋\" (冲锋，破甲3). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C020",
+    "name": "后勤补给",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"后勤补给\" (抽一张牌). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W001",
+    "name": "铁剑",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"铁剑\" (基础武器，攻击力+1). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W002",
+    "name": "精钢战刃",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"精钢战刃\" (强力武器，攻击力+3). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W003",
+    "name": "寒冰之刃",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"寒冰之刃\" (史诗武器，攻击后冰冻目标一回合). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W004",
+    "name": "烈焰之刃",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"烈焰之刃\" (史诗武器，攻击后火焰效果，持续降低护甲). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W005",
+    "name": "龙鳞重剑",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"龙鳞重剑\" (传说武器，攻击力+5，攻击后雷特效). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W006",
+    "name": "剧毒匕首",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"剧毒匕首\" (传说武器，攻击后毒特效，10回合后死亡). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C021",
+    "name": "护盾卫士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"护盾卫士\" (护盾2，抵挡2点物理伤害). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C022",
+    "name": "法术屏障",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"法术屏障\" (使一个友方单位或英雄获得法术护盾2). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C023",
+    "name": "护盾法术",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"护盾法术\" (使一个友方单位或英雄获得护盾2). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C024",
+    "name": "英雄护甲",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"英雄护甲\" (使英雄获得2点护甲并抽一张牌). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C025",
+    "name": "寒冰箭",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"寒冰箭\" (对目标造成2点伤害并冰冻). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C026",
+    "name": "闪电箭",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"闪电箭\" (对目标造成2点伤害并附加雷特效（受到的所有伤害+1，持续3回合）). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C027",
+    "name": "火球术",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"火球术\" (对目标造成3点伤害并附加火焰效果（持续降低护甲，持续3回合）). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C028",
+    "name": "剧毒箭",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"剧毒箭\" (对目标造成2点伤害并附加剧毒（10回合后死亡）). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C029",
+    "name": "寒冰风暴",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"寒冰风暴\" (对所有敌方单位造成2点伤害并冰冻). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C030",
+    "name": "雷暴",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"雷暴\" (对所有敌方单位造成2点伤害并附加雷特效（持续4回合）). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C031",
+    "name": "智慧之书",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"智慧之书\" (抽2张牌). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C032",
+    "name": "知识宝库",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"知识宝库\" (抽3张牌). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C033",
+    "name": "远古卷轴",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"远古卷轴\" (抽4张牌). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C034",
+    "name": "强化护甲",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"强化护甲\" (使英雄获得2点护甲并抽一张牌). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C035",
+    "name": "时间冻结者",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"时间冻结者\" (战吼：对方所有随从下回合无法行动。亡语：抽一张牌). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C037",
+    "name": "见习法师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"见习法师\" (基础法师单位). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C038",
+    "name": "野猪",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"野猪\" (冲锋). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C039",
+    "name": "小精灵",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小精灵\" (亡语：抽一张牌). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C040",
+    "name": "石像鬼",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"石像鬼\" (嘲讽). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C041",
+    "name": "游荡者",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"游荡者\" (冲锋). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C042",
+    "name": "治疗师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"治疗师\" (战吼：恢复英雄2点生命). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C043",
+    "name": "侦察兵",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"侦察兵\" (战吼：抽一张牌). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C044",
+    "name": "火焰元素",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"火焰元素\" (战吼：随机对敌方造成1点伤害). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C045",
+    "name": "石肤守卫",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"石肤守卫\" (嘲讽). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C046",
+    "name": "暗影刺客",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"暗影刺客\" (冲锋). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C047",
+    "name": "学者",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"学者\" (战吼：抽一张牌). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C048",
+    "name": "狼骑兵",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"狼骑兵\" (冲锋). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C049",
+    "name": "守护者",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"守护者\" (嘲讽). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C050",
+    "name": "火焰法师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"火焰法师\" (战吼：随机对敌方造成2点伤害). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C051",
+    "name": "圣光侍从",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"圣光侍从\" (战吼：恢复所有友方单位1点生命). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C052",
+    "name": "暗影猎手",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"暗影猎手\" (远程). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C053",
+    "name": "工程师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"工程师\" (战吼：抽一张牌). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C054",
+    "name": "食尸鬼",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"食尸鬼\" (亡语：随机对敌方造成1点伤害). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C055",
+    "name": "石像守卫",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"石像守卫\" (嘲讽). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C056",
+    "name": "狂战士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"狂战士\" (冲锋). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C057",
+    "name": "法师学徒",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"法师学徒\" (光环：你的法术伤害+1). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C058",
+    "name": "战地指挥官",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"战地指挥官\" (光环：相邻的友方单位获得+1/+1). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C059",
+    "name": "暗影法师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"暗影法师\" (战吼：对所有敌方单位造成1点伤害). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C060",
+    "name": "圣光骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"圣光骑士\" (战吼：恢复英雄3点生命). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C061",
+    "name": "死亡使者",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"死亡使者\" (亡语：对所有敌方单位造成1点伤害). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C062",
+    "name": "召唤师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"召唤师\" (战吼：召唤一个新兵). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C063",
+    "name": "重装骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"重装骑士\" (嘲讽). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C064",
+    "name": "火焰领主",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"火焰领主\" (战吼：对所有敌方单位造成2点伤害). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C065",
+    "name": "暗影领主",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"暗影领主\" (冲锋). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C066",
+    "name": "圣光主教",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"圣光主教\" (战吼：恢复所有友方单位2点生命). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C067",
+    "name": "死亡骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"死亡骑士\" (亡语：召唤一个新兵). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C068",
+    "name": "战争巨兽",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"战争巨兽\" (大型单位). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C069",
+    "name": "龙族战士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"龙族战士\" (冲锋). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C070",
+    "name": "守护巨龙",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"守护巨龙\" (嘲讽). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C071",
+    "name": "火焰巨龙",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"火焰巨龙\" (战吼：对所有敌方单位造成3点伤害). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C072",
+    "name": "奥术飞弹",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"奥术飞弹\" (随机对敌方造成3次1点伤害). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C073",
+    "name": "治疗之触",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"治疗之触\" (恢复目标3点生命). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C074",
+    "name": "力量祝福",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"力量祝福\" (使一个友方单位获得+3攻击力). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C075",
+    "name": "神圣新星",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"神圣新星\" (对所有单位造成1点伤害，恢复所有友方单位1点生命). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C076",
+    "name": "变形术",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"变形术\" (将目标单位变为1/1的羊). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C077",
+    "name": "羊",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"羊\" (被变形的单位). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C078",
+    "name": "沉默",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"沉默\" (沉默目标单位). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C079",
+    "name": "火球",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"火球\" (对目标造成6点伤害). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C080",
+    "name": "烈焰冲击",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"烈焰冲击\" (对所有敌方单位造成2点伤害). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C084",
+    "name": "复制",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"复制\" (复制目标单位到手牌). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C085",
+    "name": "回手",
+    "type": "spell",
+    "prompt": "A fantasy card game illustration for spell \"回手\" (将目标单位返回手牌). Magical effect or symbolic scene, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W007",
+    "name": "短剑",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"短剑\" (基础武器). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W008",
+    "name": "战锤",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"战锤\" (标准武器). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W009",
+    "name": "火焰之剑",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"火焰之剑\" (攻击后附加火焰效果). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W010",
+    "name": "雷电之刃",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"雷电之刃\" (攻击后附加雷特效). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C086",
+    "name": "小恶魔",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小恶魔\" (基础恶魔). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C087",
+    "name": "骷髅兵",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"骷髅兵\" (亡语：召唤一个1/1的骷髅兵). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C088",
+    "name": "小精灵",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小精灵\" (基础精灵). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C089",
+    "name": "鱼人",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"鱼人\" (基础鱼人). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C090",
+    "name": "小树人",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小树人\" (基础树人). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C091",
+    "name": "迅猛龙",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"迅猛龙\" (冲锋). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C092",
+    "name": "小元素",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小元素\" (基础元素). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C093",
+    "name": "小机械",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小机械\" (亡语：随机对敌方造成1点伤害). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C094",
+    "name": "小野兽",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小野兽\" (基础野兽). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C095",
+    "name": "小海盗",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小海盗\" (基础海盗). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C096",
+    "name": "小图腾",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小图腾\" (基础图腾). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C097",
+    "name": "小龙",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小龙\" (基础龙). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C098",
+    "name": "小天使",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小天使\" (战吼：恢复英雄1点生命). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C099",
+    "name": "小恶魔",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小恶魔\" (战吼：随机对敌方造成1点伤害). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C100",
+    "name": "小法师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小法师\" (战吼：抽一张牌). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C101",
+    "name": "小战士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小战士\" (基础战士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C102",
+    "name": "小盗贼",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小盗贼\" (基础盗贼). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C103",
+    "name": "小猎人",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小猎人\" (远程). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C104",
+    "name": "小牧师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小牧师\" (战吼：恢复1个友方单位1点生命). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C105",
+    "name": "小萨满",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小萨满\" (基础萨满). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C106",
+    "name": "小术士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小术士\" (战吼：抽一张牌). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C107",
+    "name": "小德鲁伊",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小德鲁伊\" (基础德鲁伊). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C108",
+    "name": "小圣骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小圣骑士\" (基础圣骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C109",
+    "name": "小死亡骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小死亡骑士\" (基础死亡骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C110",
+    "name": "小恶魔猎手",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小恶魔猎手\" (基础恶魔猎手). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C111",
+    "name": "小武僧",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小武僧\" (基础武僧). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C112",
+    "name": "小猎人",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小猎人\" (基础猎人). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C113",
+    "name": "小法师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小法师\" (基础法师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C114",
+    "name": "小战士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小战士\" (基础战士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C115",
+    "name": "小盗贼",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小盗贼\" (基础盗贼). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C116",
+    "name": "小牧师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小牧师\" (基础牧师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C117",
+    "name": "小萨满",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小萨满\" (基础萨满). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C118",
+    "name": "小术士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小术士\" (基础术士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C119",
+    "name": "小德鲁伊",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小德鲁伊\" (基础德鲁伊). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C120",
+    "name": "小圣骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小圣骑士\" (基础圣骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C121",
+    "name": "小死亡骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小死亡骑士\" (基础死亡骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C122",
+    "name": "小恶魔猎手",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小恶魔猎手\" (基础恶魔猎手). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C123",
+    "name": "小武僧",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"小武僧\" (基础武僧). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C124",
+    "name": "中猎人",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"中猎人\" (中级猎人). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C125",
+    "name": "中法师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"中法师\" (中级法师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C126",
+    "name": "中战士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"中战士\" (中级战士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C127",
+    "name": "中盗贼",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"中盗贼\" (中级盗贼). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C128",
+    "name": "中牧师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"中牧师\" (中级牧师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C129",
+    "name": "中萨满",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"中萨满\" (中级萨满). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C130",
+    "name": "中术士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"中术士\" (中级术士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C131",
+    "name": "中德鲁伊",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"中德鲁伊\" (中级德鲁伊). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C132",
+    "name": "中圣骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"中圣骑士\" (中级圣骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C133",
+    "name": "中死亡骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"中死亡骑士\" (中级死亡骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C134",
+    "name": "中恶魔猎手",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"中恶魔猎手\" (中级恶魔猎手). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C135",
+    "name": "中武僧",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"中武僧\" (中级武僧). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C136",
+    "name": "大猎人",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"大猎人\" (高级猎人). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C137",
+    "name": "大法师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"大法师\" (高级法师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C138",
+    "name": "大战士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"大战士\" (高级战士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C139",
+    "name": "大盗贼",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"大盗贼\" (高级盗贼). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C140",
+    "name": "大牧师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"大牧师\" (高级牧师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C141",
+    "name": "大萨满",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"大萨满\" (高级萨满). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C142",
+    "name": "大术士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"大术士\" (高级术士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C143",
+    "name": "大德鲁伊",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"大德鲁伊\" (高级德鲁伊). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C144",
+    "name": "大圣骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"大圣骑士\" (高级圣骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C145",
+    "name": "大死亡骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"大死亡骑士\" (高级死亡骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C146",
+    "name": "大恶魔猎手",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"大恶魔猎手\" (高级恶魔猎手). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C147",
+    "name": "大武僧",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"大武僧\" (高级武僧). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C148",
+    "name": "巨型猎人",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"巨型猎人\" (巨型猎人). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C149",
+    "name": "巨型法师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"巨型法师\" (巨型法师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C150",
+    "name": "巨型战士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"巨型战士\" (巨型战士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C151",
+    "name": "巨型盗贼",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"巨型盗贼\" (巨型盗贼). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C152",
+    "name": "巨型牧师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"巨型牧师\" (巨型牧师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C153",
+    "name": "巨型萨满",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"巨型萨满\" (巨型萨满). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C154",
+    "name": "巨型术士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"巨型术士\" (巨型术士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C155",
+    "name": "巨型德鲁伊",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"巨型德鲁伊\" (巨型德鲁伊). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C156",
+    "name": "巨型圣骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"巨型圣骑士\" (巨型圣骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C157",
+    "name": "巨型死亡骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"巨型死亡骑士\" (巨型死亡骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C158",
+    "name": "巨型恶魔猎手",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"巨型恶魔猎手\" (巨型恶魔猎手). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C159",
+    "name": "巨型武僧",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"巨型武僧\" (巨型武僧). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C160",
+    "name": "传说猎人",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"传说猎人\" (传说猎人). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C161",
+    "name": "传说法师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"传说法师\" (传说法师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C162",
+    "name": "传说战士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"传说战士\" (传说战士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C163",
+    "name": "传说盗贼",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"传说盗贼\" (传说盗贼). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C164",
+    "name": "传说牧师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"传说牧师\" (传说牧师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C165",
+    "name": "传说萨满",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"传说萨满\" (传说萨满). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C166",
+    "name": "传说术士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"传说术士\" (传说术士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C167",
+    "name": "传说德鲁伊",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"传说德鲁伊\" (传说德鲁伊). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C168",
+    "name": "传说圣骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"传说圣骑士\" (传说圣骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C169",
+    "name": "传说死亡骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"传说死亡骑士\" (传说死亡骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C170",
+    "name": "传说恶魔猎手",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"传说恶魔猎手\" (传说恶魔猎手). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C171",
+    "name": "传说武僧",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"传说武僧\" (传说武僧). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C172",
+    "name": "终极猎人",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"终极猎人\" (终极猎人). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C173",
+    "name": "终极法师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"终极法师\" (终极法师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C174",
+    "name": "终极战士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"终极战士\" (终极战士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C175",
+    "name": "终极盗贼",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"终极盗贼\" (终极盗贼). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C176",
+    "name": "终极牧师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"终极牧师\" (终极牧师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C177",
+    "name": "终极萨满",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"终极萨满\" (终极萨满). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C178",
+    "name": "终极术士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"终极术士\" (终极术士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C179",
+    "name": "终极德鲁伊",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"终极德鲁伊\" (终极德鲁伊). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C180",
+    "name": "终极圣骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"终极圣骑士\" (终极圣骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C181",
+    "name": "终极死亡骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"终极死亡骑士\" (终极死亡骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C182",
+    "name": "终极恶魔猎手",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"终极恶魔猎手\" (终极恶魔猎手). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C183",
+    "name": "终极武僧",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"终极武僧\" (终极武僧). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C184",
+    "name": "超级猎人",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"超级猎人\" (超级猎人). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C185",
+    "name": "超级法师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"超级法师\" (超级法师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C186",
+    "name": "超级战士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"超级战士\" (超级战士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C187",
+    "name": "超级盗贼",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"超级盗贼\" (超级盗贼). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C188",
+    "name": "超级牧师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"超级牧师\" (超级牧师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C189",
+    "name": "超级萨满",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"超级萨满\" (超级萨满). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C190",
+    "name": "超级术士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"超级术士\" (超级术士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C191",
+    "name": "超级德鲁伊",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"超级德鲁伊\" (超级德鲁伊). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C192",
+    "name": "超级圣骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"超级圣骑士\" (超级圣骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C193",
+    "name": "超级死亡骑士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"超级死亡骑士\" (超级死亡骑士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C194",
+    "name": "超级恶魔猎手",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"超级恶魔猎手\" (超级恶魔猎手). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C195",
+    "name": "超级武僧",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"超级武僧\" (超级武僧). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C196",
+    "name": "究极猎人",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"究极猎人\" (究极猎人). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C197",
+    "name": "究极法师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"究极法师\" (究极法师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C198",
+    "name": "究极战士",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"究极战士\" (究极战士). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C199",
+    "name": "究极盗贼",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"究极盗贼\" (究极盗贼). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "C200",
+    "name": "究极法师",
+    "type": "unit",
+    "prompt": "A fantasy card game illustration for \"究极法师\" (究极法师). Single character or creature, clear focal point, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W011",
+    "name": "冰霜之刃",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"冰霜之刃\" (攻击后冰冻目标). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W012",
+    "name": "毒刃",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"毒刃\" (攻击后附加剧毒). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W013",
+    "name": "重锤",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"重锤\" (重型武器). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W014",
+    "name": "双刃剑",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"双刃剑\" (双刃武器). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W015",
+    "name": "圣光之剑",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"圣光之剑\" (圣光武器). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W016",
+    "name": "暗影之刃",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"暗影之刃\" (暗影武器). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W017",
+    "name": "龙息之刃",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"龙息之刃\" (龙息武器). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W018",
+    "name": "毁灭之刃",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"毁灭之刃\" (毁灭武器). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W019",
+    "name": "创世之刃",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"创世之刃\" (创世武器). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W020",
+    "name": "终极之刃",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"终极之刃\" (终极武器). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W021",
+    "name": "龙纹断剑",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"龙纹断剑\" (梅利迪奥斯的初始武器). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  },
+  {
+    "id": "W022",
+    "name": "失落之灾",
+    "type": "weapon",
+    "prompt": "A fantasy card game illustration for weapon \"失落之灾\" (觉醒后的武器，吸血). Weapon or item focus, Epic fantasy card game illustration, Hearthstone-style art, dramatic lighting, detailed design, vertical card art format, no text, high quality digital painting"
+  }
+]

@@ -190,10 +190,6 @@ export class BattleSystem {
         this.addDivineShieldToTarget(playerId, target);
         break;
         
-      case 'DISCOVER':
-        this.discoverCard(playerId);
-        break;
-        
       case 'BUFF_ATTACK':
         if (target === 'hero' || target === 'HERO') {
           // 对英雄增加攻击力（通过武器）
@@ -937,20 +933,9 @@ export class BattleSystem {
       
       this.gameState.log(`${attacker.card.name} 对 ${target.card.name} 造成 ${remainingDamage} 点伤害${actualDamage > remainingDamage ? `（护盾抵挡了 ${actualDamage - remainingDamage} 点）` : ''}`);
       
-      // 检查吸血（攻击单位时也能吸血）
-      if (attacker.card.keywords.includes('LIFESTEAL')) {
-        const healAmount = Math.ceil(remainingDamage * 0.5);
-        attackerPlayer.hero.health = Math.min(
-          attackerPlayer.hero.health + healAmount,
-          attackerPlayer.hero.maxHealth
-        );
-        this.gameState.log(`${attacker.card.name} 的吸血效果治疗了英雄 ${healAmount} 点生命`);
-      }
-      
       // 修正反击逻辑：即使目标被一击必杀，也会先反击，然后再移除
-      // 反击逻辑：如果攻击者不是远程单位，目标会反击（即使目标已死）
-      const attackerHasRanged = keywords.some(kw => kw.includes('RANGED'));
-      if (!attackerHasRanged) {
+      // 反击逻辑：目标会反击（即使目标已死）
+      {
         // 计算反击伤害（使用目标攻击前的攻击力）
         let counterAttackDamage = target.attack + (target.auraAttackBonus || 0);
         
@@ -994,8 +979,6 @@ export class BattleSystem {
           console.log('💀 攻击者被反击击杀（同归于尽）');
           this.killUnit(attacker, attackerPlayer);
         }
-      } else {
-        console.log('🏹 攻击者有远程，不会受到反击');
       }
       
       // 移除被击杀的目标（在反击之后）
@@ -1136,16 +1119,6 @@ export class BattleSystem {
       // 检查觉醒机制（生命值首次降至15以下）
       if (target.awakenThreshold && !target.awakened && target.health <= target.awakenThreshold) {
         this.triggerAwakening(targetPlayer.id);
-      }
-      
-      // 检查吸血
-      if (attacker.card.keywords.includes('LIFESTEAL')) {
-        const healAmount = Math.ceil(actualDamage * 0.5);
-        attackerPlayer.hero.health = Math.min(
-          attackerPlayer.hero.health + healAmount,
-          attackerPlayer.hero.maxHealth
-        );
-        this.gameState.log(`${attacker.card.name} 的吸血效果治疗了英雄 ${healAmount} 点生命`);
       }
     }
     
@@ -1521,82 +1494,6 @@ export class BattleSystem {
       return true;
     }
     
-    // 检查嘲讽规则
-    const hasTaunt = targetPlayer.battlefield.some(unit => 
-      (unit.card.keywords || unit.keywords || []).some(kw => kw.includes('TAUNT'))
-    );
-    
-    if (hasTaunt) {
-      // 有嘲讽单位，必须攻击嘲讽单位
-      return (target.card.keywords || target.keywords || []).some(kw => kw.includes('TAUNT'));
-    }
-    
-    return true;
-  }
-  
-  // 发现机制：从牌库中随机选择3张牌，让玩家选择1张
-  discoverCard(playerId) {
-    const player = this.gameState.players[playerId];
-    
-    // 从所有卡牌中随机选择3张（排除发现牌本身）
-    const availableCards = this.gameState.allCards.filter(c => 
-      c.type !== 'spell' || c.spellEffect?.type !== 'DISCOVER'
-    );
-    
-    if (availableCards.length === 0) {
-      this.gameState.log('没有可发现的卡牌');
-      return false;
-    }
-    
-    // 随机选择3张不同的卡牌
-    const discoveredCards = [];
-    const usedIndices = new Set();
-    
-    while (discoveredCards.length < 3 && discoveredCards.length < availableCards.length) {
-      const randomIndex = Math.floor(Math.random() * availableCards.length);
-      if (!usedIndices.has(randomIndex)) {
-        usedIndices.add(randomIndex);
-        const card = availableCards[randomIndex];
-        // 创建卡牌实例
-        const cardInstance = { 
-          ...card, 
-          instanceId: `${card.id}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` 
-        };
-        
-        // 如果是单位卡牌，随机分配关键词
-        if (cardInstance.type === 'unit') {
-          cardInstance.keywords = this.gameState.randomizeUnitKeywords();
-        }
-        
-        discoveredCards.push(cardInstance);
-      }
-    }
-    
-    // 触发发现UI
-    if (this.gameState.renderer && this.gameState.renderer.showDiscoverUI) {
-      this.gameState.renderer.showDiscoverUI(playerId, discoveredCards, (selectedCard) => {
-        // 将选中的卡牌加入手牌
-        if (player.canDrawCard()) {
-          player.hand.push(selectedCard);
-          this.gameState.log(`${playerId} 发现了 ${selectedCard.name}`);
-        } else {
-          this.gameState.log(`${playerId} 手牌已满，${selectedCard.name} 被烧掉`);
-        }
-        if (this.gameState.renderer) {
-          this.gameState.renderer.render();
-        }
-      });
-    } else {
-      // 如果没有UI，随机选择一张
-      const randomCard = discoveredCards[Math.floor(Math.random() * discoveredCards.length)];
-      if (player.canDrawCard()) {
-        player.hand.push(randomCard);
-        this.gameState.log(`${playerId} 发现了 ${randomCard.name}`);
-      } else {
-        this.gameState.log(`${playerId} 手牌已满，${randomCard.name} 被烧掉`);
-      }
-    }
-    
     return true;
   }
   
@@ -1633,43 +1530,7 @@ export class BattleSystem {
     
     // 如果是英雄目标
     if (target.health !== undefined && target.maxHealth !== undefined && !target.card) {
-      // 检查是否有嘲讽单位
-      const hasTaunt = targetPlayer.battlefield.some(unit => 
-        unit.keywords.includes('TAUNT') || unit.keywords.includes('TEMP_TAUNT')
-      );
-      const attackerHasRanged = attacker.card.keywords.includes('RANGED');
-      
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:1447',message:'isValidTarget hero target check',data:{hasTaunt,attackerHasRanged,tauntUnits:targetPlayer.battlefield.filter(u=>u.keywords.includes('TAUNT')||u.keywords.includes('TEMP_TAUNT')).map(u=>u.card.name)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-      // #endregion
-      
-      if (hasTaunt && !attackerHasRanged) {
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:1452',message:'isValidTarget hero blocked by taunt',data:{hasTaunt,attackerHasRanged},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-        // #endregion
-        return false; // 有嘲讽单位且攻击者不是远程，不能攻击英雄
-      }
       return true;
-    }
-    
-    // 检查嘲讽规则
-    const hasTaunt = targetPlayer.battlefield.some(unit => 
-      unit.keywords.includes('TAUNT') || unit.keywords.includes('TEMP_TAUNT')
-    );
-    const attackerHasRanged = attacker.card.keywords.includes('RANGED');
-    const targetHasTaunt = target.keywords.includes('TAUNT') || target.keywords.includes('TEMP_TAUNT');
-    
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:1462',message:'isValidTarget unit target check',data:{hasTaunt,attackerHasRanged,targetHasTaunt,tauntUnits:targetPlayer.battlefield.filter(u=>u.keywords.includes('TAUNT')||u.keywords.includes('TEMP_TAUNT')).map(u=>u.card.name)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-    // #endregion
-    
-    if (hasTaunt && !attackerHasRanged) {
-      // 有嘲讽单位且攻击者不是远程，必须攻击嘲讽单位
-      const result = targetHasTaunt;
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BattleSystem.js:1468',message:'isValidTarget taunt check result',data:{hasTaunt,attackerHasRanged,targetHasTaunt,result},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-      // #endregion
-      return result;
     }
     
     return true;
@@ -1848,11 +1709,6 @@ export class BattleSystem {
           });
           this.gameState.log(`${source.card.name} 的战吼：对方所有随从下回合无法行动`);
         }
-        break;
-        
-      case 'DISCOVER':
-        // 发现（战吼版本，类似法术）
-        this.discoverCard(playerId);
         break;
         
       case 'SILENCE':

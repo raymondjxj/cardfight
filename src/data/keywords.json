@@ -1,24 +1,9 @@
 {
   "keywords": {
-    "TAUNT": {
-      "name": "嘲讽",
-      "description": "敌人必须优先攻击此单位",
-      "rules": "当战场上有嘲讽单位时，敌人只能攻击嘲讽单位（除非拥有远程）"
-    },
     "CHARGE": {
       "name": "冲锋",
       "description": "可以在召唤的当回合立即攻击",
       "rules": "单位上场时即可攻击，不会进入疲惫状态"
-    },
-    "LIFESTEAL": {
-      "name": "吸血",
-      "description": "攻击时，造成伤害的50%治疗你的英雄",
-      "rules": "治疗量 = ceil(实际造成的伤害 × 0.5)"
-    },
-    "RANGED": {
-      "name": "远程",
-      "description": "可以攻击任意位置的敌人，无视嘲讽",
-      "rules": "可以攻击任意敌方单位，包括被嘲讽单位保护的后排"
     },
     "PIERCE_1": {
       "name": "破甲1",

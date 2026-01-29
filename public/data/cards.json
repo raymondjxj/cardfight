@@ -528,17 +528,6 @@
       "rarity": "E"
     },
     {
-      "id": "C036",
-      "name": "发现",
-      "type": "spell",
-      "cost": 1,
-      "description": "从牌库中发现一张卡牌",
-      "spellEffect": {
-        "type": "DISCOVER"
-      },
-      "rarity": "C"
-    },
-    {
       "id": "C037",
       "name": "见习法师",
       "type": "unit",
@@ -1126,42 +1115,6 @@
         "type": "AOE_DAMAGE",
         "target": "ENEMY_UNITS",
         "value": 2
-      },
-      "rarity": "R"
-    },
-    {
-      "id": "C081",
-      "name": "发现随从",
-      "type": "spell",
-      "cost": 2,
-      "description": "从牌库中发现一张随从牌",
-      "spellEffect": {
-        "type": "DISCOVER",
-        "filter": "unit"
-      },
-      "rarity": "R"
-    },
-    {
-      "id": "C082",
-      "name": "发现法术",
-      "type": "spell",
-      "cost": 2,
-      "description": "从牌库中发现一张法术牌",
-      "spellEffect": {
-        "type": "DISCOVER",
-        "filter": "spell"
-      },
-      "rarity": "R"
-    },
-    {
-      "id": "C083",
-      "name": "发现武器",
-      "type": "spell",
-      "cost": 2,
-      "description": "从牌库中发现一张武器牌",
-      "spellEffect": {
-        "type": "DISCOVER",
-        "filter": "weapon"
       },
       "rarity": "R"
     },

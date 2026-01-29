@@ -35,9 +35,9 @@
       },
       "skill": {
         "name": "全反击",
-        "cost": 0,
-        "description": "被动：敌方回合，受到的所有伤害翻倍并反弹给攻击者",
-        "type": "PASSIVE"
+        "cost": 2,
+        "description": "消耗2点法力，增加英雄自身2点护甲值",
+        "effect": {}
       },
       "awakenedSkill": {
         "name": "实体分身",

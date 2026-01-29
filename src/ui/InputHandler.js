@@ -594,10 +594,6 @@ export class InputHandler {
         // AOE法术直接使用
         this.battleSystem.playCard('PLAYER1', cardIndex);
         this.renderer.render();
-      } else if (spellType === 'DISCOVER') {
-        // 发现牌：直接使用，不需要目标
-        this.battleSystem.playCard('PLAYER1', cardIndex);
-        this.renderer.render();
       } else if (spellType === 'DAMAGE_WITH_FREEZE' ||
                  spellType === 'DAMAGE_WITH_THUNDER' ||
                  spellType === 'DAMAGE_WITH_FIRE' ||
@@ -1456,15 +1452,8 @@ export class InputHandler {
       const opponentId = 'PLAYER2';
       const opponent = this.gameState.players[opponentId];
       
-      // 检查是否有嘲讽单位
-      const hasTaunt = opponent.battlefield.some(u => 
-        u.keywords.some(kw => kw.includes('TAUNT'))
-      );
-      
-      // 如果没有单位，或者没有嘲讽单位（或攻击者有远程），可以攻击英雄
-      const canAttackHero = opponent.battlefield.length === 0 || 
-                            !hasTaunt || 
-                            attacker.card.keywords.includes('RANGED');
+      // 如果没有单位，可以攻击英雄
+      const canAttackHero = opponent.battlefield.length === 0;
       
       // 高亮英雄区域
       const heroElement = document.getElementById('opponent-area');
@@ -1476,15 +1465,9 @@ export class InputHandler {
       // 高亮可攻击的单位
       if (opponent.battlefield.length > 0) {
         opponent.battlefield.forEach((unit) => {
-          const canAttack = !hasTaunt || 
-                           attacker.card.keywords.includes('RANGED') || 
-                           unit.keywords.some(kw => kw.includes('TAUNT'));
-          
-          if (canAttack) {
-            const unitElement = document.querySelector(`[data-unit-id="${unit.id}"]`);
-            if (unitElement) {
-              unitElement.classList.add('highlight');
-            }
+          const unitElement = document.querySelector(`[data-unit-id="${unit.id}"]`);
+          if (unitElement) {
+            unitElement.classList.add('highlight');
           }
         });
       }

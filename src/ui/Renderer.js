@@ -25,6 +25,8 @@ export class Renderer {
       opponentAttackValue: document.getElementById('opponent-attack-value'),
       heroSkillBtn: document.getElementById('hero-skill'),
       opponentHeroSkillBtn: document.getElementById('opponent-hero-skill'),
+      heroSkillCost: document.getElementById('hero-skill-cost'),
+      opponentHeroSkillCost: document.getElementById('opponent-hero-skill-cost'),
       playerWeaponContent: document.getElementById('player-weapon-content'),
       opponentWeaponContent: document.getElementById('opponent-weapon-content')
     };
@@ -66,6 +68,7 @@ export class Renderer {
       this.elements.playerMana.textContent = `${player.mana.current}/${player.mana.total}`;
       if (this.elements.playerHeroName) {
         this.elements.playerHeroName.textContent = player.hero.name;
+        this.elements.playerHeroName.title = player.hero.name;
       }
       // 显示英雄攻击力（如果有武器）
       if (player.hero.weapon && player.hero.attack > 0) {
@@ -93,6 +96,7 @@ export class Renderer {
       this.elements.opponentLife.textContent = heroHealth;
       if (this.elements.opponentHeroName) {
         this.elements.opponentHeroName.textContent = player.hero.name;
+        this.elements.opponentHeroName.title = player.hero.name;
       }
       // 显示英雄攻击力（如果有武器）
       if (player.hero.weapon && player.hero.attack > 0) {
@@ -136,7 +140,7 @@ export class Renderer {
          weapon.weaponEffect.type === 'POISON' ? '☠️' : '') : '';
       
       weaponContent.innerHTML = `
-        <div class="weapon-card">
+        <div class="weapon-card" title="${(effectIcon + weapon.name).replace(/"/g, '&quot;')}">
           <div class="weapon-name">${effectIcon}${weapon.name}</div>
           <div class="weapon-stats">${weapon.attack || 0}/${durability}</div>
         </div>
@@ -187,9 +191,6 @@ export class Renderer {
     element.style.cursor = 'pointer';
     
     // 关键词样式
-    if (unit.keywords.some(kw => kw.includes('TAUNT'))) {
-      element.classList.add('taunt');
-    }
     if (unit.exhausted) {
       element.classList.add('exhausted');
     }
@@ -261,12 +262,8 @@ export class Renderer {
   // 格式化关键词显示
   formatKeywords(keywords) {
     const symbols = {
-      'TAUNT': '🛡️',
-      'TEMP_TAUNT': '🛡️',
       'CHARGE': '⚡',
       'TEMP_CHARGE': '⚡',
-      'LIFESTEAL': '🩸',
-      'RANGED': '🏹',
       'PIERCE_1': '↯1',
       'PIERCE_2': '↯2',
       'PIERCE_3': '↯3',
@@ -279,7 +276,7 @@ export class Renderer {
     };
     
     return keywords
-      .filter(kw => !kw.startsWith('TEMP_') || kw === 'TEMP_TAUNT' || kw === 'TEMP_CHARGE')
+      .filter(kw => !kw.startsWith('TEMP_') || kw === 'TEMP_CHARGE')
       .map(kw => {
         const baseKw = kw.replace('TEMP_', '');
         return symbols[baseKw] || baseKw;
@@ -356,18 +353,20 @@ export class Renderer {
       element.classList.add('unplayable');
     }
     
-    // 获取卡牌图标
+    // 获取卡牌图标（无插画时的回退）
     const cardIcon = this.getCardIcon(card);
     const rarityClass = this.getRarityClass(card.rarity);
+    const cardArtSrc = `/images/cards/${card.id}.png`;
     
     let content = '';
     if (card.type === 'unit') {
       content = `
-        <div class="card-header ${rarityClass}">
-          <div class="card-icon">${cardIcon}</div>
-          <div class="card-cost">${card.cost}</div>
+        <div class="card-art ${rarityClass}">
+          <img class="card-art-img" src="${cardArtSrc}" alt="${card.name}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('card-art-fallback-hidden');">
+          <div class="card-art-fallback card-art-fallback-hidden">${cardIcon}</div>
         </div>
-        <div class="card-body">
+        <div class="card-cost-badge">${card.cost}</div>
+        <div class="card-body card-body-sr">
           <div class="card-name">${card.name}</div>
           <div class="card-stats">⚔️${card.attack} ❤️${card.health}</div>
           <div class="card-keywords">${this.formatKeywords(card.keywords || [])}</div>
@@ -381,11 +380,12 @@ export class Renderer {
          card.weaponEffect.type === 'THUNDER' ? '⚡' :
          card.weaponEffect.type === 'POISON' ? '☠️' : '') : '';
       content = `
-        <div class="card-header ${rarityClass}">
-          <div class="card-icon">${cardIcon}</div>
-          <div class="card-cost">${card.cost}</div>
+        <div class="card-art ${rarityClass}">
+          <img class="card-art-img" src="${cardArtSrc}" alt="${card.name}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('card-art-fallback-hidden');">
+          <div class="card-art-fallback card-art-fallback-hidden">${cardIcon}</div>
         </div>
-        <div class="card-body">
+        <div class="card-cost-badge">${card.cost}</div>
+        <div class="card-body card-body-sr">
           <div class="card-name">${effectIcon}${card.name}</div>
           <div class="card-stats">⚔️${card.attack} 🛡️${card.durability}</div>
           <div class="card-description">${card.description}</div>
@@ -393,11 +393,12 @@ export class Renderer {
       `;
     } else {
       content = `
-        <div class="card-header ${rarityClass}">
-          <div class="card-icon">${cardIcon}</div>
-          <div class="card-cost">${card.cost}</div>
+        <div class="card-art ${rarityClass}">
+          <img class="card-art-img" src="${cardArtSrc}" alt="${card.name}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('card-art-fallback-hidden');">
+          <div class="card-art-fallback card-art-fallback-hidden">${cardIcon}</div>
         </div>
-        <div class="card-body">
+        <div class="card-cost-badge">${card.cost}</div>
+        <div class="card-body card-body-sr">
           <div class="card-name">${card.name}</div>
           <div class="card-type">✨ 法术</div>
           <div class="card-description">${card.description}</div>
@@ -493,7 +494,7 @@ export class Renderer {
     
       this.elements.turnCounter.textContent = `回合: ${this.gameState.turn}`;
     
-    // 更新玩家英雄技能按钮
+    // 更新玩家英雄技能按钮（图标 + 右上角法力消耗）
     if (this.elements.heroSkillBtn) {
       const player = this.gameState.players['PLAYER1'];
       const skill = player.hero.skill;
@@ -501,18 +502,18 @@ export class Renderer {
       // 检查是否是被动技能
       const isPassive = skill.type === 'PASSIVE';
       
+      this.elements.heroSkillBtn.textContent = isPassive ? '🛡️' : '🛡️';
+      this.elements.heroSkillBtn.title = skill.description || (isPassive ? '被动技能，无法主动使用' : `消耗${skill.cost}点法力，增加英雄自身2点护甲值`);
+      if (this.elements.heroSkillCost) {
+        this.elements.heroSkillCost.textContent = skill.cost;
+        this.elements.heroSkillCost.style.display = isPassive ? 'none' : '';
+      }
       if (isPassive) {
-        // 被动技能：显示为不可用状态
-        this.elements.heroSkillBtn.textContent = `🛡️ 被动`;
-        this.elements.heroSkillBtn.title = skill.description || '被动技能，无法主动使用';
         this.elements.heroSkillBtn.disabled = true;
         this.elements.heroSkillBtn.classList.add('skill-passive');
         this.elements.heroSkillBtn.style.pointerEvents = 'none';
         this.elements.heroSkillBtn.style.cursor = 'not-allowed';
       } else {
-        // 主动技能：正常显示
-        this.elements.heroSkillBtn.textContent = `🛡️ (${skill.cost}费)`;
-        this.elements.heroSkillBtn.title = skill.description || `消耗${skill.cost}点法力，增加英雄自身2点护甲值`;
         this.elements.heroSkillBtn.disabled = 
           this.gameState.currentPlayer !== 'PLAYER1' || 
           this.gameState.phase === 'ENDED' ||
@@ -523,7 +524,6 @@ export class Renderer {
         this.elements.heroSkillBtn.style.cursor = 'pointer';
       }
       
-      // 添加视觉反馈状态类（和对手按钮保持一致）
       if (skill.usedThisTurn) {
         this.elements.heroSkillBtn.classList.add('skill-used');
       } else {
@@ -536,38 +536,30 @@ export class Renderer {
       }
     }
     
-    // 更新对手英雄技能按钮（显示但不可点击，状态和玩家保持一致）
+    // 更新对手英雄技能按钮（图标 + 右上角法力消耗）
     if (this.elements.opponentHeroSkillBtn) {
       const opponent = this.gameState.players['PLAYER2'];
       const skill = opponent.hero.skill;
-      
-      // 检查是否是被动技能
       const isPassive = skill.type === 'PASSIVE';
       
+      this.elements.opponentHeroSkillBtn.textContent = '🛡️';
+      this.elements.opponentHeroSkillBtn.title = `对手的技能：${skill.description || (isPassive ? '被动技能' : `消耗${skill.cost}点法力`)}`;
+      if (this.elements.opponentHeroSkillCost) {
+        this.elements.opponentHeroSkillCost.textContent = skill.cost;
+        this.elements.opponentHeroSkillCost.style.display = isPassive ? 'none' : '';
+      }
       if (isPassive) {
-        // 被动技能：显示为不可用状态
-        this.elements.opponentHeroSkillBtn.textContent = `🛡️ 被动`;
-        this.elements.opponentHeroSkillBtn.title = `对手的技能：${skill.description || '被动技能，无法主动使用'}`;
         this.elements.opponentHeroSkillBtn.disabled = true;
         this.elements.opponentHeroSkillBtn.classList.add('skill-passive');
-        this.elements.opponentHeroSkillBtn.style.pointerEvents = 'none';
-        this.elements.opponentHeroSkillBtn.style.cursor = 'not-allowed';
       } else {
-        // 主动技能：正常显示
-        this.elements.opponentHeroSkillBtn.textContent = `🛡️ (${skill.cost}费)`;
-        this.elements.opponentHeroSkillBtn.title = `对手的技能：${skill.description || `消耗${skill.cost}点法力，增加英雄自身2点护甲值`}`;
         this.elements.opponentHeroSkillBtn.classList.remove('skill-passive');
       }
-      
-      // 显示技能使用状态（和玩家按钮保持一致的设计）
-      this.elements.opponentHeroSkillBtn.disabled = true; // 对手技能不可点击
-      // 如果技能已使用，添加视觉反馈（和玩家按钮一致）
+      this.elements.opponentHeroSkillBtn.disabled = true;
       if (skill.usedThisTurn) {
         this.elements.opponentHeroSkillBtn.classList.add('skill-used');
       } else {
         this.elements.opponentHeroSkillBtn.classList.remove('skill-used');
       }
-      // 如果法力不足，添加视觉反馈（和玩家按钮一致）
       if (opponent.mana.current < skill.cost && !isPassive) {
         this.elements.opponentHeroSkillBtn.classList.add('skill-insufficient-mana');
       } else {
@@ -1482,14 +1474,10 @@ export class Renderer {
   // 获取关键词显示名称
   getKeywordDisplayName(keyword) {
     const names = {
-      'TAUNT': '嘲讽',
       'CHARGE': '冲锋',
-      'LIFESTEAL': '吸血',
       'DIVINE_SHIELD': '圣盾',
-      'RANGED': '远程',
       'PIERCE_1': '破甲1',
-      'PIERCE_2': '破甲2',
-      'TEMP_TAUNT': '临时嘲讽'
+      'PIERCE_2': '破甲2'
     };
     return names[keyword] || keyword;
   }
@@ -1907,98 +1895,6 @@ export class Renderer {
         overlay.remove();
       }
     };
-  }
-  
-  // 显示发现UI
-  showDiscoverUI(playerId, discoveredCards, onSelect) {
-    // 创建发现模态框
-    const modal = document.createElement('div');
-    modal.className = 'discover-modal';
-    modal.innerHTML = `
-      <div class="discover-overlay"></div>
-      <div class="discover-container">
-        <div class="discover-title">发现一张卡牌</div>
-        <div class="discover-cards">
-          ${discoveredCards.map((card, index) => {
-            const cardIcon = this.getCardIcon(card);
-            const rarityClass = this.getRarityClass(card.rarity);
-            let cardContent = '';
-            
-            if (card.type === 'unit') {
-              cardContent = `
-                <div class="card-header ${rarityClass}">
-                  <div class="card-icon">${cardIcon}</div>
-                  <div class="card-cost">${card.cost}</div>
-                </div>
-                <div class="card-body">
-                  <div class="card-name">${card.name}</div>
-                  <div class="card-stats">⚔️${card.attack} ❤️${card.health}</div>
-                  <div class="card-keywords">${this.formatKeywords(card.keywords || [])}</div>
-                  <div class="card-description">${card.description}</div>
-                </div>
-              `;
-            } else if (card.type === 'weapon') {
-              const effectIcon = card.weaponEffect ? 
-                (card.weaponEffect.type === 'FREEZE' ? '❄️' :
-                 card.weaponEffect.type === 'FIRE' ? '🔥' :
-                 card.weaponEffect.type === 'THUNDER' ? '⚡' :
-                 card.weaponEffect.type === 'POISON' ? '☠️' : '') : '';
-              cardContent = `
-                <div class="card-header ${rarityClass}">
-                  <div class="card-icon">${cardIcon}</div>
-                  <div class="card-cost">${card.cost}</div>
-                </div>
-                <div class="card-body">
-                  <div class="card-name">${effectIcon}${card.name}</div>
-                  <div class="card-stats">⚔️${card.attack} 🛡️${card.durability}</div>
-                  <div class="card-description">${card.description}</div>
-                </div>
-              `;
-            } else {
-              cardContent = `
-                <div class="card-header ${rarityClass}">
-                  <div class="card-icon">${cardIcon}</div>
-                  <div class="card-cost">${card.cost}</div>
-                </div>
-                <div class="card-body">
-                  <div class="card-name">${card.name}</div>
-                  <div class="card-type">✨ 法术</div>
-                  <div class="card-description">${card.description}</div>
-                </div>
-              `;
-            }
-            
-            return `
-              <div class="discover-card" data-index="${index}">
-                <div class="card">
-                  ${cardContent}
-                </div>
-              </div>
-            `;
-          }).join('')}
-        </div>
-      </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    // 添加点击事件
-    const cardElements = modal.querySelectorAll('.discover-card');
-    cardElements.forEach((element, index) => {
-      element.addEventListener('click', () => {
-        onSelect(discoveredCards[index]);
-        document.body.removeChild(modal);
-      });
-    });
-    
-    // 点击遮罩层关闭（可选）
-    const overlay = modal.querySelector('.discover-overlay');
-    overlay.addEventListener('click', () => {
-      // 如果必须选择，可以随机选择一张
-      const randomCard = discoveredCards[Math.floor(Math.random() * discoveredCards.length)];
-      onSelect(randomCard);
-      document.body.removeChild(modal);
-    });
   }
   
   // 显示英雄治疗特效（供AI调用）

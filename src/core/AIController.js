@@ -218,33 +218,6 @@ export class AIController {
           }
         }
         
-        // 使用发现牌（优先使用）
-        if (!cardPlayed) {
-          const discoverSpell = playableCards.find(({ card }) => 
-            card.type === 'spell' && 
-            card.spellEffect && 
-            card.spellEffect.type === 'DISCOVER'
-          );
-          
-          if (discoverSpell) {
-            const currentIndex = player.hand.findIndex(c => 
-              c.id === discoverSpell.card.id && 
-              c.cost === discoverSpell.card.cost &&
-              c.type === discoverSpell.card.type
-            );
-            if (currentIndex !== -1 && 
-                player.mana.current >= discoverSpell.card.cost) {
-              // AI使用发现牌时随机选择一张
-              const success = this.battleSystem.playCard('PLAYER2', currentIndex);
-              if (success) {
-                await this.delay(1000); // 等待发现UI完成
-                cardPlayed = true;
-                continue;
-              }
-            }
-          }
-        }
-        
         // 使用直伤法术（优先使用）
         if (!cardPlayed) {
           const damageSpell = playableCards.find(({ card }) => 
@@ -385,50 +358,33 @@ export class AIController {
   
   // 使用单个单位攻击
   async attackWithUnit(unit, unitIndex, player, opponent, renderer) {
-    // 检查是否有嘲讽单位
-    const tauntUnits = opponent.battlefield.filter(u => 
-      u.keywords.some(kw => kw.includes('TAUNT'))
-    );
-    
-    // 检查单位是否有远程
-    const hasRanged = unit.card.keywords.includes('RANGED');
-    
     let target;
     let targetIndex;
     let isHeroTarget = false;
     
-    if (tauntUnits.length > 0 && !hasRanged) {
-      // 有嘲讽单位且没有远程，必须攻击嘲讽单位
-      // 选择生命值最低的嘲讽单位
-      target = tauntUnits.reduce((min, u) => 
-        u.currentHealth < min.currentHealth ? u : min
+    // 智能选择目标：优先攻击能击杀的单位，否则攻击生命值最低的
+    if (opponent.battlefield.length > 0) {
+      const killableTargets = opponent.battlefield.filter(u => 
+        u.currentHealth <= unit.attack + (unit.auraAttackBonus || 0)
       );
+      
+      if (killableTargets.length > 0) {
+        // 优先击杀能击杀的单位（选择攻击力最高的，避免浪费伤害）
+        target = killableTargets.reduce((max, u) => 
+          u.attack > max.attack ? u : max
+        );
+      } else {
+        // 不能击杀，选择生命值最低的
+        target = opponent.battlefield.reduce((min, u) => 
+          u.currentHealth < min.currentHealth ? u : min
+        );
+      }
       targetIndex = opponent.battlefield.indexOf(target);
     } else {
-      // 智能选择目标：优先攻击能击杀的单位，否则攻击生命值最低的
-      if (opponent.battlefield.length > 0) {
-        const killableTargets = opponent.battlefield.filter(u => 
-          u.currentHealth <= unit.attack + (unit.auraAttackBonus || 0)
-        );
-        
-        if (killableTargets.length > 0) {
-          // 优先击杀能击杀的单位（选择攻击力最高的，避免浪费伤害）
-          target = killableTargets.reduce((max, u) => 
-            u.attack > max.attack ? u : max
-          );
-        } else {
-          // 不能击杀，选择生命值最低的
-          target = opponent.battlefield.reduce((min, u) => 
-            u.currentHealth < min.currentHealth ? u : min
-          );
-        }
-        targetIndex = opponent.battlefield.indexOf(target);
-      } else {
-        // 没有单位，直接攻击英雄
-        target = opponent.hero;
-        targetIndex = 'hero';
-        isHeroTarget = true;
-      }
+      // 没有单位，直接攻击英雄
+      target = opponent.hero;
+      targetIndex = 'hero';
+      isHeroTarget = true;
     }
     
     if (target) {
@@ -478,58 +434,33 @@ export class AIController {
       return;
     }
     
-    // 检查是否有嘲讽单位
-    const tauntUnits = opponent.battlefield.filter(u => 
-      u.keywords.some(kw => kw.includes('TAUNT'))
-    );
-    
     let target;
     let targetIndex;
     let isHeroTarget = false;
     
-    if (tauntUnits.length > 0) {
-      // 有嘲讽单位，必须攻击嘲讽单位
-      // 优先击杀能击杀的嘲讽单位
-      const killableTaunts = tauntUnits.filter(u => 
+    // 优先攻击敌方单位
+    if (opponent.battlefield.length > 0) {
+      // 优先击杀能击杀的单位
+      const killableTargets = opponent.battlefield.filter(u => 
         u.currentHealth <= hero.attack
       );
       
-      if (killableTaunts.length > 0) {
-        target = killableTaunts.reduce((min, u) => 
+      if (killableTargets.length > 0) {
+        target = killableTargets.reduce((min, u) => 
           u.currentHealth < min.currentHealth ? u : min
         );
       } else {
         // 不能击杀，选择生命值最低的
-        target = tauntUnits.reduce((min, u) => 
+        target = opponent.battlefield.reduce((min, u) => 
           u.currentHealth < min.currentHealth ? u : min
         );
       }
       targetIndex = opponent.battlefield.indexOf(target);
     } else {
-      // 没有嘲讽单位，优先攻击敌方单位
-      if (opponent.battlefield.length > 0) {
-        // 优先击杀能击杀的单位
-        const killableTargets = opponent.battlefield.filter(u => 
-          u.currentHealth <= hero.attack
-        );
-        
-        if (killableTargets.length > 0) {
-          target = killableTargets.reduce((min, u) => 
-            u.currentHealth < min.currentHealth ? u : min
-          );
-        } else {
-          // 不能击杀，选择生命值最低的
-          target = opponent.battlefield.reduce((min, u) => 
-            u.currentHealth < min.currentHealth ? u : min
-          );
-        }
-        targetIndex = opponent.battlefield.indexOf(target);
-      } else {
-        // 没有单位，直接攻击英雄
-        target = opponent.hero;
-        targetIndex = 'hero';
-        isHeroTarget = true;
-      }
+      // 没有单位，直接攻击英雄
+      target = opponent.hero;
+      targetIndex = 'hero';
+      isHeroTarget = true;
     }
     
     if (target) {

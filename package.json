@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest",
+    "card-art-prompts": "node scripts/generate-card-art-prompts.js"
   },
   "keywords": ["card-game", "strategy", "pvp", "chinese-fantasy"],
   "author": "",
