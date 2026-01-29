@@ -50,6 +50,10 @@ export class Renderer {
     this.renderPlayer('PLAYER2');
     this.renderLog();
     this.updateUIState();
+    
+    // 渲染对手手牌背面
+    const opponent = this.gameState.players['PLAYER2'];
+    this.renderOpponentHandBack(opponent);
   }
   
   // 渲染玩家状态
@@ -283,25 +287,59 @@ export class Renderer {
       .join(' ');
   }
   
-  // 渲染手牌（底部布局，显示5张）
+  // 渲染手牌（水平排列，显示在英雄头像右侧）
   renderHand(player) {
     const container = this.elements.playerHand;
+    if (!container) return;
+    
     container.innerHTML = '';
     
-    // 只显示前5张手牌（底部布局）
-    const cardsToShow = player.hand.slice(0, 5);
-    cardsToShow.forEach((card, index) => {
+    // 显示所有手牌（水平排列）
+    player.hand.forEach((card, index) => {
       const cardElement = this.createCardElement(card, index);
       container.appendChild(cardElement);
     });
+  }
+  
+  // 渲染对手手牌背面（显示在顶部右侧）
+  renderOpponentHandBack(opponent) {
+    const container = document.getElementById('opponent-hand-back');
+    if (!container) return;
     
-    // 如果手牌超过5张，显示提示
-    if (player.hand.length > 5) {
-      const moreCards = document.createElement('div');
-      moreCards.className = 'more-cards-indicator';
-      moreCards.textContent = `+${player.hand.length - 5}`;
-      moreCards.title = `还有 ${player.hand.length - 5} 张手牌`;
-      container.appendChild(moreCards);
+    container.innerHTML = '';
+    
+    // 显示对手手牌数量的背面
+    const handCount = opponent.hand.length;
+    for (let i = 0; i < Math.min(handCount, 10); i++) {
+      const cardBack = document.createElement('div');
+      cardBack.className = 'opponent-card-back';
+      cardBack.style.transform = `rotate(${(i - handCount / 2) * 2}deg)`;
+      cardBack.style.zIndex = i;
+      container.appendChild(cardBack);
+    }
+    
+    // 如果手牌超过10张，显示数字
+    if (handCount > 10) {
+      const countBadge = document.createElement('div');
+      countBadge.className = 'opponent-hand-count';
+      countBadge.textContent = handCount;
+      countBadge.style.cssText = `
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(139, 69, 19, 0.8);
+        color: white;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8em;
+        font-weight: bold;
+      `;
+      container.style.position = 'relative';
+      container.appendChild(countBadge);
     }
   }
   
@@ -469,6 +507,8 @@ export class Renderer {
         this.elements.heroSkillBtn.title = skill.description || '被动技能，无法主动使用';
         this.elements.heroSkillBtn.disabled = true;
         this.elements.heroSkillBtn.classList.add('skill-passive');
+        this.elements.heroSkillBtn.style.pointerEvents = 'none';
+        this.elements.heroSkillBtn.style.cursor = 'not-allowed';
       } else {
         // 主动技能：正常显示
         this.elements.heroSkillBtn.textContent = `🛡️ (${skill.cost}费)`;
@@ -479,6 +519,8 @@ export class Renderer {
           player.mana.current < skill.cost ||
           skill.usedThisTurn;
         this.elements.heroSkillBtn.classList.remove('skill-passive');
+        this.elements.heroSkillBtn.style.pointerEvents = 'auto';
+        this.elements.heroSkillBtn.style.cursor = 'pointer';
       }
       
       // 添加视觉反馈状态类（和对手按钮保持一致）
@@ -508,6 +550,8 @@ export class Renderer {
         this.elements.opponentHeroSkillBtn.title = `对手的技能：${skill.description || '被动技能，无法主动使用'}`;
         this.elements.opponentHeroSkillBtn.disabled = true;
         this.elements.opponentHeroSkillBtn.classList.add('skill-passive');
+        this.elements.opponentHeroSkillBtn.style.pointerEvents = 'none';
+        this.elements.opponentHeroSkillBtn.style.cursor = 'not-allowed';
       } else {
         // 主动技能：正常显示
         this.elements.opponentHeroSkillBtn.textContent = `🛡️ (${skill.cost}费)`;

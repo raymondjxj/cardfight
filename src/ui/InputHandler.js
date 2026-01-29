@@ -35,9 +35,26 @@ export class InputHandler {
       }
     });
     
-    // 英雄技能按钮
+    // 英雄技能按钮（只在非被动技能时添加点击事件）
     if (this.renderer.elements.heroSkillBtn) {
-      this.renderer.elements.heroSkillBtn.addEventListener('click', () => {
+      this.renderer.elements.heroSkillBtn.addEventListener('click', (e) => {
+        const player = this.gameState.players['PLAYER1'];
+        const skill = player.hero.skill;
+        
+        // 如果是被动技能，阻止事件处理
+        if (skill && skill.type === 'PASSIVE') {
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
+        
+        // 如果按钮被禁用，也阻止事件
+        if (this.renderer.elements.heroSkillBtn.disabled) {
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
+        
         this.onHeroSkillClick();
       });
     }
@@ -227,14 +244,39 @@ export class InputHandler {
       // 检查是否点击了英雄头像或英雄信息区域
       const heroAvatarElement = clickedElement.closest('.hero-avatar');
       const heroDetailsElement = clickedElement.closest('.hero-details');
+      const heroInfoElementNew = clickedElement.closest('.player-hero-info, .opponent-hero-info, .player-hero-stats, .opponent-hero-stats, .player-hero-compact, .opponent-hero-compact');
+      const heroNameElement = clickedElement.closest('.hero-name');
       
-      if ((heroElement || heroInfoElement || heroAvatarElement || heroDetailsElement) && this.selectedUnit) {
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'InputHandler.js:244',message:'hero click detection',data:{hasHeroAvatar:!!heroAvatarElement,hasHeroDetails:!!heroDetailsElement,hasHeroInfoNew:!!heroInfoElementNew,hasHeroName:!!heroNameElement,hasHeroElement:!!heroElement,hasHeroInfoElement:!!heroInfoElement,selectedUnit:!!this.selectedUnit,selectedHero:!!this.selectedHero,selectedCard:!!this.selectedCard,clickedId:clickedElement.id,clickedClass:clickedElement.className},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+      // #endregion
+      
+      // 合并所有英雄相关元素检测
+      // 注意：如果点击的是hero-avatar，需要向上查找父元素来确定是玩家还是对手
+      let heroRelatedElement = heroDetailsElement || heroInfoElementNew || heroNameElement;
+      if (!heroRelatedElement) {
+        // 如果点击的是hero-avatar，需要向上查找父容器
+        if (heroAvatarElement) {
+          heroRelatedElement = heroAvatarElement.closest('.player-hero-compact, .opponent-hero-compact, .player-hero-left, .opponent-hero-left') || heroAvatarElement;
+        } else {
+          heroRelatedElement = clickedElement.closest('.player-hero-compact, .opponent-hero-compact, .player-hero-left, .opponent-hero-left');
+        }
+      }
+      
+      if ((heroElement || heroInfoElement || heroRelatedElement) && this.selectedUnit) {
         // 点击英雄区域作为攻击目标（单位攻击英雄）
+        const targetElement = heroInfoElement || heroRelatedElement;
         const targetPlayerId = heroElement ? 
           (heroElement.id === 'opponent-area' ? 'PLAYER2' : 'PLAYER1') :
-          (heroInfoElement || heroAvatarElement || heroDetailsElement) ?
-          ((heroInfoElement || heroAvatarElement || heroDetailsElement).closest('#opponent-area') ? 'PLAYER2' : 'PLAYER1') :
+          targetElement ?
+          (targetElement.closest('#opponent-area, .opponent-hero-left, .opponent-hero-compact') ? 'PLAYER2' : 
+           targetElement.closest('#player-area, .player-hero-left, .player-hero-compact') ? 'PLAYER1' :
+           (targetElement.id === 'opponent-avatar' || targetElement.id === 'opponent-hero-name' ? 'PLAYER2' : 'PLAYER1')) :
           'PLAYER1';
+        
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'InputHandler.js:253',message:'unit attack hero target',data:{targetPlayerId,hasSelectedUnit:!!this.selectedUnit},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+        // #endregion
         
         if (targetPlayerId === 'PLAYER2') {
           console.log('✅ 点击英雄区域作为攻击目标');
@@ -244,31 +286,57 @@ export class InputHandler {
       }
       
       // 检查是否点击了玩家自己的英雄（选择英雄作为攻击者）
-      if ((heroAvatarElement || heroDetailsElement) && !this.selectedUnit && !this.selectedHero && !this.selectedCard) {
-        const clickedPlayerId = (heroAvatarElement || heroDetailsElement).closest('#player-area') ? 'PLAYER1' : 'PLAYER2';
+      if (heroRelatedElement && !this.selectedUnit && !this.selectedHero && !this.selectedCard) {
+        const playerAreaCheck = heroRelatedElement.closest('#player-area, .player-hero-left, .player-hero-compact');
+        const opponentAreaCheck = heroRelatedElement.closest('#opponent-area, .opponent-hero-left, .opponent-hero-compact');
+        let clickedPlayerId = playerAreaCheck ? 'PLAYER1' : opponentAreaCheck ? 'PLAYER2' : null;
+        if (clickedPlayerId == null) {
+          const avatarOrName = clickedElement && clickedElement.closest && clickedElement.closest('.hero-avatar, .hero-name');
+          const id = (heroRelatedElement && heroRelatedElement.id) || (avatarOrName && avatarOrName.id) || (clickedElement && clickedElement.id) || '';
+          if (id === 'player-avatar' || id === 'player-hero-name') clickedPlayerId = 'PLAYER1';
+          else if (id === 'opponent-avatar' || id === 'opponent-hero-name') clickedPlayerId = 'PLAYER2';
+        }
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'InputHandler.js:269',message:'hero attacker selection',data:{clickedPlayerId,hasHeroRelated:!!heroRelatedElement,heroRelatedElementId:heroRelatedElement?.id,hasPlayerAreaCheck:!!playerAreaCheck,hasOpponentAreaCheck:!!opponentAreaCheck,hasWeapon:!!this.gameState.players['PLAYER1']?.hero?.weapon,heroAttack:this.gameState.players['PLAYER1']?.hero?.attack,heroExhausted:this.gameState.players['PLAYER1']?.hero?.exhausted},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+        // #endregion
         if (clickedPlayerId === 'PLAYER1') {
           console.log('✅ 点击玩家英雄，尝试选择为攻击者');
           this.onHeroClick('PLAYER1');
         }
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'InputHandler.js:138',message:'hero attacker selection block hit',data:{clickedPlayerId,hasSelectedCard:!!this.selectedCard,spellName:this.selectedCard?.card?.name},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-        // #endregion
         return;
       }
       
       // 检查是否已选择英雄，点击敌方单位或英雄
-      if (this.selectedHero && (unitElement || heroElement || heroInfoElement || heroAvatarElement || heroDetailsElement)) {
+      if (this.selectedHero && (unitElement || heroElement || heroInfoElement || heroRelatedElement)) {
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'InputHandler.js:282',message:'hero attack target selection',data:{hasUnitElement:!!unitElement,hasHeroElement:!!heroElement,hasHeroRelated:!!heroRelatedElement,selectedHeroPlayerId:this.selectedHero?.playerId},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+        // #endregion
         if (unitElement && unitElement.dataset.player === 'PLAYER2') {
           // 英雄攻击单位
           const unitId = unitElement.dataset.unitId;
           this.onUnitClickForHero('PLAYER2', unitId);
           return;
-        } else if ((heroElement || heroInfoElement || heroAvatarElement || heroDetailsElement)) {
-          const targetPlayerId = heroElement ? 
+        } else if ((heroElement || heroInfoElement || heroRelatedElement)) {
+          const targetElement = heroInfoElement || heroRelatedElement;
+          let targetPlayerId = heroElement ? 
             (heroElement.id === 'opponent-area' ? 'PLAYER2' : 'PLAYER1') :
-            ((heroInfoElement || heroAvatarElement || heroDetailsElement).closest('#opponent-area') ? 'PLAYER2' : 'PLAYER1');
+            targetElement ?
+            (targetElement.closest('#opponent-area, .opponent-hero-left, .opponent-hero-compact') ? 'PLAYER2' : 
+             targetElement.closest('#player-area, .player-hero-left, .player-hero-compact') ? 'PLAYER1' :
+             (targetElement.id === 'opponent-avatar' || targetElement.id === 'opponent-hero-name' ? 'PLAYER2' : 'PLAYER1')) :
+            null;
+          if (targetPlayerId == null && clickedElement) {
+            const avatarOrName = clickedElement.closest && clickedElement.closest('.hero-avatar, .hero-name');
+            const id = (avatarOrName && avatarOrName.id) || clickedElement.id || '';
+            if (id === 'opponent-avatar' || id === 'opponent-hero-name') targetPlayerId = 'PLAYER2';
+            else if (id === 'player-avatar' || id === 'player-hero-name') targetPlayerId = 'PLAYER1';
+          }
+          // #region agent log
+          fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'InputHandler.js:291',message:'hero attack hero target check',data:{targetPlayerId,targetElementId:targetElement?.id,clickedId:clickedElement?.id,closestOpponentArea:!!targetElement?.closest('#opponent-area, .opponent-hero-left'),closestPlayerArea:!!targetElement?.closest('#player-area, .player-hero-left')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+          // #endregion
           if (targetPlayerId === 'PLAYER2') {
             // 英雄攻击英雄
+            console.log('✅ 英雄攻击英雄，调用onHeroClick');
             this.onHeroClick('PLAYER2');
             return;
           }
@@ -283,7 +351,8 @@ export class InputHandler {
         const isBuffSpell = spellType && (spellType.startsWith('BUFF_') || spellType === 'ADD_SHIELD' || spellType === 'ADD_DIVINE_SHIELD');
         
         // 检查是否点击了任何可目标元素（单位或英雄区域）
-        const hasValidTarget = unitElement || heroElement || heroInfoElement || heroAvatarElement || heroDetailsElement;
+        const heroInfoElementNewForSpell = clickedElement.closest('.player-hero-info, .opponent-hero-info, .player-hero-stats, .opponent-hero-stats, .player-hero-compact, .opponent-hero-compact, .hero-name');
+        const hasValidTarget = unitElement || heroElement || heroInfoElement || heroAvatarElement || heroDetailsElement || heroInfoElementNewForSpell;
         
         if (hasValidTarget) {
           // #region agent log
@@ -295,10 +364,15 @@ export class InputHandler {
             targetPlayerId = unitElement.dataset.player;
           } else if (heroElement) {
             targetPlayerId = heroElement.id === 'opponent-area' ? 'PLAYER2' : 'PLAYER1';
-          } else if (heroInfoElement || heroAvatarElement || heroDetailsElement) {
-            const closestArea = (heroInfoElement || heroAvatarElement || heroDetailsElement).closest('#opponent-area, #player-area');
+          } else if (heroInfoElement || heroAvatarElement || heroDetailsElement || heroInfoElementNewForSpell) {
+            const heroTargetElement = heroInfoElement || heroAvatarElement || heroDetailsElement || heroInfoElementNewForSpell;
+            const closestArea = heroTargetElement.closest('#opponent-area, #player-area, .opponent-hero-left, .player-hero-left, .opponent-hero-compact, .player-hero-compact');
             if (closestArea) {
-              targetPlayerId = closestArea.id === 'opponent-area' ? 'PLAYER2' : 'PLAYER1';
+              if (closestArea.id === 'opponent-area' || closestArea.classList.contains('opponent-hero-left') || closestArea.classList.contains('opponent-hero-compact')) {
+                targetPlayerId = 'PLAYER2';
+              } else {
+                targetPlayerId = 'PLAYER1';
+              }
             }
           }
           
@@ -663,12 +737,18 @@ export class InputHandler {
   
   // 英雄点击
   async onHeroClick(playerId) {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'InputHandler.js:682',message:'onHeroClick entry',data:{playerId,currentPlayer:this.gameState.currentPlayer,phase:this.gameState.phase,hasSelectedHero:!!this.selectedHero,hasSelectedUnit:!!this.selectedUnit},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+    // #endregion
     if (this.gameState.currentPlayer !== 'PLAYER1' || this.gameState.phase === 'ENDED') {
       return;
     }
     
     const player = this.gameState.players['PLAYER1'];
     const hero = player.hero;
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'InputHandler.js:690',message:'hero state check',data:{playerId,hasWeapon:!!hero.weapon,heroAttack:hero.attack,heroExhausted:hero.exhausted,hasSelectedHero:!!this.selectedHero,selectedHeroPlayerId:this.selectedHero?.playerId},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'F'})}).catch(()=>{});
+    // #endregion
     
     // 情况1: 如果已选择单位，单位攻击英雄
     if (this.selectedUnit && playerId === 'PLAYER2') {
@@ -708,12 +788,18 @@ export class InputHandler {
     }
     // 情况2: 如果点击己方英雄，选择英雄作为攻击者
     else if (playerId === 'PLAYER1' && hero.weapon && hero.attack > 0 && !hero.exhausted) {
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'InputHandler.js:727',message:'selecting hero as attacker',data:{heroName:hero.name,heroAttack:hero.attack},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'G'})}).catch(()=>{});
+      // #endregion
       this.selectedHero = { playerId: 'PLAYER1', hero };
       this.showMessage(`已选择 ${hero.name} (${hero.attack}攻击力)，请点击敌方单位或英雄进行攻击`, 'info');
       this.gameState.log(`已选择 ${hero.name}，请点击敌方单位或英雄进行攻击`);
     }
     // 情况3: 如果已选择英雄，英雄攻击目标
     else if (this.selectedHero && playerId === 'PLAYER2') {
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'InputHandler.js:733',message:'hero attacking hero',data:{attackerName:hero.name,attackerAttack:hero.attack,targetPlayerId:playerId},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'H'})}).catch(()=>{});
+      // #endregion
       const targetPlayer = this.gameState.players[playerId];
       const target = targetPlayer.hero;
       
@@ -1430,9 +1516,8 @@ export class InputHandler {
     const player = this.gameState.players['PLAYER1'];
     const skill = player.hero.skill;
     
-    // 检查是否是被动技能（不能主动使用）
+    // 检查是否是被动技能（不能主动使用）- 直接返回，不显示任何消息
     if (skill.type === 'PASSIVE') {
-      this.showMessage('这是被动技能，无法主动使用', 'info');
       return;
     }
     

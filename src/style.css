@@ -50,12 +50,13 @@ body::before {
 .game-container {
     position: relative;
     z-index: 1;
-    max-width: 1600px;
+    max-width: 1800px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 15px;
     padding: 10px;
+    min-height: 100vh;
 }
 
 h1, h2, h3, h4 {
@@ -90,93 +91,428 @@ h1 {
         0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* 新的主战场布局：左侧玩家头像，中间战场 */
-.main-battlefield-layout {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 20px;
-    margin-bottom: 15px;
+/* 新的主战场布局 */
+.main-battlefield-layout-new {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-height: 600px;
+    position: relative;
 }
 
-/* 左侧玩家头像区域 */
-.player-sidebar {
+/* 顶部：对手区域 */
+.top-opponent-section {
+    display: grid;
+    grid-template-columns: 250px 1fr 200px;
+    gap: 15px;
+    padding: 15px;
+    background: linear-gradient(180deg, rgba(220, 200, 180, 0.9) 0%, rgba(212, 197, 169, 0.8) 100%);
+    border-bottom: 2px solid rgba(139, 69, 19, 0.2);
+}
+
+/* 对手英雄左侧区域 */
+.opponent-hero-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.opponent-hero-compact {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(139, 69, 19, 0.2);
+}
+
+.opponent-hero-stats {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hero-stats-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 0.85em;
+}
+
+.weapon-slot-compact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    min-width: 60px;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    border: 1px solid rgba(139, 69, 19, 0.2);
+    font-size: 0.8em;
+}
+
+/* 对手手牌背面区域 */
+.opponent-hand-back {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    border: 1px solid rgba(139, 69, 19, 0.2);
+}
+
+.opponent-hand-back-title {
+    color: #5a4a3a;
+    font-weight: bold;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.opponent-hand-back-cards {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
+}
+
+.opponent-card-back {
+    width: 50px;
+    height: 70px;
+    background: linear-gradient(145deg, #1a0a2e, #0f0519);
+    border: 2px solid #8b4513;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.opponent-card-back::before {
+    content: '?';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    color: rgba(139, 69, 19, 0.5);
+    font-weight: bold;
+}
+
+/* 中央战斗板 */
+.battle-board-center {
+    background: 
+        linear-gradient(180deg, rgba(212, 197, 169, 0.8) 0%, rgba(201, 185, 155, 0.9) 100%),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(139, 69, 19, 0.05) 2px,
+            rgba(139, 69, 19, 0.05) 4px
+        );
+    min-height: 250px;
+    border-top: 2px solid rgba(139, 69, 19, 0.3);
+    border-bottom: 2px solid rgba(139, 69, 19, 0.3);
+    position: relative;
+}
+
+.battle-board-center::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(139, 69, 19, 0.4);
+    transform: translateY(-50%);
+    box-shadow: 0 0 10px rgba(139, 69, 19, 0.3);
+}
+
+/* 底部：玩家区域 */
+.bottom-player-section {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 15px;
+    padding: 15px;
+    background: linear-gradient(180deg, rgba(212, 197, 169, 0.8) 0%, rgba(220, 200, 180, 0.9) 100%);
+    border-top: 2px solid rgba(139, 69, 19, 0.2);
+}
+
+/* 玩家英雄左侧区域（左下角） */
+.player-hero-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.player-hero-compact {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(139, 69, 19, 0.2);
+}
+
+.player-hero-stats {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* 玩家手牌右侧区域 */
+.player-hand-right {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 10px;
+    min-height: 150px;
+}
+
+.hand-right {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.hand-right .card {
+    margin: 0;
+}
+
+/* 底部控制区域 */
+.bottom-controls {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 15px;
+    margin-top: 15px;
+    padding: 15px;
     background: linear-gradient(180deg, rgba(26, 10, 46, 0.95) 0%, rgba(15, 5, 25, 0.95) 100%);
     border: 2px solid #d4af37;
     border-radius: 15px;
-    padding: 20px;
     box-shadow: 
         0 0 20px rgba(212, 175, 55, 0.3),
         0 8px 30px rgba(0, 0, 0, 0.5),
         inset 0 0 30px rgba(212, 175, 55, 0.1);
-    position: sticky;
-    top: 20px;
-    height: fit-content;
 }
 
-.player-avatar-large {
+.log-area-compact {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.log-area-compact h4 {
+    color: #d4af37;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+/* 左侧UI面板 */
+.left-ui-panel {
+    background: linear-gradient(180deg, rgba(26, 10, 46, 0.95) 0%, rgba(15, 5, 25, 0.95) 100%);
+    border: 2px solid #d4af37;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 
+        0 0 20px rgba(212, 175, 55, 0.3),
+        0 8px 30px rgba(0, 0, 0, 0.5),
+        inset 0 0 30px rgba(212, 175, 55, 0.1);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 15px;
+    max-height: 600px;
+    overflow-y: auto;
 }
 
-.player-info {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+.ui-panel-header {
+    color: #d4af37;
+    font-weight: bold;
+    font-size: 0.9em;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    margin-bottom: 10px;
 }
 
-.hero-stats {
+.ui-panel-content {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    flex: 1;
 }
 
-.stat-item {
+.ui-panel-item {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 0.8em;
+    color: #e6e6e6;
+    text-align: center;
+    min-height: 40px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.ui-panel-item:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: rgba(212, 175, 55, 0.4);
+    transform: translateX(3px);
+}
+
+/* 右侧UI面板 */
+.right-ui-panel {
+    background: linear-gradient(180deg, rgba(26, 10, 46, 0.95) 0%, rgba(15, 5, 25, 0.95) 100%);
+    border: 2px solid #d4af37;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 
+        0 0 20px rgba(212, 175, 55, 0.3),
+        0 8px 30px rgba(0, 0, 0, 0.5),
+        inset 0 0 30px rgba(212, 175, 55, 0.1);
+    display: flex;
+    flex-direction: column;
+    max-height: 600px;
+}
+
+.right-ui-panel .btn-end-turn {
+    margin-top: auto;
+    width: 100%;
+}
+
+/* 中央战场区域 */
+.battlefield-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: #d4c5a9;
+    border-radius: 15px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 
+        0 0 30px rgba(0, 0, 0, 0.3),
+        inset 0 0 50px rgba(139, 69, 19, 0.1);
+    position: relative;
+}
+
+/* 浅色战斗板 */
+.battle-board {
+    background: 
+        linear-gradient(180deg, rgba(212, 197, 169, 0.8) 0%, rgba(201, 185, 155, 0.9) 100%),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(139, 69, 19, 0.05) 2px,
+            rgba(139, 69, 19, 0.05) 4px
+        );
+    min-height: 200px;
+    border-top: 2px solid rgba(139, 69, 19, 0.3);
+    border-bottom: 2px solid rgba(139, 69, 19, 0.3);
+    position: relative;
+}
+
+.battle-board::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(139, 69, 19, 0.4);
+    transform: translateY(-50%);
+    box-shadow: 0 0 10px rgba(139, 69, 19, 0.3);
+}
+
+/* 对手战场区域（顶部） */
+.opponent-battlefield {
+    background: linear-gradient(180deg, rgba(220, 200, 180, 0.9) 0%, rgba(212, 197, 169, 0.8) 100%);
+    padding: 15px;
+    border-bottom: 2px solid rgba(139, 69, 19, 0.2);
+}
+
+.opponent-hero-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(139, 69, 19, 0.2);
+}
+
+.opponent-hero-avatar-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.opponent-hero-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hero-stats-inline {
+    display: flex;
+    gap: 15px;
     font-size: 0.9em;
 }
 
-.stat-label {
-    color: #d4af37;
+.hero-stat {
+    color: #5a4a3a;
     font-weight: bold;
 }
 
-.stat-value {
-    color: #fff;
-    font-weight: bold;
-    font-size: 1.1em;
-    text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
-}
-
-.weapon-slot-vertical {
+.weapon-slot-inline {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 10px;
+    gap: 5px;
+    min-width: 80px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    border: 1px solid rgba(139, 69, 19, 0.2);
 }
 
-.hero-skill-vertical {
+/* 玩家战场区域（底部） */
+.player-battlefield {
+    background: linear-gradient(180deg, rgba(212, 197, 169, 0.8) 0%, rgba(220, 200, 180, 0.9) 100%);
+    padding: 15px;
+    border-top: 2px solid rgba(139, 69, 19, 0.2);
+}
+
+.player-hero-section {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(139, 69, 19, 0.2);
 }
 
-/* 中间战场区域 */
-.battlefield-center {
+.player-hero-avatar-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.player-hero-info {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 5px;
 }
 
 .battlefield-container {
@@ -186,6 +522,7 @@ h1 {
     margin-bottom: 15px;
 }
 
+/* 保留旧的player-area样式用于兼容，但新布局使用新的类名 */
 .player-area {
     background: linear-gradient(135deg, rgba(26, 10, 46, 0.95), rgba(15, 5, 25, 0.95));
     border: 2px solid #d4af37;
@@ -205,39 +542,74 @@ h1 {
     border-color: #4cc9f0;
 }
 
-/* 底部手牌和日志容器 */
-.hand-container-bottom {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.hand-area-bottom {
-    background: linear-gradient(180deg, rgba(26, 10, 46, 0.95) 0%, rgba(15, 5, 25, 0.95) 100%);
-    border: 2px solid #d4af37;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 
-        0 0 20px rgba(212, 175, 55, 0.3),
-        0 8px 30px rgba(0, 0, 0, 0.5),
-        inset 0 0 30px rgba(212, 175, 55, 0.1);
-}
-
-.hand-bottom {
+/* 手牌样式（水平排列在英雄头像右侧） */
+.hand-right {
     display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.hand-right .card {
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.hand-right .card:hover {
+    transform: translateY(-20px) scale(1.1);
+    z-index: 10;
+}
+
+/* 对手手牌背面样式 */
+.opponent-hand-back-cards {
+    display: flex;
+    gap: 3px;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 12px;
-    min-height: 180px;
+    min-height: 80px;
     flex-wrap: wrap;
+    position: relative;
 }
 
-.hand-bottom .card {
-    margin: 0;
+.opponent-card-back {
+    width: 45px;
+    height: 63px;
+    background: linear-gradient(145deg, #1a0a2e, #0f0519);
+    border: 2px solid #8b4513;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.opponent-card-back::before {
+    content: '?';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2em;
+    color: rgba(139, 69, 19, 0.6);
+    font-weight: bold;
+}
+
+.opponent-hand-count {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(139, 69, 19, 0.9);
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    font-weight: bold;
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .more-cards-indicator {
@@ -366,34 +738,28 @@ h1 {
 }
 
 .hero-avatar {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background: linear-gradient(135deg, #2c1a3d, #1a0a2e);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2.5em;
-    border: 3px solid #d4af37;
+    border: 3px solid #8b4513;
     box-shadow: 
-        0 0 20px rgba(212, 175, 55, 0.6),
-        0 4px 15px rgba(0, 0, 0, 0.5),
-        inset 0 0 20px rgba(212, 175, 55, 0.2);
+        0 0 20px rgba(139, 69, 19, 0.6),
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        inset 0 0 20px rgba(139, 69, 19, 0.2);
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
 }
 
-/* 左侧大头像 */
-.player-sidebar .hero-avatar {
-    width: 100px;
-    height: 100px;
-    font-size: 3.5em;
-    border: 4px solid #d4af37;
-    box-shadow: 
-        0 0 30px rgba(212, 175, 55, 0.8),
-        0 8px 25px rgba(0, 0, 0, 0.6),
-        inset 0 0 30px rgba(212, 175, 55, 0.3);
+.hero-skill-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero-avatar:hover {
@@ -973,21 +1339,22 @@ h1 {
 
 .hero-name {
     font-weight: bold;
-    color: #d4af37;
-    font-size: 1.2em;
+    color: #5a4a3a;
+    font-size: 1.1em;
     cursor: pointer;
     transition: all 0.2s ease;
-    text-shadow: 
-        0 0 10px rgba(212, 175, 55, 0.8),
-        0 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
 .hero-name:hover {
-    color: #ffd700;
-    text-shadow: 
-        0 0 15px rgba(255, 215, 0, 1),
-        0 0 25px rgba(212, 175, 55, 0.8),
-        0 2px 4px rgba(0, 0, 0, 0.5);
+    color: #8b4513;
+    text-shadow: 0 1px 3px rgba(139, 69, 19, 0.5);
+}
+
+/* 浅色战场中的英雄名称 */
+.opponent-battlefield .hero-name,
+.player-battlefield .hero-name {
+    color: #5a4a3a;
 }
 
 .hero-attack {
@@ -1012,6 +1379,13 @@ h1 {
         0 0 10px rgba(212, 175, 55, 0.4),
         0 2px 8px rgba(0, 0, 0, 0.4),
         inset 0 0 15px rgba(212, 175, 55, 0.2);
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
 }
 
 .btn-hero-skill:hover:not(:disabled),
@@ -1056,11 +1430,27 @@ h1 {
 /* 被动技能状态 */
 .btn-hero-skill.skill-passive,
 .hero-skill-btn.skill-passive {
-    background: linear-gradient(135deg, #1a1a2a, #0a0a1a);
-    border-color: #666;
-    color: #888;
-    cursor: not-allowed;
-    opacity: 0.7;
+    background: linear-gradient(135deg, #2a2a3a, #1a1a2a);
+    border-color: #555;
+    color: #999;
+    cursor: not-allowed !important;
+    opacity: 0.6;
+    pointer-events: none !important;
+    box-shadow: none;
+    transform: none;
+    user-select: none;
+}
+
+.btn-hero-skill.skill-passive:hover,
+.hero-skill-btn.skill-passive:hover {
+    background: linear-gradient(135deg, #2a2a3a, #1a1a2a);
+    border-color: #555;
+    transform: none;
+    box-shadow: none;
+    background: linear-gradient(135deg, #2a2a3a, #1a1a2a);
+    border-color: #555;
+    transform: none;
+    box-shadow: none;
 }
 
 /* 法力不足状态（玩家和对手一致） */
@@ -1085,6 +1475,19 @@ h1 {
         0 0 15px rgba(212, 175, 55, 0.5);
 }
 
+/* 浅色战场中的统计值 */
+.opponent-battlefield .hero-stat,
+.player-battlefield .hero-stat {
+    color: #5a4a3a;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.opponent-battlefield .hero-stat span,
+.player-battlefield .hero-stat span {
+    color: #8b4513;
+    font-weight: bold;
+}
+
 .hero-health {
     color: #f72585;
 }
@@ -1098,7 +1501,7 @@ h1 {
     gap: 10px;
     min-height: 100px;
     padding: 10px;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 8px;
     margin-bottom: 10px;
 }
@@ -1107,14 +1510,14 @@ h1 {
     flex: 1;
     min-width: 80px;
     min-height: 90px;
-    background: rgba(26, 10, 46, 0.3);
-    border: 2px dashed rgba(212, 175, 55, 0.4);
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px dashed rgba(139, 69, 19, 0.4);
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.1);
+    box-shadow: inset 0 0 15px rgba(139, 69, 19, 0.1);
 }
 
 .battlefield-position.highlight {
@@ -1124,6 +1527,16 @@ h1 {
         0 0 15px rgba(212, 175, 55, 0.5),
         0 0 25px rgba(255, 215, 0, 0.3);
     cursor: pointer;
+}
+
+/* 浅色战场中的高亮位置 */
+.opponent-battlefield .battlefield-position.highlight,
+.player-battlefield .battlefield-position.highlight {
+    background: rgba(139, 69, 19, 0.2);
+    border-color: #8b4513;
+    box-shadow: 
+        0 0 15px rgba(139, 69, 19, 0.5),
+        0 0 25px rgba(139, 69, 19, 0.3);
 }
 
 .empty-slot {
@@ -1147,6 +1560,16 @@ h1 {
         0 0 10px rgba(212, 175, 55, 0.3),
         0 4px 15px rgba(0, 0, 0, 0.5),
         inset 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+/* 浅色战场中的单位样式 */
+.opponent-battlefield .unit,
+.player-battlefield .unit {
+    border-color: #8b4513;
+    box-shadow: 
+        0 0 10px rgba(139, 69, 19, 0.3),
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        inset 0 0 20px rgba(139, 69, 19, 0.1);
 }
 
 .unit * {

@@ -46,71 +46,31 @@
             </div>
         </div>
         
-        <!-- 主战场区域 - 新布局：左侧玩家头像，中间战场，右侧对手 -->
-        <div class="main-battlefield-layout">
-            <!-- 左侧：玩家头像和信息 -->
-            <div class="player-sidebar">
-                <div class="player-avatar-large" id="player-avatar-large">
-                    <div class="hero-avatar" id="player-avatar">⚔️</div>
-                    <div class="player-info">
-                        <div class="hero-name" id="player-hero-name">铁壁统帅·岳峙</div>
-                        <div class="hero-stats">
-                            <div class="stat-item">
-                                <span class="stat-label">生命</span>
-                                <span class="stat-value" id="player-life">20</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">法力</span>
-                                <span class="stat-value" id="player-mana">1/1</span>
-                            </div>
-                            <div class="stat-item" id="player-attack" style="display: none;">
-                                <span class="stat-label">攻击</span>
-                                <span class="stat-value" id="player-attack-value">0</span>
+        <!-- 主战场区域 - 新布局 -->
+        <div class="main-battlefield-layout-new">
+            <!-- 顶部：对手区域 -->
+            <div class="top-opponent-section">
+                <!-- 左侧：对手英雄头像和技能 -->
+                <div class="opponent-hero-left" id="opponent-area">
+                    <div class="opponent-hero-compact">
+                        <div class="hero-avatar" id="opponent-avatar">⚔️</div>
+                        <div class="hero-skill-icon">
+                            <button class="hero-skill-btn" id="opponent-hero-skill" disabled title="对手的英雄技能">🛡️</button>
+                        </div>
+                        <div class="opponent-hero-stats">
+                            <div class="hero-name" id="opponent-hero-name">铁壁统帅·岳峙</div>
+                            <div class="hero-stats-compact">
+                                <span class="hero-stat">生命: <span id="opponent-life">20</span></span>
+                                <span class="hero-stat">法力: <span id="opponent-mana">0/0</span></span>
+                                <span class="hero-stat" id="opponent-attack" style="display: none;">攻击: <span id="opponent-attack-value">0</span></span>
                             </div>
                         </div>
                         <!-- 武器格 -->
-                        <div class="weapon-slot-vertical" id="player-weapon-slot">
-                            <div class="weapon-slot-label">武器</div>
-                            <div class="weapon-slot-content" id="player-weapon-content">
-                                <div class="weapon-empty">空</div>
-                            </div>
-                        </div>
-                        <!-- 英雄技能 -->
-                        <div class="hero-skill-vertical">
-                            <button id="hero-skill" class="btn-hero-skill">🛡️</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 中间：战场区域 -->
-            <div class="battlefield-center">
-                <!-- 对手区域 -->
-                <div class="player-area opponent-area" id="opponent-area">
-                    <h3>对手 (PLAYER2)</h3>
-                    <div class="hero-info">
-                        <!-- 武器格（左边） -->
-                        <div class="weapon-slot" id="opponent-weapon-slot">
+                        <div class="weapon-slot-compact" id="opponent-weapon-slot">
                             <div class="weapon-slot-label">武器</div>
                             <div class="weapon-slot-content" id="opponent-weapon-content">
                                 <div class="weapon-empty">空</div>
                             </div>
-                        </div>
-                        
-                        <!-- 英雄头像和详情（中间） -->
-                        <div class="hero-main">
-                            <div class="hero-avatar" id="opponent-avatar">⚔️</div>
-                            <div class="hero-details">
-                                <div class="hero-name" id="opponent-hero-name">铁壁统帅·岳峙</div>
-                                <div class="hero-health">生命: <span id="opponent-life">20</span></div>
-                                <div class="hero-mana">法力: <span id="opponent-mana">0/0</span></div>
-                                <div class="hero-attack" id="opponent-attack" style="display: none;">攻击: <span id="opponent-attack-value">0</span></div>
-                            </div>
-                        </div>
-                        
-                        <!-- 英雄技能（右边，对手也显示按钮但不可点击） -->
-                        <div class="hero-skill-slot">
-                            <button class="hero-skill-btn" id="opponent-hero-skill" disabled title="对手的英雄技能">🛡️ (2费)</button>
                         </div>
                     </div>
                     <div class="battlefield" id="opponent-board">
@@ -118,28 +78,63 @@
                     </div>
                 </div>
                 
-                <!-- 玩家战场区域 -->
-                <div class="player-area player-area-main" id="player-area">
-                    <h3>玩家 (PLAYER1)</h3>
+                <!-- 右侧：对手手牌背面（不可见） -->
+                <div class="opponent-hand-back">
+                    <div class="opponent-hand-back-title">对手手牌</div>
+                    <div class="opponent-hand-back-cards" id="opponent-hand-back">
+                        <!-- 对手手牌背面会动态插入 -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 中央：战斗板 -->
+            <div class="battle-board-center">
+                <!-- 战斗板内容区域 -->
+            </div>
+            
+            <!-- 底部：玩家区域 -->
+            <div class="bottom-player-section">
+                <!-- 左侧：玩家英雄头像和技能（左下角） -->
+                <div class="player-hero-left">
+                    <div class="player-hero-compact">
+                        <div class="hero-avatar" id="player-avatar">⚔️</div>
+                        <div class="hero-skill-icon">
+                            <button id="hero-skill" class="btn-hero-skill">🛡️</button>
+                        </div>
+                        <div class="player-hero-stats">
+                            <div class="hero-name" id="player-hero-name">铁壁统帅·岳峙</div>
+                            <div class="hero-stats-compact">
+                                <span class="hero-stat">生命: <span id="player-life">20</span></span>
+                                <span class="hero-stat">法力: <span id="player-mana">1/1</span></span>
+                                <span class="hero-stat" id="player-attack" style="display: none;">攻击: <span id="player-attack-value">0</span></span>
+                            </div>
+                        </div>
+                        <!-- 武器格 -->
+                        <div class="weapon-slot-compact" id="player-weapon-slot">
+                            <div class="weapon-slot-label">武器</div>
+                            <div class="weapon-slot-content" id="player-weapon-content">
+                                <div class="weapon-empty">空</div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="battlefield" id="player-board">
                         <!-- 玩家战场单位会动态插入 -->
                     </div>
-                    <button id="end-turn" class="btn-end-turn">结束回合</button>
+                </div>
+                
+                <!-- 右侧：玩家手牌 -->
+                <div class="player-hand-right">
+                    <div class="hand-right" id="player-hand">
+                        <!-- 手牌会动态插入 -->
+                    </div>
                 </div>
             </div>
         </div>
         
-        <!-- 底部：手牌区域（显示5张） -->
-        <div class="hand-container-bottom">
-            <div class="hand-area-bottom">
-                <h4>手牌</h4>
-                <div class="hand-bottom" id="player-hand">
-                    <!-- 手牌会动态插入 -->
-                </div>
-            </div>
-            
-            <!-- 战斗日志区域 -->
-            <div class="log-area-bottom">
+        <!-- 底部：结束回合按钮和战斗日志 -->
+        <div class="bottom-controls">
+            <button id="end-turn" class="btn-end-turn">结束回合</button>
+            <div class="log-area-compact">
                 <h4>战斗日志</h4>
                 <div class="log" id="battle-log">
                     <div>游戏即将开始...</div>
