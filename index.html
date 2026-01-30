@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="src/style.css">
 </head>
 <body>
+    <div id="game-viewport">
     <div class="game-container">
         <!-- 设置菜单 -->
         <div id="settings-modal" class="settings-modal" style="display: none;">
@@ -152,6 +153,7 @@
             </aside>
         </div>
     </div>
+    </div>
     
     <!-- 内联测试脚本 -->
     <script>
@@ -168,6 +170,17 @@
       });
     </script>
     
+    <script>
+      (function() {
+        var DESIGN_W = 1800, DESIGN_H = 900;
+        function setScale() {
+          var s = Math.min(window.innerWidth / DESIGN_W, window.innerHeight / DESIGN_H);
+          document.documentElement.style.setProperty('--game-scale', s);
+        }
+        setScale();
+        window.addEventListener('resize', setScale);
+      })();
+    </script>
     <script type="module" src="src/main.js"></script>
 </body>
 </html>

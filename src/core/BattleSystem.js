@@ -178,6 +178,53 @@ export class BattleSystem {
         this.dealAoeDamage(playerId, card.spellEffect);
         break;
         
+      case 'DAMAGE':
+        // 奥术飞弹等：随机对敌方造成多次伤害
+        if (card.spellEffect.target === 'RANDOM_ENEMY' && (card.spellEffect.count > 0 || card.spellEffect.damage != null)) {
+          const opponentId = playerId === 'PLAYER1' ? 'PLAYER2' : 'PLAYER1';
+          const opponent = this.gameState.players[opponentId];
+          const damagePerHit = card.spellEffect.damage != null ? card.spellEffect.damage : (card.spellEffect.value || 1);
+          const spellPower = this.getSpellPower(this.gameState.players[playerId]);
+          const totalDamagePerHit = Math.max(0, damagePerHit + spellPower);
+          const count = card.spellEffect.count || 1;
+          for (let i = 0; i < count; i++) {
+            const targets = [];
+            opponent.battlefield.forEach(u => targets.push({ type: 'unit', unit: u }));
+            if (opponent.hero.health > 0) targets.push({ type: 'hero', hero: opponent.hero });
+            if (targets.length === 0) break;
+            const pick = targets[Math.floor(Math.random() * targets.length)];
+            if (pick.type === 'hero') {
+              let remaining = totalDamagePerHit;
+              if (pick.hero.spellShield > 0) {
+                const blocked = Math.min(pick.hero.spellShield, remaining);
+                pick.hero.spellShield -= blocked;
+                remaining -= blocked;
+                if (blocked > 0) this.gameState.log(`${pick.hero.name} 的法术护盾抵挡了 ${blocked} 点伤害`);
+              }
+              if (remaining > 0) {
+                pick.hero.health = Math.max(0, pick.hero.health - remaining);
+                this.gameState.log(`${card.name} 对 ${pick.hero.name} 造成 ${remaining} 点伤害`);
+              }
+            } else {
+              const unit = pick.unit;
+              let remaining = totalDamagePerHit;
+              if (unit.spellShield > 0) {
+                const blocked = Math.min(unit.spellShield, remaining);
+                unit.spellShield -= blocked;
+                remaining -= blocked;
+                if (blocked > 0) this.gameState.log(`${unit.card.name} 的法术护盾抵挡了 ${blocked} 点伤害`);
+              }
+              if (remaining > 0) {
+                unit.currentHealth = Math.max(0, unit.currentHealth - remaining);
+                this.gameState.log(`${card.name} 对 ${unit.card.name} 造成 ${remaining} 点伤害`);
+                if (unit.currentHealth <= 0) this.killUnit(unit, opponent);
+              }
+            }
+          }
+          this.gameState.checkDeath();
+        }
+        break;
+        
       case 'GAIN_MANA':
         this.gainMana(playerId, card.spellEffect.value);
         break;
@@ -262,6 +309,31 @@ export class BattleSystem {
         
       case 'AOE_DAMAGE_WITH_THUNDER':
         this.aoeDamageWithThunder(playerId, card.spellEffect);
+        break;
+        
+      case 'TRANSFORM':
+        // 变形术：将目标单位变为指定单位（如羊）
+        if (card.spellEffect.target !== 'TARGET' || card.spellEffect.transformId == null) {
+          this.gameState.log(`法术 ${card.name} 需要选择目标单位`);
+          return false;
+        }
+        const transformOpponentId = playerId === 'PLAYER1' ? 'PLAYER2' : 'PLAYER1';
+        const transformOpponent = this.gameState.players[transformOpponentId];
+        const targetUnitIndex = typeof target === 'number' ? target : parseInt(target, 10);
+        if (targetUnitIndex < 0 || targetUnitIndex >= transformOpponent.battlefield.length) {
+          this.gameState.log('目标单位无效');
+          return false;
+        }
+        const targetUnit = transformOpponent.battlefield[targetUnitIndex];
+        const transformCard = this.gameState.allCards.find(c => c.id === card.spellEffect.transformId);
+        if (!transformCard || transformCard.type !== 'unit') {
+          this.gameState.log(`变形目标卡牌 ${card.spellEffect.transformId} 无效`);
+          return false;
+        }
+        const transformPosition = targetUnit.position;
+        transformOpponent.battlefield.splice(targetUnitIndex, 1);
+        this.playUnit(transformOpponentId, transformCard, transformPosition);
+        this.gameState.log(`${card.name} 将 ${targetUnit.card.name} 变形为 ${transformCard.name}`);
         break;
     }
     
@@ -1001,11 +1073,6 @@ export class BattleSystem {
       console.log('👑 === 英雄攻击 ===');
       console.log('📊 攻击前:', { name: target.name, health: beforeHealth });
       
-      // 检查全反击被动（梅利迪奥斯）
-      // 全反击：敌方回合，受到的所有伤害翻倍并反弹给攻击者
-      const isEnemyTurn = this.gameState.currentPlayer !== targetPlayer.id;
-      const hasFullCounter = target.fullCounter && isEnemyTurn;
-      
       // 应用英雄护盾和圣盾（物理伤害）
       let remainingDamage = actualDamage;
       
@@ -1067,7 +1134,9 @@ export class BattleSystem {
       
       this.gameState.log(`${attacker.card.name} 对 ${target.name} 造成 ${finalDamage || remainingDamage} 点伤害${actualDamage > (finalDamage || remainingDamage) ? `（护盾抵挡了 ${actualDamage - (finalDamage || remainingDamage)} 点）` : ''}`);
       
-      // 全反击：反弹翻倍后的伤害给攻击者
+      // 全反击：生命值低于15且敌方回合时，反弹翻倍后的伤害给攻击者
+      const isEnemyTurn = this.gameState.currentPlayer !== targetPlayer.id;
+      const hasFullCounter = target.fullCounter && isEnemyTurn && target.health < 15;
       if (hasFullCounter && remainingDamage > 0) {
         // 反弹伤害 = 原始伤害 * 2（翻倍）
         const reflectDamage = remainingDamage * 2;

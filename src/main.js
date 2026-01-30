@@ -105,20 +105,17 @@ class Game {
       fetch('http://127.0.0.1:7242/ingest/a2c855f5-4fc1-4260-9084-a5922c1862a1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:85',message:'loadHeroData error',data:{message:error?.message,name:error?.name},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
       // #endregion
       console.error('加载英雄数据失败:', error);
-      // 使用默认英雄数据
+      // 使用默认英雄数据（与 heroes.json 一致，双方均有全反击）
       this.gameState.allHeroes = [{
         id: 'H001',
         name: '铁壁统帅·岳峙',
-        health: 20,
+        health: 30,
+        passive: { type: 'FULL_COUNTER', description: '敌方回合，受到的所有伤害翻倍并反弹给攻击者' },
         skill: {
-          name: '列阵迎击',
+          name: '铁壁',
           cost: 2,
-          description: '使一个友方单位获得嘲讽，持续1回合',
-          effect: {
-            type: 'ADD_KEYWORD',
-            keyword: 'TAUNT',
-            duration: 1
-          }
+          description: '消耗2点法力，增加英雄自身2点护甲值',
+          effect: {}
         }
       }];
     }

@@ -75,20 +75,17 @@ export class GameState {
 
   // 初始化游戏
   initGame() {
-    // 获取英雄数据（使用梅利迪奥斯）
+    // 获取英雄数据（双方使用同一英雄配置，均带全反击）
     const heroData = this.allHeroes.find(h => h.id === 'H002') || this.allHeroes[0] || {
       id: 'H001',
       name: '铁壁统帅·岳峙',
-      health: 20,
+      health: 30,
+      passive: { type: 'FULL_COUNTER', description: '敌方回合，受到的所有伤害翻倍并反弹给攻击者' },
       skill: {
-        name: '列阵迎击',
+        name: '铁壁',
         cost: 2,
-        description: '使一个友方单位获得嘲讽，持续1回合',
-        effect: {
-          type: 'ADD_KEYWORD',
-          keyword: 'TAUNT',
-          duration: 1
-        }
+        description: '消耗2点法力，增加英雄自身2点护甲值',
+        effect: {}
       }
     };
     

@@ -5,6 +5,14 @@
     box-sizing: border-box;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 body {
     font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
     background: 
@@ -13,9 +21,8 @@ body {
     background-attachment: fixed;
     color: #e6e6e6;
     min-height: 100vh;
-    padding: 20px;
     position: relative;
-    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 /* 星空背景效果 */
@@ -47,18 +54,36 @@ body::before {
     50% { opacity: 0.6; }
 }
 
+/* 视口包装：整屏居中，等比缩放 */
+#game-viewport {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: inherit;
+}
+
+/* 整屏展示：设计尺寸 1800×900，按 --game-scale 同比放大至填满视口 */
 .game-container {
+    --game-scale: 1;
     position: relative;
     z-index: 1;
-    max-width: 1800px;
-    margin: 0 auto;
+    width: 1800px;
+    height: 900px;
+    flex-shrink: 0;
+    transform: scale(var(--game-scale));
+    transform-origin: center center;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 10px;
-    min-height: 100vh;
-    max-height: 100vh;
+    padding: 8px;
+    min-height: 0;
+    max-height: none;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 h1, h2, h3, h4 {
@@ -520,8 +545,10 @@ h1 {
     right: 2px;
 }
 .hand-right .card .card-body {
-    padding: 4px 4px 6px;
-    gap: 2px;
+    padding: 2px 3px 4px;
+    gap: 1px;
+    min-height: 0;
+    overflow: hidden;
 }
 .hand-right .card .card-name {
     font-size: 0.7em;
@@ -543,7 +570,12 @@ h1 {
 }
 .hand-right .card .card-description,
 .hand-right .card .card-type {
-    display: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 0.55em;
+    line-height: 1.2;
 }
 
 /* 底部控制区域已废弃，结束回合按钮移至战场右侧 */
@@ -1266,22 +1298,14 @@ h1 {
     flex-direction: column;
 }
 
-/* 每张卡牌：插画区域 + 费用角标，悬停/详情时显示文字 */
-.card .card-name,
-.card .card-description,
-.card .card-type,
-.card .card-stats,
-.card .card-keywords {
-    display: none !important;
-}
+/* 每张卡牌：插画区域 + 费用角标 + 名称/属性/描述常显 */
 
-/* 炉石风格卡牌插画区域 */
+/* 炉石风格卡牌插画区域（上半部分，下半部分留给文字） */
 .card-art {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: relative;
+    flex: 0 0 auto;
+    height: 52%;
+    min-height: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1325,7 +1349,13 @@ h1 {
 }
 
 .card .card-body {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
 }
 
 .card-header {

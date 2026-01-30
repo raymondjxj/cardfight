@@ -5,15 +5,15 @@
       "name": "铁壁统帅·岳峙",
       "type": "龙骧族",
       "health": 30,
+      "passive": {
+        "type": "FULL_COUNTER",
+        "description": "敌方回合，受到的所有伤害翻倍并反弹给攻击者"
+      },
       "skill": {
-        "name": "列阵迎击",
+        "name": "铁壁",
         "cost": 2,
-        "description": "使一个友方单位获得嘲讽，持续1回合",
-        "effect": {
-          "type": "ADD_KEYWORD",
-          "keyword": "TAUNT",
-          "duration": 1
-        }
+        "description": "消耗2点法力，增加英雄自身2点护甲值",
+        "effect": {}
       },
       "flavorText": "铁甲依然在，守护永不变。"
     },
@@ -34,7 +34,7 @@
         "description": "敌方回合，受到的所有伤害翻倍并反弹给攻击者"
       },
       "skill": {
-        "name": "全反击",
+        "name": "铁壁",
         "cost": 2,
         "description": "消耗2点法力，增加英雄自身2点护甲值",
         "effect": {}
