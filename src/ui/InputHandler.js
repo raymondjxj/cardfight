@@ -35,6 +35,14 @@ export class InputHandler {
       }
     });
     
+    // 重置游戏按钮
+    const resetBtn = document.getElementById('reset-game');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        if (window.game) window.game.resetGame();
+      });
+    }
+
     // 英雄技能按钮（只在非被动技能时添加点击事件）
     if (this.renderer.elements.heroSkillBtn) {
       this.renderer.elements.heroSkillBtn.addEventListener('click', (e) => {

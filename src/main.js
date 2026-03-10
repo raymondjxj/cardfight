@@ -54,6 +54,18 @@ class Game {
     }
   }
   
+  resetGame() {
+    // 移除游戏结束遮罩
+    const overlay = document.querySelector('.game-over-overlay');
+    if (overlay) overlay.remove();
+    // 清除英雄失败样式
+    document.querySelectorAll('.hero-name-defeated').forEach(el => el.classList.remove('hero-name-defeated'));
+    // 重置游戏状态并重新初始化
+    this.renderer.gameOverShown = false;
+    this.gameState.resetGame();
+    this.renderer.render();
+  }
+
   async loadCardData() {
     try {
       const baseUrl = (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) ? import.meta.env.BASE_URL : '/';
@@ -131,6 +143,7 @@ window.addEventListener('DOMContentLoaded', () => {
   
   try {
     window.game = new Game();
+    window.resetGame = () => window.game.resetGame();
     console.log('✅ 游戏对象创建成功');
     
     // 添加调试辅助函数
