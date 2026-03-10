@@ -455,6 +455,17 @@ export class GameState {
     return shuffled.slice(0, numKeywords);
   }
 
+  // 重置游戏（保留已加载的卡牌和英雄数据）
+  resetGame() {
+    this.turn = 1;
+    this.currentPlayer = 'PLAYER1';
+    this.phase = 'START';
+    this.players = {};
+    this.winner = null;
+    this.logs = [];
+    this.initGame();
+  }
+
   // 检查游戏结束
   checkDeath() {
     for (const [playerId, player] of Object.entries(this.players)) {

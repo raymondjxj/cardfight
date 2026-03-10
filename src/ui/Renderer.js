@@ -1196,7 +1196,7 @@ export class Renderer {
       <div class="game-over-modal ${isPlayerWin ? 'victory' : 'defeat'}">
         <div class="game-over-title">${isPlayerWin ? '胜利！' : '失败！'}</div>
         <div class="game-over-message">${isPlayerWin ? '你击败了对手！' : '你被击败了...'}</div>
-        <button class="game-over-button" onclick="location.reload()">重新开始</button>
+        <button class="game-over-button" onclick="if(window.game){window.game.resetGame();}else{location.reload();}">重新开始</button>
       </div>
     `;
     
